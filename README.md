@@ -12,11 +12,11 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ## Compatibility
 
-This extension has only been tested and used on SQL Server Management Studio 19.1.
+This extension has only been tested and used with SQL Server Management Studio 19.1.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
-This extension has not yet been tested alongside any other extensions for SQL Server Management Studio.
+This extension has not been tested alongside any other extensions. 
 
 
 ## Install
