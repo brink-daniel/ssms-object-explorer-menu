@@ -23,7 +23,7 @@ This extension has not yet been tested alongside any other extensions for SQL Se
 
 [Download the latest release](https://github.com/brink-daniel/ssms-object-explorer-menu/releases)
 
-You must unblock the zip file before extracting it. Right click on the zip file in Windows Explorer and select Properties. 
+You must unblock the zip file **before** extracting it. Right click on the zip file in Windows Explorer and select Properties. 
 If you see an `Unblock` button or checkbox then click it. 
 
 Extract the zip file and copy the SSMSObjectExplorerMenu folder into the SSMS extension folder. Remove or replace any previous version. 
@@ -55,6 +55,12 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{SCHEMA}`
 * `{TABLE}`
 * `{STORED_PROCEDURE}`
+
+### Sample scripts
+
+| Context | Script |
+|---------|--------|
+| All | [text_substitution_demo.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/text_substitution_demo.sql) |
 
 
 ## Known Issues
