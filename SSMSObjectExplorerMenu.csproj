@@ -76,6 +76,9 @@
     <Compile Include="SSMSObjectExplorerMenu.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
