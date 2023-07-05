@@ -1,15 +1,13 @@
 
 # [SSMS Object Explorer Menu](https://github.com/brink-daniel/ssms-object-explorer-menu)
 
-Right-click context menu extension for the Object Explorer in SQL Server Management Studio.
-It allows new menu items to be added to the right-click context menu in SQL Server Management Studio.
-The menu items can be used to execute any tsql script file or inline tsql statement.
+Extension for SQL Server Management Studio 19.1, allowing custom menu items to be added to the right-click context menu in the Object Explorer window. The menu items can be used to execute any tsql script file or inline tsql statement.
 
 ![Object Explorer](ObjectExplorer.png)
 
 Source code, documentation and issues can be found at <https://github.com/brink-daniel/ssms-object-explorer-menu>
 
-Information on how to access the Object Explorer and TreeView control was learnt from studying the [SSMS-Schema-Folders](https://github.com/nicholas-ross/SSMS-Schema-Folders) project by Nicholas Ross.
+Information on how to access the Object Explorer and TreeView control was learnt by studying the [SSMS-Schema-Folders](https://github.com/nicholas-ross/SSMS-Schema-Folders) project by Nicholas Ross.
 
 
 ## Compatibility
@@ -40,10 +38,10 @@ Please note that SSMS 19 does allow installing extensions in a different locatio
 Up to 20 menu items can be configured via the Options dialog window in SSMS 
 `Tools > Options > SQL Server Object Explorer > SQLMedic`
 
-* Context - Set the tree node level where to display menu item.
+* Context - Set the tree node level where to display the menu item.
 * Enabled - Show/hide the menu item.
 * Execute - Automatically run the selected script or tsql statements.
-* Name - Text displayed on menu item.
+* Name - Text displayed on the menu item.
 * Path - Location of script file to execute OR tsql statements to execute.
 
 ![Options Dialog](Options.png)
