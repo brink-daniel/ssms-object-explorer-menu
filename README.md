@@ -46,6 +46,8 @@ Up to 20 menu items can be configured via the Options dialog window in SSMS
 * Name - Text displayed on menu item.
 * Path - Location of script file to execute OR tsql statements to execute.
 
+![Options Dialog](Options.png)
+
 ### Text substitution
 
 The following tags are replaced in tsql scripts and statements before execution:

@@ -152,6 +152,7 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="ObjectExplorer.png" />
+    <Content Include="Options.png" />
     <Content Include="plus.jpg" />
   </ItemGroup>
   <ItemGroup>
