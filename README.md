@@ -1,7 +1,7 @@
 
 # [SSMS Object Explorer Menu](https://github.com/brink-daniel/ssms-object-explorer-menu)
 
-Extension for SQL Server Management Studio 19.1, allowing custom menu items to be added to the right-click context menu in the Object Explorer window. The menu items can be used to execute any tsql script file or inline tsql statement.
+SSMS Object Explorer Menu is a free and open source extension for SQL Server Management Studio 19.1 written in C#. It allows custom menu items to be added to the right-click context menu in the Object Explorer window. The menu items can be used to execute any tsql script file or inline tsql statement.
 
 ![Object Explorer](ObjectExplorer.png)
 
