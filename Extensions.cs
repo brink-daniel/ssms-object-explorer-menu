@@ -14,87 +14,37 @@ namespace SQLMedic
 			return attribs.Length > 0 ? attribs[0].StringValue : null;
 		}
 
-		public static string GetServerName(this INodeInformation node)
+
+		public static NodeInfo GetInfo(this INodeInformation node)
 		{
+			NodeInfo info = new NodeInfo();
+
 			string[] context = node.NavigationContext.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
 			foreach (string s in context)
 			{
 				if (s.StartsWith("Server[@Name='"))
 				{
-					return s.Replace("Server[@Name='", "").Replace("']", "");
+					info.Server = s.Replace("Server[@Name='", "").Replace("']", "");
+					continue;
 				}
-			}
 
-			return string.Empty;
-		}
-
-		public static string GetDatabaseName(this INodeInformation node)
-		{
-			string[] context = node.NavigationContext.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-			foreach (string s in context)
-			{
 				if (s.StartsWith("Database[@Name='"))
 				{
-					return s.Replace("Database[@Name='", "").Replace("']", "");
+					info.Database = s.Replace("Database[@Name='", "").Replace("']", "");
+					continue;
 				}
-			}
-			return string.Empty;
-		}
 
-		public static string GetTableName(this INodeInformation node)
-		{
-			string[] context = node.NavigationContext.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-			foreach (string s in context)
-			{
 				if (s.StartsWith("Table[@Name='"))
 				{
 					string[] t = s.Replace("Table[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
 					if (t.Length == 2)
-					{
-						return t[0];
+					{						
+						info.Table = t[0];
+						info.Schema = t[1];
 					}
-				}
-			}
-			return string.Empty;
-		}
-
-		public static string GetStoredProcedureName(this INodeInformation node)
-		{
-			string[] context = node.NavigationContext.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-			foreach (string s in context)
-			{
-				if (s.StartsWith("StoredProcedure[@Name='"))
-				{
-					string[] t = s.Replace("StoredProcedure[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-					if (t.Length == 2)
-					{
-						return t[0];
-					}
-				}
-			}
-			return string.Empty;
-		}
-
-		public static string GetSchema(this INodeInformation node)
-		{
-			string[] context = node.NavigationContext.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-			foreach (string s in context)
-			{
-				if (s.StartsWith("Table[@Name='"))
-				{
-					string[] t = s.Replace("Table[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-					if (t.Length == 2)
-					{
-						return t[1];
-					}
+					continue;
 				}
 
 				if (s.StartsWith("StoredProcedure[@Name='"))
@@ -103,11 +53,18 @@ namespace SQLMedic
 
 					if (t.Length == 2)
 					{
-						return t[1];
+						info.StoredProcedure = t[0];
+						info.Schema = t[1];
 					}
+					continue;
 				}
 			}
-			return string.Empty;
+
+
+			return info;
 		}
+
+
+
 	}
 }

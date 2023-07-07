@@ -86,11 +86,7 @@ namespace SQLMedic
 			}
 
 			//get meta data from tree node
-			string server = nodes[0].GetServerName();
-			string database = nodes[0].GetDatabaseName();
-			string table = nodes[0].GetTableName();
-			string storedProc = nodes[0].GetStoredProcedureName();
-			string schema = nodes[0].GetSchema();
+			NodeInfo nodeInfo = nodes[0].GetInfo();
 
 			//build SQLMedic context menu
 			ToolStripMenuItem sqlMedicMenu = new ToolStripMenuItem("SQLMedic")
@@ -107,11 +103,7 @@ namespace SQLMedic
 
 				if (o.Context == Context.All || o.Context.GetStringValue() == nodes[0].UrnPath)
 				{
-					o.Server = server;
-					o.Database = database;
-					o.Table = table;
-					o.StoredProcedure = storedProc;
-					o.Schema = schema;
+					o.NodeInfo = nodeInfo;
 
 					ToolStripMenuItem s = new ToolStripMenuItem(o.Name)
 					{
@@ -179,11 +171,11 @@ namespace SQLMedic
 			}
 
 			script = script
-					.Replace("{SERVER}", option.Server)
-					.Replace("{DATABASE}", option.Database)
-					.Replace("{TABLE}", option.Table)
-					.Replace("{STORED_PROCEDURE}", option.StoredProcedure)
-					.Replace("{SCHEMA}", option.Schema);
+					.Replace("{SERVER}", option.NodeInfo.Server)
+					.Replace("{DATABASE}", option.NodeInfo.Database)
+					.Replace("{TABLE}", option.NodeInfo.Table)
+					.Replace("{STORED_PROCEDURE}", option.NodeInfo.StoredProcedure)
+					.Replace("{SCHEMA}", option.NodeInfo.Schema);
 
 			DTE2 dte = (DTE2)this.GetService(typeof(DTE));
 			if (dte == null)
