@@ -76,5 +76,8 @@ Please report any issues to <https://github.com/brink-daniel/ssms-object-explore
 
 ## Change Log
 
+### v1.1 (2023-07-07)
+* Optimize logic for retrieving tree node context information
+
 ### v1.0 (2023-07-04)
 * Public beta release.
