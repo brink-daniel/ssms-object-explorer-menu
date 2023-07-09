@@ -21,6 +21,11 @@ You can download the latest version of SSMS for free from [Microsoft](https://le
 This extension has not been tested alongside any other extensions. 
 
 
+### SSMS 18.x
+
+Replace the lib/SqlPackageBase.dll and lib/SqlWorkbench.Interfaces.dll with your local version of the same files found in `C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE`. Then recompile the extension and follow the installation instructions below.
+
+
 ## Install
 
 [Download the latest release](https://github.com/brink-daniel/ssms-object-explorer-menu/releases)
@@ -60,12 +65,12 @@ The following tags are replaced in tsql scripts and statements before execution:
 
 ### Sample scripts
 
-| Context | Script |
-|---------|--------|
-| All | [text_substitution_demo.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/text_substitution_demo.sql) |
-| Server_Database_Table | [script_data_as_insert.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/script_data_as_insert.sql) |
-| Server_Database_StoredProcedure | [stored_procedure_unit_test.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test.sql) |
-| Server_Database_StoredProceduresFolder | [stored_procedure_unit_test_all.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test_all.sql) |
+| Context | Script | Description |
+|---------|--------|-------------|
+| All | [text_substitution_demo.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/text_substitution_demo.sql) | Demo of text substitution |
+| Server_Database_Table | [script_data_as_insert.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/script_data_as_insert.sql) | Script data as insert statements |
+| Server_Database_StoredProcedure | [stored_procedure_unit_test.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test.sql) | Run tSQLt unit test for a stored procedure |
+| Server_Database_StoredProceduresFolder | [stored_procedure_unit_test_all.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test_all.sql) | Run all tSQLt unit tests |
 
 
 ## Known Issues
