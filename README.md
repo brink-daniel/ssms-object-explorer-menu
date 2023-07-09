@@ -80,6 +80,13 @@ This happens when Windows security blocks dll files downloaded from the internet
 
 Please report any issues to <https://github.com/brink-daniel/ssms-object-explorer-menu/issues>.
 
+## Compiling the source code
+
+Requirements for compiling the source code:
+* Visual Studio 2022
+* Toolset: Visual Studio extension development
+
+The `Visual Studio extension development` can be installed via the `Tools > Get Tools and Features` menu inside Visual Studio.
 
 ## Change Log
 
