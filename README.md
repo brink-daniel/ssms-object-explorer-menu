@@ -14,14 +14,14 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ## Compatibility
 
-This extension has only been tested and used with SQL Server Management Studio 19.1.
+This extension has only been tested and used with **SQL Server Management Studio 19.1**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
 This extension has not been tested alongside any other extensions. 
 
 
-### SSMS 18.x
+### Recompile for SSMS 18.x
 
 Download the source code and replace the lib/SqlPackageBase.dll and lib/SqlWorkbench.Interfaces.dll with your local version of the same files found in `C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE`. Then recompile the extension and follow the installation instructions below.
 
