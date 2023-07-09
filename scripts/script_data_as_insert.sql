@@ -5,60 +5,95 @@
 
 --Script table data as an insert statement. 
 
-
-use {DATABASE}
-go
-
 declare 
-	 @Top int = 10
-	, @IncludeIdentity bit = 1
+	@Database varchar(250) = '{DATABASE}'
+	, @Schema varchar(250) = '{SCHEMA}'
+	, @Table varchar(250) = '{TABLE}'
+	, @Top int = 10
+	, @IncludeIdentity bit = 0
+
+/*
+select
+	@Database = 'AdventureWorks2022'
+	, @Schema = 'HumanResources'
+	, @Table = 'Department'
+*/
 
 begin
 	set nocount on;
+	
+	declare @table_qualified_name varchar(250) = '[' + @Database + '].[' + @Schema + '].[' + @Table + ']';
+
+	if object_id(@table_qualified_name) is null
+	begin
+		declare @err1 varchar(8000) = 'Error: Table ' + @table_qualified_name + ' not found';
+		raiserror(@err1, 16, 1);
+		return; 
+	end
+	
 
 	if @Top > 1000
 	begin
 		set @Top = 1000;
+		print 'Warning: The Table Value Constructor used in this script only supports up to 1000 rows. @Top parameter changed to 1000;';
 	end
 	
+	
+	create table #columns (
+		column_id int
+		, column_name varchar(250)
+		, column_type varchar(250)
+		, quote_value bit
+		, is_identity bit	
+	);
+	
+	declare @columns_query nvarchar(max) = '	
+	
 	select 
-		c.name as column_name
+		c.column_id
+		, c.name as column_name
 		, t.name as column_type
 		, case when (select top 1 x.name from sys.types as x where x.system_type_id = t.system_type_id) in (
-				'bigint', 'binary', 'bit'
-				, 'decimal', 'float', 'int'
-				, 'numeric', 'real', 'smallint'
-				, 'tinyint', 'binary', 'money'
-				, 'smallmoney', 'varbinary') then 0 else 1 end as quote_value
-		, column_id
+				''bigint'', ''binary'', ''bit''
+				, ''decimal'', ''float'', ''int''
+				, ''numeric'', ''real'', ''smallint''
+				, ''tinyint'', ''binary'', ''money''
+				, ''smallmoney'', ''varbinary'') then 0 else 1 end as quote_value
 		, is_identity
 
-	into #columns
-
 	from 
-		sys.columns as c 
+		[' + @Database + '].sys.columns as c 
 
-		inner join sys.types as t
+		inner join [' + @Database + '].sys.types as t
 		on c.user_type_id = t.user_type_id
-			and t.name != 'timestamp'
+			and t.name != ''timestamp''
 
 	where 
-		c.object_id = object_id('[{SCHEMA}].[{TABLE}]')
+		c.object_id = object_id(@table_qualified_name)
 		and (c.is_identity = 0 or (@IncludeIdentity = 1 and c.is_identity = 1))
 		and c.is_computed = 0
 
 	order by c.column_id;
-
+	
+	';
+	
+	insert into #columns (column_id, column_name, column_type, quote_value, is_identity)	
+	exec sp_executesql 
+		@columns_query
+		, N'@table_qualified_name varchar(250), @IncludeIdentity bit'
+		, @table_qualified_name = @table_qualified_name
+		, @IncludeIdentity=@IncludeIdentity;
+	
 		
 	declare @out nvarchar(max) = '';
 
 	if exists (select * from #columns where is_identity = 1)
 	begin
-		set @out += 'set identity_insert [{DATABASE}].[{SCHEMA}].[{TABLE}] on;' + char(10)
+		set @out += 'set identity_insert ' + @table_qualified_name + ' on;' + char(10)
 	end
 	
 	
-	set @out += 'insert into [{DATABASE}].[{SCHEMA}].[{TABLE}] (';
+	set @out += 'insert into ' + @table_qualified_name +' (';
 	
 	select 
 		@out += '[' + column_name + '], ' 
@@ -99,7 +134,7 @@ begin
 
 	set @sql = substring(@sql, 1, len(@sql) - 1);
 	set @sql += ')'' as table_row ';
-	set @sql += 'from [{SCHEMA}].[{TABLE}]' 
+	set @sql += 'from ' + @table_qualified_name + ';'; 
 
 
 	create table #data (
@@ -115,13 +150,11 @@ begin
 
 	set @out = @out + ';'  + char(10);
 
-	set @out = replace(@out,'values 
-	, (', 'values 
-	  (');
+	set @out = replace(@out,'values ' + char(10) + char(9) + ',', 'values ' + char(10) + char(9) + ' ');
 
 	if exists (select * from #columns where is_identity = 1)
 	begin
-		set @out += 'set identity_insert [{DATABASE}].[{SCHEMA}].[{TABLE}] off;' + char(10)
+		set @out += 'set identity_insert ' + @table_qualified_name + ' off;' + char(10)
 	end
 
 	print @out;
