@@ -1,7 +1,8 @@
---This script is designed to be executed using SQLMedic's SSMSObjectExplorerMenu extension.
---The extension will replace the DATABASE, SCHEMA & TABLE tags with valid values before executing the script
-
---Run tSQLt unit test for stored procedure.
+--Category:		EXPERIMENTAL
+--Name:			stored_procedure_unit_test.sql
+--Description:	Run tSQLt unit test for the selected stored procedure. If no unit test exist, one will be created. 
+--Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
 
 use {DATABASE}
 go

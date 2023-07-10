@@ -1,7 +1,8 @@
---This script is designed to be executed using SQLMedic's SSMSObjectExplorerMenu extension.
---The extension will replace the DATABASE, SCHEMA & TABLE tags with valid values before executing the script
-
---Demo of text substitution feature
+--Category:		EXPERIMENTAL
+--Name:			text_substitution_demo.sql
+--Description:	Demo of SSMSObjectExplorerMenu extension.
+--Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
 
 use {DATABASE}
 go

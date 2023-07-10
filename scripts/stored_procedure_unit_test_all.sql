@@ -1,7 +1,8 @@
---This script is designed to be executed using SQLMedic's SSMSObjectExplorerMenu extension.
---The extension will replace the DATABASE, SCHEMA & TABLE tags with valid values before executing the script
-
---Run all tSQLt unit tests
+--Category:		EXPERIMENTAL
+--Name:			stored_procedure_unit_test_all.sql
+--Description:	Run all tSQLt unit tests. If a stored procedure does not have a unit test, a unit test is created for it. 
+--Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
 
 use {DATABASE}
 go
@@ -9,7 +10,7 @@ go
 set nocount on;
 go
 
---create unit test class if not exists
+--create unit test "test" class if not exists
 if not exists (
 	select * from sys.extended_properties 
 	where 
@@ -22,7 +23,7 @@ begin
 end
 go
 
---ensure unit tests exist for all stored procedures
+--ensure unit tests exist for all stored procedures in the "test" class
 select 
 	s.name + '.' + p.name as StoredProc
 into #StoredProcs
@@ -45,7 +46,7 @@ begin
 	delete from #StoredProcs
 	where StoredProc = @StoredProc;
 
-	--create unit text if not exists
+	--create unit test if not exists
 	if object_id(N'test.[test ' + @StoredProc + N']') is null
 	begin
 		exec (N'

@@ -1,9 +1,8 @@
---EXPERIMENTAL
-
---This script is designed to be executed using SQLMedic's SSMSObjectExplorerMenu extension.
---The extension will replace the DATABASE, SCHEMA & TABLE tags with valid values before executing the script
-
---Script table data as an insert statement. 
+--Category:		EXPERIMENTAL
+--Name:			script_data_as_insert.sql
+--Description:	Script data from table as an insert statement
+--Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
 
 declare 
 	@Database varchar(250) = '{DATABASE}'
@@ -143,6 +142,14 @@ begin
 
 	insert into #data (table_row)
 	exec (@sql);
+	
+	if not exists (select * from #data)
+	begin
+		declare @err2 varchar(8000) = 'Error: Table ' + @table_qualified_name + ' is empty. No rows found to script.';
+		raiserror(@err2, 16, 1);
+		return;
+	end
+	
 
 	select 
 		@out += table_row
