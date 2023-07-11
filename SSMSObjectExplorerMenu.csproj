@@ -155,6 +155,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Context.PNG" />
+    <Content Include="Customize.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="ObjectExplorer.png" />
     <Content Include="Options.png" />
