@@ -9,13 +9,33 @@ namespace SQLMedic
 	public class NodeInfo
 	{
 		public string Server { get; set; }
-		public string Database { get; set; }
+
+		private string database;
+		public string Database
+		{
+			get
+			{
+				if (database == string.Empty) 
+				{
+					return "master";
+				}
+				return database;
+			}
+			set 
+			{
+				database = value;
+			}
+		}
 		public string Schema { get; set; }
 		public string Table { get; set; }
 		public string StoredProcedure { get; set; }
 
-		public NodeInfo() { 
-		
+		public NodeInfo() {
+			Server = string.Empty;
+			Database = string.Empty;
+			Schema = string.Empty;
+			Table = string.Empty;
+			StoredProcedure = string.Empty;
 		}
 
 	}
