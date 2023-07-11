@@ -113,7 +113,7 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 ## Change Log
 
-### v1.3 (2023-07-11)
+### v1.2 (2023-07-11)
 * Allow custom branding
 
 ### v1.1 (2023-07-07)
