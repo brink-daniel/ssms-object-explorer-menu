@@ -84,6 +84,7 @@
     <None Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Scripts.md" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -158,6 +159,14 @@
     <Content Include="ObjectExplorer.png" />
     <Content Include="Options.png" />
     <Content Include="plus.jpg" />
+    <Content Include="scripts\last_restored.sql" />
+    <Content Include="scripts\script_data_as_insert.sql" />
+    <Content Include="scripts\sp_readerrorlog_agent.sql" />
+    <Content Include="scripts\sp_readerrorlog_server.sql" />
+    <Content Include="scripts\sp_who4.sql" />
+    <Content Include="scripts\stored_procedure_unit_test.sql" />
+    <Content Include="scripts\stored_procedure_unit_test_all.sql" />
+    <Content Include="scripts\text_substitution_demo.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

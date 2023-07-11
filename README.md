@@ -67,6 +67,7 @@ The following settings are available for each menu item:
 	 - Server/Database/Table
 	 - Server/Database/StoredProceduresFolder
 	 - Server/Database/StoredProcedure
+	 - Server/JobServer (SQL Agent)
 * Enabled - Show/hide the menu item.
 * Execute - Automatically run the selected script or tsql statements.
 * Name - Text displayed on the menu item.
@@ -93,6 +94,7 @@ The following tags are replaced in tsql scripts and statements before execution:
 | Server_Database_StoredProcedure | [stored_procedure_unit_test.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test.sql) | Run tSQLt unit test for a stored procedure |
 | Server_Database_StoredProceduresFolder | [stored_procedure_unit_test_all.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test_all.sql) | Run all tSQLt unit tests |
 
+More tsql scripts are available [here](Scripts.md).
 
 ## Known Issues
 
