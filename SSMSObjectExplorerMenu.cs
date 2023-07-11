@@ -117,11 +117,17 @@ namespace SQLMedic
 				}
 			}
 
-			sqlMedicMenu.DropDownItems.Add(new ToolStripSeparator());
-			ToolStripMenuItem custom = new ToolStripMenuItem("Customize");
-			custom.Click += Custom_Click;
-			custom.Tag = nodes[0].UrnPath.Replace("/", "_");
-			sqlMedicMenu.DropDownItems.Add(custom);
+			if (options.BrandingCustomize || sqlMedicMenu.DropDownItems.Count == 0)
+			{
+				if (sqlMedicMenu.DropDownItems.Count > 0)
+				{
+					sqlMedicMenu.DropDownItems.Add(new ToolStripSeparator());
+				}
+				ToolStripMenuItem custom = new ToolStripMenuItem("Customize");
+				custom.Click += Custom_Click;
+				custom.Tag = nodes[0].UrnPath.Replace("/", "_");
+				sqlMedicMenu.DropDownItems.Add(custom);
+			}
 
 			treeView.ContextMenuStrip.Items.Add(sqlMedicMenu);
 			treeView.ContextMenuStrip.Items.Add(new ToolStripSeparator());

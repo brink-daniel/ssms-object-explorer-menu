@@ -693,6 +693,12 @@ namespace SQLMedic
 		[Description("Text to display in the main SQLMedic menu item")]
 		public string BrandingText { get; set; } = "SQLMedic";
 
+		[DefaultValue(true)]
+		[Category("Branding")]
+		[DisplayName("Customize")]
+		[Description("Display the Customize button")]
+		public bool BrandingCustomize { get; set; } = true;
+
 		public List<Option> ToArray()
 		{
 			List<Option> options = new List<Option>
