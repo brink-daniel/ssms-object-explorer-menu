@@ -24,6 +24,9 @@
 		Server_Database_StoredProcedure,
 
 		[StringValue("Server/Database/StoredProceduresFolder")]
-		Server_Database_StoredProceduresFolder
+		Server_Database_StoredProceduresFolder,
+
+		[StringValue("Server/JobServer")]
+		Server_JobServer
 	}
 }
