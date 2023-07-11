@@ -1,4 +1,3 @@
-
 # [SSMS Object Explorer Menu](https://github.com/brink-daniel/ssms-object-explorer-menu)
 
 SSMS Object Explorer Menu is a free and open source extension for SQL Server Management Studio (SSMS) written in C#. It allows custom menu items to be added to the right-click context menu in the Object Explorer window. The menu items can be used to execute any tsql script file or inline tsql statement.
@@ -102,6 +101,7 @@ This happens when Windows security blocks dll files downloaded from the internet
 
 Please report any issues to <https://github.com/brink-daniel/ssms-object-explorer-menu/issues>.
 
+
 ## Compiling the source code
 
 Requirements for compiling the source code:
@@ -110,7 +110,11 @@ Requirements for compiling the source code:
 
 The Visual Studio extension development toolset can be installed via the `Tools > Get Tools and Features` menu inside Visual Studio.
 
+
 ## Change Log
+
+### v1.3 (2023-07-11)
+* Allow custom branding
 
 ### v1.1 (2023-07-07)
 * Optimize logic for retrieving tree node context information
