@@ -1,7 +1,7 @@
---Category:		EXPERIMENTAL
---Name:			stored_procedure_unit_test_all.sql
---Description:	Run all tSQLt unit tests. If a stored procedure does not have a unit test, a unit test is created for it. 
---Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
+-- Category:	EXPERIMENTAL
+-- Name:		stored_procedure_unit_test_all.sql
+-- Description:	Run all tSQLt unit tests. If a stored procedure does not have a unit test, a unit test is created for it. 
+-- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
 --				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
 
 use {DATABASE}

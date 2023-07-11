@@ -158,6 +158,7 @@ namespace SQLMedic
 				try
 				{
 					script = File.ReadAllText(option.Path);
+					script = $"-- File:\t\t{option.Path}{Environment.NewLine}" + script;
 				}
 				catch (Exception ex)
 				{
