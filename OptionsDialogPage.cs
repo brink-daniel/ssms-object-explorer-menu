@@ -679,6 +679,20 @@ namespace SQLMedic
 		public bool Script20Execute { get; set; } = true;
 		#endregion
 
+
+
+		[DefaultValue(true)]
+		[Category("Branding")]
+		[DisplayName("Icon")]
+		[Description("Display the SQLMedic icon")]
+		public bool BrandingIcon { get; set; } = true;
+
+		[DefaultValue("SQLMedic")]
+		[Category("Branding")]
+		[DisplayName("Name")]
+		[Description("Text to display in the main SQLMedic menu item")]
+		public string BrandingText { get; set; } = "SQLMedic";
+
 		public List<Option> ToArray()
 		{
 			List<Option> options = new List<Option>

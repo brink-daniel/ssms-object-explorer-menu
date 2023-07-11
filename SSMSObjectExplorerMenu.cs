@@ -89,10 +89,12 @@ namespace SQLMedic
 			NodeInfo nodeInfo = nodes[0].GetInfo();
 
 			//build SQLMedic context menu
-			ToolStripMenuItem sqlMedicMenu = new ToolStripMenuItem("SQLMedic")
+			ToolStripMenuItem sqlMedicMenu = new ToolStripMenuItem(options.BrandingText);
+			
+			if (options.BrandingIcon)
 			{
-				Image = Properties.Resources.plus
-			};
+				sqlMedicMenu.Image = Properties.Resources.plus;
+			}
 
 			foreach (var o in options.ToArray())
 			{
