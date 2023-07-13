@@ -4,7 +4,7 @@ SSMS Object Explorer Menu is a free and open source extension for SQL Server Man
 
 The project homepage is <https://sqlmedic.com>.
 
-![Object Explorer](ObjectExplorer.png)
+![Object Explorer](images/ObjectExplorer.png)
 
 Source code, documentation and issues can be found at <https://github.com/brink-daniel/ssms-object-explorer-menu>.
 
@@ -56,11 +56,11 @@ Please note that SSMS 19 does allow installing extensions in a different locatio
 
 Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using these steps:
 1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Customize` from the SQLMedic menu.
-    ![Customize Button](Customize.png)
+    ![Customize Button](images/Customize.png)
 2. Take note of the `context` of your current location, e.g. `Server_Database_UserTablesFolder`, in the displayed dialog.
-    ![Context Dialog](Context.png)
+    ![Context Dialog](images/Context.png)
 3. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SQLMedic` and complete the Name, Path and Context settings for the new menu item.
-    ![Options Dialog](Options.png)
+    ![Options Dialog](images/Options.png)
 
 
 ## Settings

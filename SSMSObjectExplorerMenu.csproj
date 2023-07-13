@@ -155,12 +155,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Context.PNG" />
-    <Content Include="Customize.PNG" />
+    <Content Include="images\Context.PNG" />
+    <Content Include="images\Customize.PNG" />
     <Content Include="favicon.ico" />
-    <Content Include="ObjectExplorer.png" />
-    <Content Include="Options.png" />
-    <Content Include="plus.jpg" />
+    <Content Include="images\ObjectExplorer.png" />
+    <Content Include="images\Options.png" />
+    <Content Include="images\plus.jpg" />
     <Content Include="scripts\last_restored.sql" />
     <Content Include="scripts\script_data_as_insert.sql" />
     <Content Include="scripts\sp_readerrorlog_agent.sql" />
