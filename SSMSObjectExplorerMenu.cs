@@ -125,7 +125,7 @@ namespace SQLMedic
 				}
 				ToolStripMenuItem custom = new ToolStripMenuItem("Customize");
 				custom.Click += Custom_Click;
-				custom.Tag = nodes[0].UrnPath.Replace("/", "_");
+				custom.Tag = nodeInfo;
 				sqlMedicMenu.DropDownItems.Add(custom);
 			}
 
@@ -135,7 +135,9 @@ namespace SQLMedic
 
 		private void Custom_Click(object sender, EventArgs e)
 		{
-			ShowInformation($"The context for the current location is: {(sender as ToolStripMenuItem).Tag}{Environment.NewLine}{Environment.NewLine}Open the Options dialog via Tools > Options > SQL Server Object Explorer > SQLMedic");
+			NodeInfo nodeInfo = (NodeInfo)(sender as ToolStripMenuItem).Tag;
+
+			ShowInformation($"The context for the current location is: {nodeInfo.UrnPath}{Environment.NewLine}{Environment.NewLine}{nodeInfo}{Environment.NewLine}Open the Options dialog via Tools > Options > SQL Server Object Explorer > SQLMedic");
 		}
 
 		private void Menu_Click(object sender, EventArgs e)
@@ -184,7 +186,8 @@ namespace SQLMedic
 					.Replace("{DATABASE}", option.NodeInfo.Database)
 					.Replace("{TABLE}", option.NodeInfo.Table)
 					.Replace("{STORED_PROCEDURE}", option.NodeInfo.StoredProcedure)
-					.Replace("{SCHEMA}", option.NodeInfo.Schema);
+					.Replace("{SCHEMA}", option.NodeInfo.Schema)
+					.Replace("{JOB}", option.NodeInfo.Job);
 
 			DTE2 dte = (DTE2)this.GetService(typeof(DTE));
 			if (dte == null)

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQLMedic
 {
@@ -29,6 +25,9 @@ namespace SQLMedic
 		public string Schema { get; set; }
 		public string Table { get; set; }
 		public string StoredProcedure { get; set; }
+		public string Job { get; set; }
+		public string UrnPath { get; set; }
+		public string NavigationContext { get; set; }
 
 		public NodeInfo() {
 			Server = string.Empty;
@@ -36,6 +35,46 @@ namespace SQLMedic
 			Schema = string.Empty;
 			Table = string.Empty;
 			StoredProcedure = string.Empty;
+			UrnPath = string.Empty;
+			NavigationContext = string.Empty;
+			Job = string.Empty;
+		}
+
+		public override string ToString()
+		{
+			string s = string.Empty;
+
+			if (Server != string.Empty)
+			{
+				s += $"Server: {Server}{Environment.NewLine}";
+			}
+
+			if (Database != string.Empty)
+			{
+				s += $"Database: {Database}{Environment.NewLine}";
+			}
+
+			if (Schema != string.Empty)
+			{
+				s += $"Schema: {Schema}{Environment.NewLine}";
+			}
+
+			if (Table != string.Empty)
+			{
+				s += $"Table: {Table}{Environment.NewLine}";
+			}
+
+			if (StoredProcedure != string.Empty)
+			{
+				s += $"StoredProcedure: {StoredProcedure}{Environment.NewLine}";
+			}
+
+			if (Job != string.Empty)
+			{
+				s += $"Job: {Job}{Environment.NewLine}";
+			}
+
+			return s;
 		}
 
 	}

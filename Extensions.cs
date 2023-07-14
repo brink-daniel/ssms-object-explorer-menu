@@ -17,7 +17,11 @@ namespace SQLMedic
 
 		public static NodeInfo GetInfo(this INodeInformation node)
 		{
-			NodeInfo info = new NodeInfo();
+			NodeInfo info = new NodeInfo
+			{
+				UrnPath = node.UrnPath.Replace("/", "_"),
+				NavigationContext = node.NavigationContext
+			};
 
 			string[] context = node.NavigationContext.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
@@ -55,6 +59,17 @@ namespace SQLMedic
 					{
 						info.StoredProcedure = t[0];
 						info.Schema = t[1];
+					}
+					continue;
+				}
+
+				if (s.StartsWith("Job[@Name='"))
+				{
+					string[] t = s.Replace("Job[@Name='", "").Replace("' and @CategoryID='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+					if (t.Length == 2)
+					{
+						info.Job = t[0];						
 					}
 					continue;
 				}

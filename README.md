@@ -78,7 +78,9 @@ The following settings are available for each menu item:
 	 - Server/Database/Table
 	 - Server/Database/StoredProceduresFolder
 	 - Server/Database/StoredProcedure
-	 - Server/JobServer (SQL Agent)
+	 - Server/JobServer
+	 - Server/JobServer/JobsFolder
+	 - Server/JobServer/Job
 * Enabled - Show/hide the menu item.
 * Execute - Automatically run the selected script or tsql statements.
 * Name - Text displayed on the menu item.
@@ -94,6 +96,7 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{SCHEMA}`
 * `{TABLE}`
 * `{STORED_PROCEDURE}`
+* `{JOB}`
 
 ### Sample scripts
 
