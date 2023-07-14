@@ -1,4 +1,6 @@
-﻿# TSQL Scripts
+﻿# [SSMS Object Explorer Menu](https://github.com/brink-daniel/ssms-object-explorer-menu)
+
+## TSQL Scripts
 
 Useful scripts for the [SSMS Object Explorer Menu](https://github.com/brink-daniel/ssms-object-explorer-menu) extension.
 
@@ -10,4 +12,4 @@ Useful scripts for the [SSMS Object Explorer Menu](https://github.com/brink-dani
 | Server | [sp_who4.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/sp_who4sql) | Get all current activity |
 
 
-[back](README.md)
+[back to home](README.md)
