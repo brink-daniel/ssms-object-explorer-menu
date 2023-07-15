@@ -4,6 +4,9 @@ SSMS Object Explorer Menu is a free and open source extension for SQL Server Man
 
 The project homepage is <https://sqlmedic.com>.
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/brink-daniel/ssms-object-explorer-menu)
+[![GitHub license](https://img.shields.io/github/license/ToolJet/ToolJet)](https://github.com/brink-daniel/ssms-object-explorer-menu)
+
 ![Object Explorer](images/ObjectExplorer.png)
 
 Source code, documentation and issues can be found at <https://github.com/brink-daniel/ssms-object-explorer-menu>.
