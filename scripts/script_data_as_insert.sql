@@ -51,8 +51,8 @@ begin
 	select 
 		c.column_id
 		, c.name as column_name
-		, t.name as column_type
-		, case when (select top 1 x.name from sys.types as x where x.system_type_id = t.system_type_id) in (
+		, t2.name as column_type
+		, case when t2.name in (
 				''bigint'', ''binary'', ''bit''
 				, ''decimal'', ''float'', ''int''
 				, ''numeric'', ''real'', ''smallint''
@@ -66,6 +66,10 @@ begin
 		inner join [' + @Database + '].sys.types as t
 		on c.user_type_id = t.user_type_id
 			and t.name != ''timestamp''
+			
+		inner join [' + @Database + '].sys.types as t2
+		on t.system_type_id = t2.system_type_id
+			and t2.user_type_id = t2.system_type_id
 
 	where 
 		c.object_id = object_id(@table_qualified_name)
