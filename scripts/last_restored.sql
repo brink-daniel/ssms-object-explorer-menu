@@ -4,21 +4,29 @@
 -- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
 --				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
 
-select
-	a.name
-	, a.restore_date as last_restored
+select 
+	d.[name] as [database]
+	, d.state_desc
+	, x.restore_date
+	, b.server_name as [source_server]
+	, b.[user_name] as [source_user]
+	, b.[name] as [backup_name]
 	
-from 
-	(
+from
+	sys.databases as d
+	
+	left join (
 		select
-			*
-			, row_number() over (partition by d.Name order by r.restore_date desc) as RowNumber
-						
-		from 
-			sys.databases as d
+			h.destination_database_name as db
+			, max(h.restore_date) as restore_date
+			, max(h.backup_set_id) as backup_set_id
+		from msdb.dbo.restorehistory as h
+		group by h.destination_database_name
 	
-			left join msdb.dbo.restorehistory as r
-			on d.Name = r.destination_database_name
-	) as a
-
-where a.RowNumber = 1;
+	) as x
+	on d.[name] = x.db
+	
+	left join msdb.dbo.backupset as b 
+	on x.backup_set_id = b.backup_set_id
+	
+order by x.restore_date desc;
