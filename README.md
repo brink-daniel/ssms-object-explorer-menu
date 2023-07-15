@@ -128,6 +128,9 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 ## Change Log
 
+### v1.3 (2023-07-15)
+* Add support for custom menu items on SQL Agent jobs
+
 ### v1.2 (2023-07-11)
 * Allow custom branding
 
