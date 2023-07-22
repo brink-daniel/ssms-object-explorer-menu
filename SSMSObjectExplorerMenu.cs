@@ -32,29 +32,28 @@ namespace SQLMedic
 			(this as IVsPackage).GetAutomationObject("SQL Server Object Explorer.SQLMedic", out object automationObject);
 			if (automationObject == null)
 			{
-				ShowError("Automation Object not found");
+				Error("Automation Object not found");
 				return;
 			}
 			options = (OptionsDialogPage)automationObject;
-
 
 			//find tree control in the Object Explorer window
 			objectExplorerService = (IObjectExplorerService)this.GetService(typeof(IObjectExplorerService));
 			if (objectExplorerService == null)
 			{
-				ShowError("Object Explorer Service not found");
+				Error("Object Explorer Service not found");
 				return;
 			}
 			var treeProperty = objectExplorerService.GetType().GetProperty("Tree", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.IgnoreCase);
 			if (treeProperty == null)
 			{
-				ShowError("Tree property not found");
+				Error("Tree property not found");
 				return;
 			}
 			treeView = (TreeView)treeProperty.GetValue(objectExplorerService, null);
 			if (treeView == null)
 			{
-				ShowError("TreeView control not found");
+				Error("TreeView control not found");
 				return;
 			}
 			treeView.ContextMenuStripChanged += TreeView_ContextMenuStripChanged;
@@ -90,7 +89,6 @@ namespace SQLMedic
 
 			//build SQLMedic context menu
 			ToolStripMenuItem sqlMedicMenu = new ToolStripMenuItem(options.BrandingText);
-			
 			if (options.BrandingIcon)
 			{
 				sqlMedicMenu.Image = Properties.Resources.plus;
@@ -124,7 +122,7 @@ namespace SQLMedic
 					sqlMedicMenu.DropDownItems.Add(new ToolStripSeparator());
 				}
 				ToolStripMenuItem custom = new ToolStripMenuItem("Customize");
-				custom.Click += Custom_Click;
+				custom.Click += Customize_Click;
 				custom.Tag = nodeInfo;
 				sqlMedicMenu.DropDownItems.Add(custom);
 			}
@@ -133,11 +131,15 @@ namespace SQLMedic
 			treeView.ContextMenuStrip.Items.Add(new ToolStripSeparator());
 		}
 
-		private void Custom_Click(object sender, EventArgs e)
+		private void Customize_Click(object sender, EventArgs e)
 		{
 			NodeInfo nodeInfo = (NodeInfo)(sender as ToolStripMenuItem).Tag;
 
-			ShowInformation($"The context for the current location is: {nodeInfo.UrnPath}{Environment.NewLine}{Environment.NewLine}{nodeInfo}{Environment.NewLine}Open the Options dialog via Tools > Options > SQL Server Object Explorer > SQLMedic");
+			Info($"The context for the current location is: {nodeInfo.UrnPath}{Environment.NewLine}{Environment.NewLine}{nodeInfo}{Environment.NewLine}Configure new menu item via the Options Dialog > SQL Server Object Explorer > SQLMedic.{Environment.NewLine}{Environment.NewLine}Open the Options dialog?", () =>
+			{
+				DTE2 dte = (DTE2)this.GetService(typeof(DTE));
+				dte?.ExecuteCommand("Tools.Options");
+			});
 		}
 
 		private void Menu_Click(object sender, EventArgs e)
@@ -172,7 +174,7 @@ namespace SQLMedic
 				}
 				catch (Exception ex)
 				{
-					ShowError($"Error reading {option.Path}: {ex.Message}");
+					Error($"Error reading {option.Path}: {ex.Message}");
 					return;
 				}
 			}
@@ -215,19 +217,22 @@ namespace SQLMedic
 			}
 		}
 
-		public void ShowInformation(string message)
+		private void Info(string message, Action action)
 		{
-			Show(message, MessageBoxIcon.Information);
+			Show(message, MessageBoxIcon.Information, MessageBoxButtons.OKCancel, action);
 		}
 
-		public void ShowError(string message)
+		private void Error(string message)
 		{
 			Show(message, MessageBoxIcon.Error);
 		}
 
-		public void Show(string message, MessageBoxIcon icon)
+		private void Show(string message, MessageBoxIcon icon, MessageBoxButtons buttons = MessageBoxButtons.OK, Action action = null)
 		{
-			MessageBox.Show(message, "SQLMedic", MessageBoxButtons.OK, icon);
+			if (MessageBox.Show(message, "SQLMedic", buttons, icon) == DialogResult.OK)
+			{
+				action?.Invoke();
+			}
 		}
 	}
 }
