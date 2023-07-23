@@ -72,6 +72,7 @@ Up to 20 menu items can be configured via the Options dialog window in SSMS
 `Tools > Options > SQL Server Object Explorer > SQLMedic`
 
 The following settings are available for each menu item:
+* Confirm - Ask confirmation to continue before executing script or tsql statement
 * Context - Set the tree node level where to display the menu item.
      - All
 	 - Server
@@ -137,9 +138,9 @@ Features are planned for future releases:
 * Remove all SQLMedic branding
 * Optional horizontal lines between menu items
 * Sub-menus
-* Option to confirm before script execution
 * Optional icons on menu items
 * Installer
+* Unlimited number of menu items
 
 ## Change Log
 

@@ -212,7 +212,17 @@ namespace SQLMedic
 
 				if (option.Execute)
 				{
-					dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
+					if (option.Confirm)
+					{
+						Warning($"Execute \"{option.Name}\"?{Environment.NewLine}{Environment.NewLine}{option.NodeInfo}", () =>
+						{
+							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
+						});
+					}
+					else
+					{
+						dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
+					}
 				}
 			}
 		}
@@ -220,6 +230,11 @@ namespace SQLMedic
 		private void Info(string message, Action action)
 		{
 			Show(message, MessageBoxIcon.Information, MessageBoxButtons.OKCancel, action);
+		}
+
+		private void Warning(string message, Action action)
+		{
+			Show(message, MessageBoxIcon.Warning, MessageBoxButtons.OKCancel, action);
 		}
 
 		private void Error(string message)

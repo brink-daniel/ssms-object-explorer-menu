@@ -11,12 +11,14 @@ namespace SQLMedic
 		private const string name = "Name";
 		private const string context = "Context";
 		private const string execute = "Execute";
+		private const string confirm = "Confirm";
 
 		private const string enabled_desc = "Show/hide the menu item.";
 		private const string path_desc = "Location of script file to execute OR tsql statements to execute.";
 		private const string name_desc = "Text displayed on menu item.";
 		private const string context_desc = "Set the tree node level where to display menu item.";
 		private const string execute_desc = "Automatically run the selected script or tsql statements.";
+		private const string confirm_desc = "Ask confirmation to continue before executing script or statement";
 
 		private const string script1 = "Script 01";
 		private const string script2 = "Script 02";
@@ -69,6 +71,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script1Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script1)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script1Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 2
@@ -101,6 +109,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script2Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script2)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script2Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 3
@@ -133,6 +147,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script3Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script3)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script3Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 4
@@ -165,6 +185,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script4Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script4)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script4Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 5
@@ -197,6 +223,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script5Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script5)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script5Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 6
@@ -229,6 +261,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script6Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script6)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script6Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 7
@@ -261,6 +299,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script7Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script7)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script7Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 8
@@ -293,6 +337,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script8Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script8)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script8Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 9
@@ -325,6 +375,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script9Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script9)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script9Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 10
@@ -357,6 +413,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script10Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script10)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script10Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 11
@@ -389,6 +451,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script11Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script11)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script11Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 12
@@ -421,6 +489,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script12Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script12)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script12Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 13
@@ -453,6 +527,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script13Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script13)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script13Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 14
@@ -485,6 +565,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script14Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script14)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script14Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 15
@@ -517,6 +603,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script15Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script15)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script15Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 16
@@ -549,6 +641,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script16Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script16)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script16Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 17
@@ -581,6 +679,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script17Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script17)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script17Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 18
@@ -613,6 +717,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script18Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script18)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script18Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 19
@@ -645,6 +755,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script19Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script19)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script19Confirm { get; set; } = false;
 		#endregion
 
 		#region Script 20
@@ -677,6 +793,12 @@ namespace SQLMedic
 		[DisplayName(execute)]
 		[Description(execute_desc)]
 		public bool Script20Execute { get; set; } = true;
+
+		[DefaultValue(false)]
+		[Category(script20)]
+		[DisplayName(confirm)]
+		[Description(confirm_desc)]
+		public bool Script20Confirm { get; set; } = false;
 		#endregion
 
 
@@ -703,26 +825,26 @@ namespace SQLMedic
 		{
 			List<Option> options = new List<Option>
 			{
-				new Option(Script1Enabled, Script1Context, Script1Name, Script1Path, Script1Execute),
-				new Option(Script2Enabled, Script2Context, Script2Name, Script2Path, Script2Execute),
-				new Option(Script3Enabled, Script3Context, Script3Name, Script3Path, Script3Execute),
-				new Option(Script4Enabled, Script4Context, Script4Name, Script4Path, Script4Execute),
-				new Option(Script5Enabled, Script5Context, Script5Name, Script5Path, Script5Execute),
-				new Option(Script6Enabled, Script6Context, Script6Name, Script6Path, Script6Execute),
-				new Option(Script7Enabled, Script7Context, Script7Name, Script7Path, Script7Execute),
-				new Option(Script8Enabled, Script8Context, Script8Name, Script8Path, Script8Execute),
-				new Option(Script9Enabled, Script9Context, Script9Name, Script9Path, Script9Execute),
-				new Option(Script10Enabled, Script10Context, Script10Name, Script10Path, Script10Execute),
-				new Option(Script11Enabled, Script11Context, Script11Name, Script11Path, Script11Execute),
-				new Option(Script12Enabled, Script12Context, Script12Name, Script12Path, Script12Execute),
-				new Option(Script13Enabled, Script13Context, Script13Name, Script13Path, Script13Execute),
-				new Option(Script14Enabled, Script14Context, Script14Name, Script14Path, Script14Execute),
-				new Option(Script15Enabled, Script15Context, Script15Name, Script15Path, Script15Execute),
-				new Option(Script16Enabled, Script16Context, Script16Name, Script16Path, Script16Execute),
-				new Option(Script17Enabled, Script17Context, Script17Name, Script17Path, Script17Execute),
-				new Option(Script18Enabled, Script18Context, Script18Name, Script18Path, Script18Execute),
-				new Option(Script19Enabled, Script19Context, Script19Name, Script19Path, Script19Execute),
-				new Option(Script20Enabled, Script20Context, Script20Name, Script20Path, Script20Execute),
+				new Option(Script1Enabled, Script1Context, Script1Name, Script1Path, Script1Execute, Script1Confirm),
+				new Option(Script2Enabled, Script2Context, Script2Name, Script2Path, Script2Execute, Script2Confirm),
+				new Option(Script3Enabled, Script3Context, Script3Name, Script3Path, Script3Execute, Script3Confirm),
+				new Option(Script4Enabled, Script4Context, Script4Name, Script4Path, Script4Execute, Script4Confirm),
+				new Option(Script5Enabled, Script5Context, Script5Name, Script5Path, Script5Execute, Script5Confirm),
+				new Option(Script6Enabled, Script6Context, Script6Name, Script6Path, Script6Execute, Script6Confirm),
+				new Option(Script7Enabled, Script7Context, Script7Name, Script7Path, Script7Execute, Script7Confirm),
+				new Option(Script8Enabled, Script8Context, Script8Name, Script8Path, Script8Execute, Script8Confirm),
+				new Option(Script9Enabled, Script9Context, Script9Name, Script9Path, Script9Execute, Script9Confirm),
+				new Option(Script10Enabled, Script10Context, Script10Name, Script10Path, Script10Execute, Script10Confirm),
+				new Option(Script11Enabled, Script11Context, Script11Name, Script11Path, Script11Execute, Script11Confirm),
+				new Option(Script12Enabled, Script12Context, Script12Name, Script12Path, Script12Execute, Script12Confirm),
+				new Option(Script13Enabled, Script13Context, Script13Name, Script13Path, Script13Execute, Script13Confirm),
+				new Option(Script14Enabled, Script14Context, Script14Name, Script14Path, Script14Execute, Script14Confirm),
+				new Option(Script15Enabled, Script15Context, Script15Name, Script15Path, Script15Execute, Script15Confirm),
+				new Option(Script16Enabled, Script16Context, Script16Name, Script16Path, Script16Execute, Script16Confirm),
+				new Option(Script17Enabled, Script17Context, Script17Name, Script17Path, Script17Execute, Script17Confirm),
+				new Option(Script18Enabled, Script18Context, Script18Name, Script18Path, Script18Execute, Script18Confirm),
+				new Option(Script19Enabled, Script19Context, Script19Name, Script19Path, Script19Execute, Script19Confirm),
+				new Option(Script20Enabled, Script20Context, Script20Name, Script20Path, Script20Execute, Script20Confirm),
 			};
 
 			return options;

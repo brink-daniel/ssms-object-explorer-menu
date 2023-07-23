@@ -11,7 +11,9 @@ namespace SQLMedic
 		public NodeInfo NodeInfo { get; set; }
 		public bool Execute { get; set; }
 
-		public Option(bool enabled, Context context, string name, string path, bool execute)
+		public bool Confirm { get; set; }
+
+		public Option(bool enabled, Context context, string name, string path, bool execute, bool confirm)
 		{
 			Enabled = enabled;
 			Context = context;
@@ -19,6 +21,7 @@ namespace SQLMedic
 			Path = path;
 			Execute = execute;
 			NodeInfo = new NodeInfo();
+			Confirm = confirm;
 		}
 	}
 }
