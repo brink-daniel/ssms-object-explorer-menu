@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace SQLMedic
+namespace SSMSObjectExplorerMenu
 {
 	public class OptionsDialogPage : DialogPage
 	{
@@ -806,14 +806,14 @@ namespace SQLMedic
 		[DefaultValue(true)]
 		[Category("Branding")]
 		[DisplayName("Icon")]
-		[Description("Display the SQLMedic icon")]
+		[Description("Display icon")]
 		public bool BrandingIcon { get; set; } = true;
 
-		[DefaultValue("SQLMedic")]
+		[DefaultValue("My Scripts")]
 		[Category("Branding")]
 		[DisplayName("Name")]
-		[Description("Text to display in the main SQLMedic menu item")]
-		public string BrandingText { get; set; } = "SQLMedic";
+		[Description("Text to display in the main menu item")]
+		public string BrandingText { get; set; } = "My Scripts";
 
 		[DefaultValue(true)]
 		[Category("Branding")]

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SQLMedic
+namespace SSMSObjectExplorerMenu
 {
 	public class StringValueAttribute : Attribute
 	{

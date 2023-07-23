@@ -59,18 +59,18 @@ Please note that SSMS 19 does allow installing extensions in a different locatio
 ### How to add menu items to the Object Explorer
 
 Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using these steps:
-1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Customize` from the SQLMedic menu.
+1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Customize` from the `My Scripts` menu.
     ![Customize Button](images/Customize.png)
 2. Take note of the `context` of your current location, e.g. `Server_Database_UserTablesFolder`, in the displayed dialog.
     ![Context Dialog](images/Context.png)
-3. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SQLMedic` and complete the Name, Path and Context settings for the new menu item.
+3. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and complete the Name, Path and Context settings for the new menu item.
     ![Options Dialog](images/Options.png)
 
 
 ## Settings
 
 Up to 20 menu items can be configured via the Options dialog window in SSMS 
-`Tools > Options > SQL Server Object Explorer > SQLMedic`
+`Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu`
 
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing script or tsql statement
@@ -131,7 +131,6 @@ Features are planned for future releases:
 
 * Import/export settings as xml
 * Reorganise/sort menu item
-* Remove all SQLMedic branding
 * Optional horizontal lines between menu items
 * Sub-menus
 * Optional icons on menu items

@@ -10,10 +10,10 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace SQLMedic
+namespace SSMSObjectExplorerMenu
 {
 	[ProvideAutoLoad("d114938f-591c-46cf-a785-500a82d97410")] //CommandGuids.ObjectExplorerToolWindowIDString
-	[ProvideOptionPage(typeof(OptionsDialogPage), "SQL Server Object Explorer", "SQLMedic", 0, 0, true)]
+	[ProvideOptionPage(typeof(OptionsDialogPage), "SQL Server Object Explorer", "SSMS Object Explorer Menu", 0, 0, true)]
 	public sealed class SSMSObjectExplorerMenu : Package
 	{
 		private OptionsDialogPage options;
@@ -29,7 +29,7 @@ namespace SQLMedic
 			base.Initialize();
 
 			//load settings from options dialog
-			(this as IVsPackage).GetAutomationObject("SQL Server Object Explorer.SQLMedic", out object automationObject);
+			(this as IVsPackage).GetAutomationObject("SQL Server Object Explorer.SSMS Object Explorer Menu", out object automationObject);
 			if (automationObject == null)
 			{
 				Error("Automation Object not found");
@@ -87,11 +87,11 @@ namespace SQLMedic
 			//get meta data from tree node
 			NodeInfo nodeInfo = nodes[0].GetInfo();
 
-			//build SQLMedic context menu
-			ToolStripMenuItem sqlMedicMenu = new ToolStripMenuItem(options.BrandingText);
+			//build context menu
+			ToolStripMenuItem myScriptsMenu = new ToolStripMenuItem(options.BrandingText);
 			if (options.BrandingIcon)
 			{
-				sqlMedicMenu.Image = Properties.Resources.plus;
+				myScriptsMenu.Image = Properties.Resources.plus;
 			}
 
 			foreach (var o in options.ToArray())
@@ -111,23 +111,23 @@ namespace SQLMedic
 					};
 					s.Click += Menu_Click;
 
-					sqlMedicMenu.DropDownItems.Add(s);
+					myScriptsMenu.DropDownItems.Add(s);
 				}
 			}
 
-			if (options.BrandingCustomize || sqlMedicMenu.DropDownItems.Count == 0)
+			if (options.BrandingCustomize || myScriptsMenu.DropDownItems.Count == 0)
 			{
-				if (sqlMedicMenu.DropDownItems.Count > 0)
+				if (myScriptsMenu.DropDownItems.Count > 0)
 				{
-					sqlMedicMenu.DropDownItems.Add(new ToolStripSeparator());
+					myScriptsMenu.DropDownItems.Add(new ToolStripSeparator());
 				}
 				ToolStripMenuItem custom = new ToolStripMenuItem("Customize");
 				custom.Click += Customize_Click;
 				custom.Tag = nodeInfo;
-				sqlMedicMenu.DropDownItems.Add(custom);
+				myScriptsMenu.DropDownItems.Add(custom);
 			}
 
-			treeView.ContextMenuStrip.Items.Add(sqlMedicMenu);
+			treeView.ContextMenuStrip.Items.Add(myScriptsMenu);
 			treeView.ContextMenuStrip.Items.Add(new ToolStripSeparator());
 		}
 
@@ -135,7 +135,7 @@ namespace SQLMedic
 		{
 			NodeInfo nodeInfo = (NodeInfo)(sender as ToolStripMenuItem).Tag;
 
-			Info($"The context for the current location is: {nodeInfo.UrnPath}{Environment.NewLine}{Environment.NewLine}{nodeInfo}{Environment.NewLine}Configure new menu item via the Options Dialog > SQL Server Object Explorer > SQLMedic.{Environment.NewLine}{Environment.NewLine}Open the Options dialog?", () =>
+			Info($"The context for the current location is: {nodeInfo.UrnPath}{Environment.NewLine}{Environment.NewLine}{nodeInfo}{Environment.NewLine}Configure new menu item via the Options Dialog > SQL Server Object Explorer > SSMS Object Explorer Menu.{Environment.NewLine}{Environment.NewLine}Open the Options dialog?", () =>
 			{
 				DTE2 dte = (DTE2)this.GetService(typeof(DTE));
 				dte?.ExecuteCommand("Tools.Options");
@@ -244,7 +244,7 @@ namespace SQLMedic
 
 		private void Show(string message, MessageBoxIcon icon, MessageBoxButtons buttons = MessageBoxButtons.OK, Action action = null)
 		{
-			if (MessageBox.Show(message, "SQLMedic", buttons, icon) == DialogResult.OK)
+			if (MessageBox.Show(message, "SSMS Object Explorer Menu", buttons, icon) == DialogResult.OK)
 			{
 				action?.Invoke();
 			}

@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace SQLMedic
+namespace SSMSObjectExplorerMenu
 {
 	public static class Extensions
 	{

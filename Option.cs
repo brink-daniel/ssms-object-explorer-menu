@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-
-namespace SQLMedic
+﻿namespace SSMSObjectExplorerMenu
 {
 	public class Option
 	{

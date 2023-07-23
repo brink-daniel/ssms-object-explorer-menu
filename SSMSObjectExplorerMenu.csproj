@@ -28,7 +28,7 @@
     <ProjectGuid>{BF0BA7D7-D1EC-4E73-A5B4-0359D10F4740}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SQLMedic</RootNamespace>
+    <RootNamespace>SSMSObjectExplorerMenu</RootNamespace>
     <AssemblyName>SSMSObjectExplorerMenu</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>

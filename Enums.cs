@@ -1,4 +1,4 @@
-﻿namespace SQLMedic
+﻿namespace SSMSObjectExplorerMenu
 {
 	public enum Context
 	{
