@@ -131,7 +131,7 @@ Features are planned for future releases:
 
 * Import/export settings as xml
 * Reorganise/sort menu item
-* Optional horizontal lines between menu items
+* Optional horizontal line between menu items
 * Sub-menus
 * Optional icons on menu items
 * Installer
@@ -148,6 +148,10 @@ Please report any issues to <https://github.com/brink-daniel/ssms-object-explore
 
 
 ## Change Log
+
+### v1.5 (2023-07-25)
+* New option to ask confirmation to continue before executing script or tsql statement.
+* Removed SQLMedic branding
 
 ### v1.4 (2023-07-22)
 * Usability improvements
