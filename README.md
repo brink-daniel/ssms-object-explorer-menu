@@ -106,12 +106,12 @@ The following tags are replaced in tsql scripts and statements before execution:
 
 ### Sample scripts
 
-| Context | Script | Description |
-|---------|--------|-------------|
-| All | [text_substitution_demo.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/text_substitution_demo.sql) | Demo of text substitution |
-| Server_Database_Table | [script_data_as_insert.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/script_data_as_insert.sql) | Script data as insert statements |
-| Server_Database_StoredProcedure | [stored_procedure_unit_test.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test.sql) | Run tSQLt unit test for a stored procedure |
-| Server_Database_StoredProceduresFolder | [stored_procedure_unit_test_all.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test_all.sql) | Run all tSQLt unit tests |
+| Context | Script |
+|---------|--------|
+| All<br />&nbsp; | [text_substitution_demo.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/text_substitution_demo.sql)<br />Demo of text substitution |
+| Server_Database_Table<br />&nbsp; | [script_data_as_insert.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/script_data_as_insert.sql)<br />Script data as insert statements |
+| Server_Database_StoredProcedure<br />&nbsp; | [stored_procedure_unit_test.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test.sql)<br />Run tSQLt unit test for a stored procedure |
+| Server_Database_StoredProceduresFolder<br />&nbsp; | [stored_procedure_unit_test_all.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test_all.sql)<br />Run all tSQLt unit tests |
 
 More tsql scripts are available [here](Scripts.md).
 
