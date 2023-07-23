@@ -29,6 +29,7 @@ Compatibility with other extensions is still being tested.
 
 Please let us know what other extensions you use in SSMS. We'll try our best to ensure compatibility.
 
+
 ### Recompile for SSMS 18.x
 
 SSMS 18.x is not officially supported, but the SSMS Object Explorer Menu extension can be recompiled with the correct dll files for SSMS 18.x and made to work.
@@ -102,6 +103,7 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{STORED_PROCEDURE}`
 * `{JOB}`
 
+
 ### Sample scripts
 
 | Context | Script | Description |
@@ -113,13 +115,6 @@ The following tags are replaced in tsql scripts and statements before execution:
 
 More tsql scripts are available [here](Scripts.md).
 
-## Known Issues
-
-### Not running/No options
-This happens when Windows security blocks dll files downloaded from the internet. Unblock the zip file BEFORE extracting it.
-
-Please report any issues to <https://github.com/brink-daniel/ssms-object-explorer-menu/issues>.
-
 
 ## Compiling the source code
 
@@ -128,6 +123,7 @@ Requirements for compiling the source code:
 * Toolset: Visual Studio extension development
 
 The Visual Studio extension development toolset can be installed via the `Tools > Get Tools and Features` menu inside Visual Studio.
+
 
 ## Roadmap
 
@@ -141,6 +137,16 @@ Features are planned for future releases:
 * Optional icons on menu items
 * Installer
 * Unlimited number of menu items
+
+
+## Known Issues
+
+### Not running/No options
+
+This happens when Windows security blocks dll files downloaded from the internet. Unblock the zip file BEFORE extracting it.
+
+Please report any issues to <https://github.com/brink-daniel/ssms-object-explorer-menu/issues>.
+
 
 ## Change Log
 
