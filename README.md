@@ -128,6 +128,18 @@ Requirements for compiling the source code:
 
 The Visual Studio extension development toolset can be installed via the `Tools > Get Tools and Features` menu inside Visual Studio.
 
+## Roadmap
+
+Features are planned for future releases:
+
+* Import/export settings as xml
+* Reorganise/sort menu item
+* Remove all SQLMedic branding
+* Optional horizontal lines between menu items
+* Sub-menus
+* Option to confirm before script execution
+* Optional icons on menu items
+* Installer
 
 ## Change Log
 
