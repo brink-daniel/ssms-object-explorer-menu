@@ -149,7 +149,7 @@ Please report any issues to <https://github.com/brink-daniel/ssms-object-explore
 
 ## Change Log
 
-### v1.5 (2023-07-25)
+### v1.5 (2023-07-23)
 * New option to ask confirmation to continue before executing script or tsql statement.
 * Removed SQLMedic branding
 
