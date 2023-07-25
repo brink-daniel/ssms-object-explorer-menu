@@ -1,11 +1,34 @@
 ﻿using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
+using SSMSObjectExplorerMenu.objects;
 using System;
+using System.IO;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace SSMSObjectExplorerMenu
 {
 	public static class Extensions
 	{
+		public static T DeserializeObject<T>(this string toDeserialize)
+		{
+			XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+			using (StringReader textReader = new StringReader(toDeserialize))
+			{
+				return (T)xmlSerializer.Deserialize(textReader);
+			}
+		}
+
+		public static string SerializeObject<T>(this T toSerialize)
+		{
+			XmlSerializer xmlSerializer = new XmlSerializer(toSerialize.GetType());
+
+			using (StringWriter textWriter = new StringWriter())
+			{
+				xmlSerializer.Serialize(textWriter, toSerialize);
+				return textWriter.ToString();
+			}
+		}
+
 		public static string GetStringValue(this Enum value)
 		{
 			Type type = value.GetType();

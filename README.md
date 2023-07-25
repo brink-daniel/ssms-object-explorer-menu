@@ -58,23 +58,18 @@ Please note that SSMS 19 does allow installing extensions in a different locatio
 
 ### How to add menu items to the Object Explorer
 
-Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using these steps:
-1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Customize` from the `My Scripts` menu.
-    ![Customize Button](images/Customize.png)
-2. Take note of the `context` of your current location, e.g. `Server_Database_UserTablesFolder`, in the displayed dialog.
-    ![Context Dialog](images/Context.png)
-3. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and complete the Name, Path and Context settings for the new menu item.
+Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using either of the following two methods:
+1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Add menu item` from the `My Scripts` menu.
+    ![Add Menu Item](images/AddMenuItem.png)
+2. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and add new menu items to the collection. Menu items can also be rearranged or removed using the Options dialog. 
     ![Options Dialog](images/Options.png)
 
 
 ## Settings
 
-Up to 20 menu items can be configured via the Options dialog window in SSMS 
-`Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu`
-
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing script or tsql statement
-* Context - Set the tree node level where to display the menu item.
+* Context - Tree node level where to display the menu item.
      - All
 	 - Server
 	 - Server/DatabasesFolder
@@ -87,7 +82,7 @@ The following settings are available for each menu item:
 	 - Server/JobServer/JobsFolder
 	 - Server/JobServer/Job
 * Enabled - Show/hide the menu item.
-* Execute - Automatically run the selected script or tsql statements.
+* Execute - Automatically run the selected script or tsql statements when the menu item is selected.
 * Name - Text displayed on the menu item.
 * Path - Location of script file to execute OR tsql statements to execute.
 
@@ -130,12 +125,11 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 Features are planned for future releases:
 
 * Import/export settings as xml
-* Reorganise/sort menu item
 * Optional horizontal line between menu items
 * Sub-menus
 * Optional icons on menu items
 * Installer
-* Unlimited number of menu items
+* Allow custom menu items on any node in the Object Explorer
 
 
 ## Known Issues
@@ -148,6 +142,11 @@ Please report any issues to <https://github.com/brink-daniel/ssms-object-explore
 
 
 ## Change Log
+
+### v1.6 (2023-07-25)
+* Create unlimited number of menu items
+* Reorder or remove menu items via Tools > Options dialog
+* Quickly add menu items via new Add Menu Item dialog
 
 ### v1.5 (2023-07-23)
 * New option to ask confirmation to continue before executing script or tsql statement.

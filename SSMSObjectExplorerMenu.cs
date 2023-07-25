@@ -5,6 +5,7 @@ using Microsoft.SqlServer.Management.UI.VSIntegration.Editors;
 using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SSMSObjectExplorerMenu.objects;
 using System;
 using System.IO;
 using System.Reflection;
@@ -58,7 +59,7 @@ namespace SSMSObjectExplorerMenu
 			}
 			treeView.ContextMenuStripChanged += TreeView_ContextMenuStripChanged;
 		}
-
+		
 		private void TreeView_ContextMenuStripChanged(object sender, EventArgs e)
 		{
 			//sanity check objects
@@ -88,59 +89,72 @@ namespace SSMSObjectExplorerMenu
 			NodeInfo nodeInfo = nodes[0].GetInfo();
 
 			//build context menu
-			ToolStripMenuItem myScriptsMenu = new ToolStripMenuItem(options.BrandingText);
-			if (options.BrandingIcon)
+			ToolStripMenuItem myScriptsMenu = new ToolStripMenuItem(options.Text);
+			if (options.ShowIcon)
 			{
 				myScriptsMenu.Image = Properties.Resources.plus;
 			}
 
-			foreach (var o in options.ToArray())
+			if (options.MenuItems != null)
 			{
-				if (!o.Enabled || o.Name == string.Empty)
+				foreach (var menuItem in options.MenuItems)
 				{
-					continue;
-				}
-
-				if (o.Context == Context.All || o.Context.GetStringValue() == nodes[0].UrnPath)
-				{
-					o.NodeInfo = nodeInfo;
-
-					ToolStripMenuItem s = new ToolStripMenuItem(o.Name)
+					if (!menuItem.Enabled || menuItem.Name == string.Empty)
 					{
-						Tag = o
-					};
-					s.Click += Menu_Click;
+						continue;
+					}
 
-					myScriptsMenu.DropDownItems.Add(s);
+					if (menuItem.Context == Context.All || menuItem.Context.GetStringValue() == nodes[0].UrnPath)
+					{					
+
+						MenuItemInstance instance = new MenuItemInstance(menuItem, nodeInfo);
+
+						ToolStripMenuItem s = new ToolStripMenuItem(menuItem.Name)
+						{
+							Tag = instance
+						};
+						s.Click += Menu_Click;
+
+						myScriptsMenu.DropDownItems.Add(s);
+					}
 				}
 			}
 
-			if (options.BrandingCustomize || myScriptsMenu.DropDownItems.Count == 0)
+			if (myScriptsMenu.DropDownItems.Count > 0 && options.ShowAddButton)
 			{
-				if (myScriptsMenu.DropDownItems.Count > 0)
-				{
-					myScriptsMenu.DropDownItems.Add(new ToolStripSeparator());
-				}
-				ToolStripMenuItem custom = new ToolStripMenuItem("Customize");
-				custom.Click += Customize_Click;
-				custom.Tag = nodeInfo;
-				myScriptsMenu.DropDownItems.Add(custom);
+				myScriptsMenu.DropDownItems.Add(new ToolStripSeparator());
+			}
+
+
+			if (options.ShowAddButton)
+			{
+				ToolStripMenuItem add = new ToolStripMenuItem("Add menu item");
+				add.Click += Add_Click;
+				add.Tag = nodeInfo;
+				myScriptsMenu.DropDownItems.Add(add);
+			}
+
+			if (myScriptsMenu.DropDownItems.Count == 0)
+			{
+				return;
 			}
 
 			treeView.ContextMenuStrip.Items.Add(myScriptsMenu);
 			treeView.ContextMenuStrip.Items.Add(new ToolStripSeparator());
 		}
 
-		private void Customize_Click(object sender, EventArgs e)
+		private void Add_Click(object sender, EventArgs e)
 		{
 			NodeInfo nodeInfo = (NodeInfo)(sender as ToolStripMenuItem).Tag;
 
-			Info($"The context for the current location is: {nodeInfo.UrnPath}{Environment.NewLine}{Environment.NewLine}{nodeInfo}{Environment.NewLine}Configure new menu item via the Options Dialog > SQL Server Object Explorer > SSMS Object Explorer Menu.{Environment.NewLine}{Environment.NewLine}Open the Options dialog?", () =>
+			AddMenuItem add = new AddMenuItem(nodeInfo);
+			if (add.ShowDialog() == DialogResult.OK)
 			{
-				DTE2 dte = (DTE2)this.GetService(typeof(DTE));
-				dte?.ExecuteCommand("Tools.Options");
-			});
+				options.MenuItems.Add(add.GetMenuItem());
+				options.SaveSettingsToStorage();
+			}
 		}
+				
 
 		private void Menu_Click(object sender, EventArgs e)
 		{
@@ -161,35 +175,36 @@ namespace SSMSObjectExplorerMenu
 				return;
 			}
 
-			Option option = (Option)tool.Tag;
+			MenuItemInstance itemInstance = (MenuItemInstance)tool.Tag;
 
 			string script;
 
-			if (File.Exists(option.Path))
+			if (File.Exists(itemInstance.MenuItem.Path))
 			{
 				try
 				{
-					script = File.ReadAllText(option.Path);
-					script = $"-- File:\t\t{option.Path}{Environment.NewLine}" + script;
+					script = File.ReadAllText(itemInstance.MenuItem.Path);
+					script = $"-- File:\t\t{itemInstance.MenuItem.Path}{Environment.NewLine}" + script;
 				}
 				catch (Exception ex)
 				{
-					Error($"Error reading {option.Path}: {ex.Message}");
+					Error($"Error reading {itemInstance.MenuItem.Path}: {ex.Message}");
 					return;
 				}
 			}
 			else
 			{
-				script = option.Path;
+				script = itemInstance.MenuItem.Path;
 			}
 
+
 			script = script
-					.Replace("{SERVER}", option.NodeInfo.Server)
-					.Replace("{DATABASE}", option.NodeInfo.Database)
-					.Replace("{TABLE}", option.NodeInfo.Table)
-					.Replace("{STORED_PROCEDURE}", option.NodeInfo.StoredProcedure)
-					.Replace("{SCHEMA}", option.NodeInfo.Schema)
-					.Replace("{JOB}", option.NodeInfo.Job);
+					.Replace("{SERVER}", itemInstance.NodeInfo.Server)
+					.Replace("{DATABASE}", itemInstance.NodeInfo.Database)
+					.Replace("{TABLE}", itemInstance.NodeInfo.Table)
+					.Replace("{STORED_PROCEDURE}", itemInstance.NodeInfo.StoredProcedure)
+					.Replace("{SCHEMA}", itemInstance.NodeInfo.Schema)
+					.Replace("{JOB}", itemInstance.NodeInfo.Job);
 
 			DTE2 dte = (DTE2)this.GetService(typeof(DTE));
 			if (dte == null)
@@ -210,11 +225,11 @@ namespace SSMSObjectExplorerMenu
 				TextSelection ts = (TextSelection)dte.ActiveDocument.Selection;
 				ts.Insert(script, (int)vsInsertFlags.vsInsertFlagsInsertAtStart);
 
-				if (option.Execute)
+				if (itemInstance.MenuItem.Execute)
 				{
-					if (option.Confirm)
+					if (itemInstance.MenuItem.Confirm)
 					{
-						Warning($"Execute \"{option.Name}\"?{Environment.NewLine}{Environment.NewLine}{option.NodeInfo}", () =>
+						Warning($"Execute \"{itemInstance.MenuItem.Name}\"?{Environment.NewLine}{Environment.NewLine}{itemInstance.NodeInfo}", () =>
 						{
 							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
 						});
@@ -225,11 +240,6 @@ namespace SSMSObjectExplorerMenu
 					}
 				}
 			}
-		}
-
-		private void Info(string message, Action action)
-		{
-			Show(message, MessageBoxIcon.Information, MessageBoxButtons.OKCancel, action);
 		}
 
 		private void Warning(string message, Action action)

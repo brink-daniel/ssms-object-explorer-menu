@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace SSMSObjectExplorerMenu
+namespace SSMSObjectExplorerMenu.objects
 {
 	public class NodeInfo
 	{
-		public string Server { get; set; }
+		public string Server { get; set; } = string.Empty;
 
-		private string database;
+		private string database = string.Empty;
 		public string Database
 		{
 			get
@@ -22,22 +22,15 @@ namespace SSMSObjectExplorerMenu
 				database = value;
 			}
 		}
-		public string Schema { get; set; }
-		public string Table { get; set; }
-		public string StoredProcedure { get; set; }
-		public string Job { get; set; }
-		public string UrnPath { get; set; }
-		public string NavigationContext { get; set; }
+		public string Schema { get; set; } = string.Empty;
+		public string Table { get; set; } = string.Empty;
+		public string StoredProcedure { get; set; } = string.Empty;
+		public string Job { get; set; } = string.Empty;
+		public string UrnPath { get; set; } = string.Empty;
+		public string NavigationContext { get; set; } = string.Empty;
 
 		public NodeInfo() {
-			Server = string.Empty;
-			Database = string.Empty;
-			Schema = string.Empty;
-			Table = string.Empty;
-			StoredProcedure = string.Empty;
-			UrnPath = string.Empty;
-			NavigationContext = string.Empty;
-			Job = string.Empty;
+
 		}
 
 		public override string ToString()

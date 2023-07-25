@@ -58,13 +58,21 @@
     <WarningLevel>4</WarningLevel>
     <CreateVsixContainer>False</CreateVsixContainer>
     <DeployExtension>False</DeployExtension>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddMenuItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMenuItem.Designer.cs">
+      <DependentUpon>AddMenuItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Attributes.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="NodeInfo.cs" />
-    <Compile Include="Option.cs" />
+    <Compile Include="objects\NodeInfo.cs" />
+    <Compile Include="objects\MenuItem.cs" />
+    <Compile Include="objects\MenuItemInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OptionsDialogPage.cs">
       <SubType>Component</SubType>
@@ -153,11 +161,12 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\Context.PNG" />
-    <Content Include="images\Customize.PNG" />
     <Content Include="favicon.ico" />
+    <Content Include="images\AddMenuItem.png" />
+    <Content Include="images\get-it-on-github.png" />
     <Content Include="images\ObjectExplorer.png" />
     <Content Include="images\Options.png" />
     <Content Include="images\plus.jpg" />
@@ -171,6 +180,9 @@
     <Content Include="scripts\text_substitution_demo.sql" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddMenuItem.resx">
+      <DependentUpon>AddMenuItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
