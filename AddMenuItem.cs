@@ -11,26 +11,17 @@ namespace SSMSObjectExplorerMenu
 		{
 			InitializeComponent();
 
-			comboContext.SelectedItem = ToContext(nodeInfo.UrnPath).ToString();
+			comboContext.Text = nodeInfo.UrnPath;
 			this.ActiveControl = textName;
 			buttonOpen.Visible = false;
 		}
 
 		public MenuItem GetMenuItem()
 		{
-			return new MenuItem(true, ToContext(comboContext.SelectedItem.ToString()), textName.Text, textPath.Text, checkExecute.Checked, checkConfirm.Checked);
+			return new MenuItem(true, comboContext.Text, textName.Text, textPath.Text, checkExecute.Checked, checkConfirm.Checked);
 		}
 
-		private static Context ToContext(string value)
-		{
-			Context context;
-			if (Enum.TryParse(value, out context))
-			{
-				return context;
-			}
-			return Context.All;
-		}
-
+		
 		private void textName_TextChanged(object sender, EventArgs e)
 		{
 			ValidateInputs();
@@ -43,7 +34,8 @@ namespace SSMSObjectExplorerMenu
 
 		private void ValidateInputs()
 		{ 
-			if (textName.Text.Trim().Length > 0
+			if (comboContext.Text.Trim().Length > 0
+				&& textName.Text.Trim().Length > 0
 				&& textPath.Text.Trim().Length > 0)
 			{
 				buttonOK.Enabled = true;

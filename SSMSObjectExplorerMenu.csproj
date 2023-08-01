@@ -68,7 +68,6 @@
       <DependentUpon>AddMenuItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Attributes.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="objects\NodeInfo.cs" />
     <Compile Include="objects\MenuItem.cs" />

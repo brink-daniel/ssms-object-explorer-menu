@@ -104,9 +104,8 @@ namespace SSMSObjectExplorerMenu
 						continue;
 					}
 
-					if (menuItem.Context == Context.All || menuItem.Context.GetStringValue() == nodes[0].UrnPath)
-					{					
-
+					if (menuItem.Context == "All" || menuItem.Context == nodes[0].UrnPath)
+					{
 						MenuItemInstance instance = new MenuItemInstance(menuItem, nodeInfo);
 
 						ToolStripMenuItem s = new ToolStripMenuItem(menuItem.Name)

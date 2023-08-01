@@ -69,7 +69,7 @@ Once the SSMS Object Explorer Menu add-in is installed, new menu items can be ad
 
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing script or tsql statement
-* Context - Tree node level where to display the menu item.
+* Context - Tree node level where to display the menu item. For example:
      - All
 	 - Server
 	 - Server/DatabasesFolder

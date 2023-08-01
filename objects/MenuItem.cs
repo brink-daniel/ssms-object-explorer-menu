@@ -38,8 +38,8 @@ namespace SSMSObjectExplorerMenu.objects
 		[Category("Menu item")]
 		[DisplayName("Context")]
 		[Description("Tree node level where to display menu item.")]
-		[DefaultValue(Context.All)]
-		public Context Context { get; set; } = Context.All;
+		[DefaultValue("All")]
+		public string Context { get; set; } = "All";
 
 
 		public MenuItem()
@@ -47,7 +47,7 @@ namespace SSMSObjectExplorerMenu.objects
 			
 		}
 
-		public MenuItem(bool enabled, Context context, string name, string path, bool execute, bool confirm)
+		public MenuItem(bool enabled, string context, string name, string path, bool execute, bool confirm)
 		{
 			Enabled = enabled;
 			Context = context;

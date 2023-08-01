@@ -42,7 +42,7 @@ namespace SSMSObjectExplorerMenu
 		{
 			NodeInfo info = new NodeInfo
 			{
-				UrnPath = node.UrnPath.Replace("/", "_"),
+				UrnPath = node.UrnPath,
 				NavigationContext = node.NavigationContext
 			};
 

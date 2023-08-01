@@ -81,7 +81,6 @@
 			// 
 			this.comboContext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.comboContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboContext.FormattingEnabled = true;
 			this.comboContext.Items.AddRange(new object[] {
             "All",
