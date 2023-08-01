@@ -130,7 +130,6 @@ Features that are planned for future releases:
 * Sub-menus
 * Optional icons on menu items
 * Installer
-* Allow custom menu items on any node in the Object Explorer
 
 
 ## Known Issues
@@ -143,6 +142,11 @@ Please report any issues to <https://github.com/brink-daniel/ssms-object-explore
 
 
 ## Change Log
+
+### v1.7 (2023-08-01)
+* Usability improvements
+* Allow custom menu items on any node in the Object Explorer
+* Add support for `{FUNCTION}` tag
 
 ### v1.6 (2023-07-25)
 * Create unlimited number of menu items
