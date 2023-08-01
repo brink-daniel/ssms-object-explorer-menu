@@ -123,7 +123,7 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 ## Roadmap
 
-Features are planned for future releases:
+Features that are planned for future releases:
 
 * Import/export settings as xml
 * Optional horizontal line between menu items
