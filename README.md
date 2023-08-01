@@ -96,6 +96,7 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{SCHEMA}`
 * `{TABLE}`
 * `{STORED_PROCEDURE}`
+* `{FUNCTION}`
 * `{JOB}`
 
 

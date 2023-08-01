@@ -203,6 +203,7 @@ namespace SSMSObjectExplorerMenu
 					.Replace("{DATABASE}", itemInstance.NodeInfo.Database)
 					.Replace("{TABLE}", itemInstance.NodeInfo.Table)
 					.Replace("{STORED_PROCEDURE}", itemInstance.NodeInfo.StoredProcedure)
+					.Replace("{FUNCTION}", itemInstance.NodeInfo.Function)
 					.Replace("{SCHEMA}", itemInstance.NodeInfo.Schema)
 					.Replace("{JOB}", itemInstance.NodeInfo.Job);
 

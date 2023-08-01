@@ -12,8 +12,8 @@ namespace SSMSObjectExplorerMenu
 			InitializeComponent();
 
 			comboContext.SelectedItem = ToContext(nodeInfo.UrnPath).ToString();
-
 			this.ActiveControl = textName;
+			buttonOpen.Visible = false;
 		}
 
 		public MenuItem GetMenuItem()
@@ -50,6 +50,31 @@ namespace SSMSObjectExplorerMenu
 				return;
 			}
 			buttonOK.Enabled = false;
+		}
+
+		private void buttonOpen_Click(object sender, EventArgs e)
+		{
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{ 
+				textPath.Text = openFileDialog.FileName;
+			}
+		}
+
+		private void radioScript_CheckedChanged(object sender, EventArgs e)
+		{
+			updateDisplay();
+		}
+
+		private void radioPath_CheckedChanged(object sender, EventArgs e)
+		{
+			updateDisplay();
+		}
+
+
+		private void updateDisplay()
+		{
+			textPath.Text = string.Empty;
+			buttonOpen.Visible = radioPath.Checked;
 		}
 	}
 }

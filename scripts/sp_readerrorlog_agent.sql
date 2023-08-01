@@ -2,7 +2,7 @@
 -- Name:		sp_readerrorlog_agent.sql
 -- Description:	Read the SQL Agent error log
 -- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
---				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
 
 exec sp_readerrorlog
 	@p1 = 0 --0=current, 1=previous, 2, 3, ...

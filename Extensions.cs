@@ -86,6 +86,18 @@ namespace SSMSObjectExplorerMenu
 					continue;
 				}
 
+				if (s.StartsWith("UserDefinedFunction[@Name='"))
+				{
+					string[] t = s.Replace("UserDefinedFunction[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+					if (t.Length == 2)
+					{
+						info.Function = t[0];
+						info.Schema = t[1];
+					}
+					continue;
+				}
+
 				if (s.StartsWith("Job[@Name='"))
 				{
 					string[] t = s.Replace("Job[@Name='", "").Replace("' and @CategoryID='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);

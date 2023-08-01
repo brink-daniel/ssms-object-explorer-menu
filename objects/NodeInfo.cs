@@ -25,6 +25,8 @@ namespace SSMSObjectExplorerMenu.objects
 		public string Schema { get; set; } = string.Empty;
 		public string Table { get; set; } = string.Empty;
 		public string StoredProcedure { get; set; } = string.Empty;
+
+		public string Function { get; set; } = string.Empty;
 		public string Job { get; set; } = string.Empty;
 		public string UrnPath { get; set; } = string.Empty;
 		public string NavigationContext { get; set; } = string.Empty;
@@ -60,6 +62,11 @@ namespace SSMSObjectExplorerMenu.objects
 			if (StoredProcedure != string.Empty)
 			{
 				s += $"StoredProcedure: {StoredProcedure}{Environment.NewLine}";
+			}
+
+			if (Function != string.Empty)
+			{
+				s += $"Function: {Function}{Environment.NewLine}";
 			}
 
 			if (Job != string.Empty)

@@ -2,7 +2,7 @@
 -- Name:		sp_who4.sql
 -- Description:	Get all current activity
 -- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
---				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
 
 select	
 	r.session_id as spid

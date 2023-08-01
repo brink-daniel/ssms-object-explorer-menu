@@ -182,6 +182,7 @@
   <ItemGroup>
     <EmbeddedResource Include="AddMenuItem.resx">
       <DependentUpon>AddMenuItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

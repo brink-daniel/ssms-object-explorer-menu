@@ -2,7 +2,7 @@
 -- Name:		last_restored.sql
 -- Description:	Get last restore date for all databases
 -- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
---				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE} & {STORED_PROCEDURE} are replaced by the SSMSObjectExplorerMenu extension.
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
 
 select 
 	d.[name] as [database]

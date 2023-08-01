@@ -38,14 +38,17 @@
 			this.textPath = new System.Windows.Forms.TextBox();
 			this.labelName = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
+			this.radioPath = new System.Windows.Forms.RadioButton();
+			this.radioScript = new System.Windows.Forms.RadioButton();
+			this.buttonOpen = new System.Windows.Forms.Button();
+			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.SuspendLayout();
 			// 
 			// buttonCancel
 			// 
 			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(410, 239);
+			this.buttonCancel.Location = new System.Drawing.Point(455, 228);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 6;
@@ -57,7 +60,7 @@
 			this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.Enabled = false;
-			this.buttonOK.Location = new System.Drawing.Point(329, 239);
+			this.buttonOK.Location = new System.Drawing.Point(374, 228);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(75, 23);
 			this.buttonOK.TabIndex = 5;
@@ -70,7 +73,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textName.Location = new System.Drawing.Point(88, 12);
 			this.textName.Name = "textName";
-			this.textName.Size = new System.Drawing.Size(397, 20);
+			this.textName.Size = new System.Drawing.Size(442, 20);
 			this.textName.TabIndex = 0;
 			this.textName.TextChanged += new System.EventHandler(this.textName_TextChanged);
 			// 
@@ -94,7 +97,7 @@
             "Server_JobServer_Job"});
 			this.comboContext.Location = new System.Drawing.Point(88, 38);
 			this.comboContext.Name = "comboContext";
-			this.comboContext.Size = new System.Drawing.Size(397, 21);
+			this.comboContext.Size = new System.Drawing.Size(442, 21);
 			this.comboContext.TabIndex = 1;
 			// 
 			// checkExecute
@@ -124,11 +127,11 @@
 			this.textPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textPath.Location = new System.Drawing.Point(88, 111);
+			this.textPath.Location = new System.Drawing.Point(88, 134);
 			this.textPath.Multiline = true;
 			this.textPath.Name = "textPath";
 			this.textPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textPath.Size = new System.Drawing.Size(397, 122);
+			this.textPath.Size = new System.Drawing.Size(442, 88);
 			this.textPath.TabIndex = 4;
 			this.textPath.Text = resources.GetString("textPath.Text");
 			this.textPath.WordWrap = false;
@@ -152,21 +155,55 @@
 			this.label1.TabIndex = 8;
 			this.label1.Text = "Context";
 			// 
-			// label2
+			// radioPath
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 114);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(67, 13);
-			this.label2.TabIndex = 9;
-			this.label2.Text = "Path / Script";
+			this.radioPath.AutoSize = true;
+			this.radioPath.Location = new System.Drawing.Point(146, 111);
+			this.radioPath.Name = "radioPath";
+			this.radioPath.Size = new System.Drawing.Size(47, 17);
+			this.radioPath.TabIndex = 10;
+			this.radioPath.Text = "Path";
+			this.radioPath.UseVisualStyleBackColor = true;
+			this.radioPath.CheckedChanged += new System.EventHandler(this.radioPath_CheckedChanged);
+			// 
+			// radioScript
+			// 
+			this.radioScript.AutoSize = true;
+			this.radioScript.Checked = true;
+			this.radioScript.Location = new System.Drawing.Point(88, 111);
+			this.radioScript.Name = "radioScript";
+			this.radioScript.Size = new System.Drawing.Size(52, 17);
+			this.radioScript.TabIndex = 11;
+			this.radioScript.TabStop = true;
+			this.radioScript.Text = "Script";
+			this.radioScript.UseVisualStyleBackColor = true;
+			this.radioScript.CheckedChanged += new System.EventHandler(this.radioScript_CheckedChanged);
+			// 
+			// buttonOpen
+			// 
+			this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonOpen.Location = new System.Drawing.Point(505, 108);
+			this.buttonOpen.Name = "buttonOpen";
+			this.buttonOpen.Size = new System.Drawing.Size(25, 23);
+			this.buttonOpen.TabIndex = 12;
+			this.buttonOpen.Text = "...";
+			this.buttonOpen.UseVisualStyleBackColor = true;
+			this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
+			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.DefaultExt = "sql";
+			this.openFileDialog.FileName = "openFileDialog";
+			this.openFileDialog.Filter = "SQL Server files (*.sql)|*.sql";
 			// 
 			// AddMenuItem
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(497, 274);
-			this.Controls.Add(this.label2);
+			this.ClientSize = new System.Drawing.Size(542, 263);
+			this.Controls.Add(this.buttonOpen);
+			this.Controls.Add(this.radioScript);
+			this.Controls.Add(this.radioPath);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.labelName);
 			this.Controls.Add(this.textPath);
@@ -197,6 +234,9 @@
 		private System.Windows.Forms.TextBox textPath;
 		private System.Windows.Forms.Label labelName;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.RadioButton radioPath;
+		private System.Windows.Forms.RadioButton radioScript;
+		private System.Windows.Forms.Button buttonOpen;
+		private System.Windows.Forms.OpenFileDialog openFileDialog;
 	}
 }
