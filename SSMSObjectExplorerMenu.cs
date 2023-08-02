@@ -147,10 +147,18 @@ namespace SSMSObjectExplorerMenu
 			NodeInfo nodeInfo = (NodeInfo)(sender as ToolStripMenuItem).Tag;
 
 			AddMenuItem add = new AddMenuItem(nodeInfo);
-			if (add.ShowDialog() == DialogResult.OK)
+
+			DialogResult d = add.ShowDialog();
+
+			if (d == DialogResult.OK)
 			{
 				options.MenuItems.Add(add.GetMenuItem());
 				options.SaveSettingsToStorage();
+			}
+			else if (d == DialogResult.Abort) //this is misleading. Abort is returned when the Options button is pressed
+			{
+				DTE2 dte = (DTE2)this.GetService(typeof(DTE));
+				dte?.ExecuteCommand("Tools.Options");
 			}
 		}
 				

@@ -42,13 +42,14 @@
 			this.radioScript = new System.Windows.Forms.RadioButton();
 			this.buttonOpen = new System.Windows.Forms.Button();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.buttonOptions = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// buttonCancel
 			// 
 			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(455, 228);
+			this.buttonCancel.Location = new System.Drawing.Point(455, 276);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 6;
@@ -60,7 +61,7 @@
 			this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.Enabled = false;
-			this.buttonOK.Location = new System.Drawing.Point(374, 228);
+			this.buttonOK.Location = new System.Drawing.Point(374, 276);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(75, 23);
 			this.buttonOK.TabIndex = 5;
@@ -85,15 +86,15 @@
 			this.comboContext.Items.AddRange(new object[] {
             "All",
             "Server",
-            "Server_DatabasesFolder",
-            "Server_Database",
-            "Server_Database_Table",
-            "Server_Database_UserTablesFolder",
-            "Server_Database_StoredProcedure",
-            "Server_Database_StoredProceduresFolder",
-            "Server_JobServer",
-            "Server_JobServer_JobsFolder",
-            "Server_JobServer_Job"});
+            "Server/DatabasesFolder",
+            "Server/Database",
+            "Server/Database/Table",
+            "Server/Database/UserTablesFolder",
+            "Server/Database/StoredProcedure",
+            "Server/Database/StoredProceduresFolder",
+            "Server/JobServer",
+            "Server/JobServer/JobsFolder",
+            "Server/JobServer/Job"});
 			this.comboContext.Location = new System.Drawing.Point(88, 38);
 			this.comboContext.Name = "comboContext";
 			this.comboContext.Size = new System.Drawing.Size(442, 21);
@@ -132,7 +133,7 @@
 			this.textPath.Multiline = true;
 			this.textPath.Name = "textPath";
 			this.textPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textPath.Size = new System.Drawing.Size(442, 88);
+			this.textPath.Size = new System.Drawing.Size(442, 136);
 			this.textPath.TabIndex = 4;
 			this.textPath.Text = resources.GetString("textPath.Text");
 			this.textPath.WordWrap = false;
@@ -197,11 +198,23 @@
 			this.openFileDialog.FileName = "openFileDialog";
 			this.openFileDialog.Filter = "SQL Server files (*.sql)|*.sql";
 			// 
+			// buttonOptions
+			// 
+			this.buttonOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonOptions.DialogResult = System.Windows.Forms.DialogResult.Abort;
+			this.buttonOptions.Location = new System.Drawing.Point(15, 276);
+			this.buttonOptions.Name = "buttonOptions";
+			this.buttonOptions.Size = new System.Drawing.Size(75, 23);
+			this.buttonOptions.TabIndex = 13;
+			this.buttonOptions.Text = "Options";
+			this.buttonOptions.UseVisualStyleBackColor = true;
+			// 
 			// AddMenuItem
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(542, 263);
+			this.ClientSize = new System.Drawing.Size(542, 311);
+			this.Controls.Add(this.buttonOptions);
 			this.Controls.Add(this.buttonOpen);
 			this.Controls.Add(this.radioScript);
 			this.Controls.Add(this.radioPath);
@@ -239,5 +252,6 @@
 		private System.Windows.Forms.RadioButton radioScript;
 		private System.Windows.Forms.Button buttonOpen;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
+		private System.Windows.Forms.Button buttonOptions;
 	}
 }
