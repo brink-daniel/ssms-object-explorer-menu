@@ -157,8 +157,7 @@ namespace SSMSObjectExplorerMenu
 			}
 			else if (d == DialogResult.Abort) //this is misleading. Abort is returned when the Options button is pressed
 			{
-				DTE2 dte = (DTE2)this.GetService(typeof(DTE));
-				dte?.ExecuteCommand("Tools.Options");
+				this.ShowOptionPage(typeof(OptionsDialogPage));
 			}
 		}
 				
