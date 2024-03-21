@@ -16,7 +16,7 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ## Compatibility
 
-This extension has been tested and used with **SQL Server Management Studio 19.1, 19.2 and 19.3**.
+This extension has been tested and used with **SQL Server Management Studio 20.0**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -29,6 +29,9 @@ Compatibility with other extensions are still being tested.
 
 Please let us know what other extensions you use in SSMS. We'll try our best to ensure compatibility.
 
+### SQL Server Management Studio 19.x
+
+SSMS 19.x is no longer supported. The last version compatibile with SSMS 19.x is [version 1.7.2](https://github.com/brink-daniel/ssms-object-explorer-menu/releases/tag/v1.7.2).
 
 ### Recompile for SSMS 18.x
 
@@ -45,15 +48,15 @@ If you see an `Unblock` button or checkbox then click it.
 
 Extract the zip file and copy the SSMSObjectExplorerMenu folder into the SSMS extension folder. Remove or replace any previous version. 
 
-The default install location is `C:\Program Files (x86)\Microsoft SQL Server Management Studio 19\Common7\IDE\Extensions`.
+The default install location is `C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions`.
 
 When installed correctly, you should have the following folder & file structure:
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 19\Common7\IDE\Extensions\SSMSObjectExplorerMenu\LICENSE
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 19\Common7\IDE\Extensions\SSMSObjectExplorerMenu\README.md
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 19\Common7\IDE\Extensions\SSMSObjectExplorerMenu\SSMSObjectExplorerMenu.dll
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 19\Common7\IDE\Extensions\SSMSObjectExplorerMenu\SSMSObjectExplorerMenu.pkgdef
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\LICENSE
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\README.md
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\SSMSObjectExplorerMenu.dll
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\SSMSObjectExplorerMenu.pkgdef
 
-Please note that SSMS 19 does allow installing extensions in a different location. You may need to search around for the Extensions folder.
+Please note that SSMS 20 does allow installing extensions in a different location. You may need to search around for the Extensions folder.
 
 
 ### How to add menu items to the Object Explorer
@@ -142,6 +145,9 @@ Please report any issues to <https://github.com/brink-daniel/ssms-object-explore
 
 
 ## Change Log
+
+### v2.0 (2024-03-21)
+* SSMS 20.0 compatibility
 
 ### v1.7 (2023-08-01)
 * Usability improvements
