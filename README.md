@@ -2,7 +2,7 @@
 
 SSMS Object Explorer Menu is a free and open source extension for SQL Server Management Studio (SSMS) written in C#. It allows custom menu items to be added to the right-click context menu in the Object Explorer window. The menu items can be used to execute any tsql script file or inline tsql statement. When the menu item is selected, a new query window is opened displaying your tsql script. The menu item can be configured to automatically substitute tags in the script and also execute it. 
 
-The project homepage is <https://sqlmedic.com>.
+The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/brink-daniel/ssms-object-explorer-menu)](https://github.com/brink-daniel/ssms-object-explorer-menu/releases)
 [![GitHub license](https://img.shields.io/github/license/brink-daniel/ssms-object-explorer-menu)](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/LICENSE)
@@ -101,10 +101,10 @@ You can download the latest version of SSMS for free from [Microsoft](https://le
 
 Compatibility with other extensions are still being tested. 
 
-| Extension                                                  | Status     |
-| ---------------------------------------------------------- | ---------- |
-| [SQL Search](https://www.red-gate.com/products/sql-search) | Compatible |
-| [SQL Prompt](https://www.red-gate.com/products/sql-prompt) | Compatible |
+| Extension                                                    | Status     |
+| ------------------------------------------------------------ | ---------- |
+| [Redgate SQL Search](https://www.red-gate.com/products/sql-search) | Compatible |
+| [Redgate SQL Prompt](https://www.red-gate.com/products/sql-prompt) | Compatible |
 
 Please let us know what other extensions you use in SSMS. We'll try our best to ensure compatibility.
 
@@ -146,11 +146,11 @@ Features that are planned for future releases:
 
 ### Where can I get the source code for the SSMS Object Explorer Menu extension?
 
-Source code, documentation and issues can be found at <https://github.com/brink-daniel/ssms-object-explorer-menu>.
+Source code, documentation and issues can be found at [https://github.com/brink-daniel/ssms-object-explorer-menu](https://github.com/brink-daniel/ssms-object-explorer-menu).
 
 ### How can I contribute to the project?
 
-Please log any bugs found at https://github.com/brink-daniel/ssms-object-explorer-menu/issues. We also welcome pull requests. If you can fix a bug in the code or improve a feature, please do send us a pull request. We will happily review the change, test and merge it.
+Please log any bugs found at [https://github.com/brink-daniel/ssms-object-explorer-menu/issues](https://github.com/brink-daniel/ssms-object-explorer-menu/issues). We also welcome pull requests. If you can fix a bug in the code or improve a feature, please do send us a pull request. We will happily review the change, test and merge it.
 
 ### Why do you only support the latest version of SSMS?
 
@@ -158,7 +158,7 @@ Currently we only have one developer working on the SSMS Object Explorer Menu ex
 
 ### Why was the SSMS Object Explorer Menu extension created?
 
-We are all SQL Server Database Developers. We spend 8 hours a day in SSMS and lots of that time is spent using the https://tsqlt.org/ unit testing framework. tSQLt is amazing, but it lacks a free and open source UI. The SSMS Object Explorer Menu extension was created out the desire to be able to right-click on any stored procedure in the Object Explorer and select an option to run all unit tests related to the stored procedure. Subsequently,  the SSMS Object Explorer Menu extension evolved to allow any inline tsql statement or scripts files to be executed directly from the right-click menu in the Object Explorer.
+We are all SQL Server Database Developers. We spend 8 hours a day in SSMS and lots of that time is spent using the [https://tsqlt.org](https://tsqlt.org) unit testing framework. tSQLt is amazing, but it lacks a free and open source UI. The SSMS Object Explorer Menu extension was created out the desire to be able to right-click on any stored procedure in the Object Explorer and select an option to run all unit tests related to the stored procedure. Subsequently,  the SSMS Object Explorer Menu extension evolved to allow any inline tsql statement or scripts files to be executed directly from the right-click menu in the Object Explorer.
 
 If you are new  to tSQLt, have a look at their Quick Start guide [here](https://tsqlt.org/user-guide/quick-start/). We've also written a great article about how to solve the [Insert Exec Statement Cannot be Nested](https://www.sqlservercentral.com/articles/insert-exec-statement-cannot-be-nested-the-simple-solution) problem.
 
@@ -174,7 +174,7 @@ We love SSMS and especially [SSMS extensions](SSMSExtensionList.md). They make o
 
 This happens when Windows security blocks dll files downloaded from the internet. Unblock the zip file BEFORE extracting it.
 
-Please report any issues to <https://github.com/brink-daniel/ssms-object-explorer-menu/issues>.
+Please report any issues at [https://github.com/brink-daniel/ssms-object-explorer-menu/issues](https://github.com/brink-daniel/ssms-object-explorer-menu/issues).
 
 
 
