@@ -10,7 +10,8 @@ The project homepage is <https://sqlmedic.com>.
 ![Object Explorer](images/ObjectExplorer.png)
 
 
-## Installation
+
+## Install
 
 The installation process is currently manual. We have an item on our roadmap to create an installer for the SSMS Object Explorer Menu extension, but for now you will have to manually extract the files and copy them into SSMS extensions folder.
 
@@ -32,6 +33,7 @@ When installed correctly, you should have the following folder & file structure:
 Please note that SSMS 20 does allow installing extensions in a different location. You may need to search around for SSMS's extensions folder.
 
 
+
 ### How to add menu items to the Object Explorer
 
 Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using either of the following two methods:
@@ -40,6 +42,7 @@ Once the SSMS Object Explorer Menu add-in is installed, new menu items can be ad
     ![Add Menu Item](images/AddMenuItem.png)
 2. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and add new menu items to the collection. Menu items can also be rearranged or removed using the Options dialog. 
     ![Options Dialog](images/Options.png)
+
 
 
 ## Settings
@@ -88,6 +91,8 @@ The following tags are replaced in tsql scripts and statements before execution:
 
 More tsql scripts are available [here](Scripts.md).
 
+
+
 ## Compatibility
 
 This extension has been tested and used with **SQL Server Management Studio 20.0**.
@@ -112,6 +117,8 @@ SSMS 19.x is no longer supported. The last version compatibile with SSMS 19.x is
 SSMS 18.x is not officially supported, but the SSMS Object Explorer Menu extension can be recompiled with the correct dll files for SSMS 18.x and made to work.
 Download the [source code](https://github.com/brink-daniel/ssms-object-explorer-menu) and replace the lib/SqlPackageBase.dll and lib/SqlWorkbench.Interfaces.dll with your local SSMS 18.x version of the same files found in C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE. Then recompile the extension and follow the installation instructions below.
 
+
+
 ## Compiling the source code
 
 Requirements for compiling the source code:
@@ -119,6 +126,7 @@ Requirements for compiling the source code:
 * Toolset: Visual Studio extension development
 
 The Visual Studio extension development toolset can be installed via the `Tools > Get Tools and Features` menu inside Visual Studio.
+
 
 
 ## Roadmap
@@ -131,6 +139,8 @@ Features that are planned for future releases:
 * Sub-menus
 * Optional icons on menu items
 * Installer
+
+
 
 ## FAQ
 
@@ -154,7 +164,9 @@ If you are new  to tSQLt, have a look at their Quick Start guide [here](https://
 
 ### Why is the SSMS Object Explorer Menu extension free and open source?
 
-We love SSMS and especially SSMS extensions. They make our lives better. We would love to see more extensions for SSMS. Please fork our [code](https://github.com/brink-daniel/ssms-object-explorer-menu), create something and share it.
+We love SSMS and especially [SSMS extensions](SSMSExtensionList.md). They make our lives better. We would love to see more extensions for SSMS. Please fork our [code](https://github.com/brink-daniel/ssms-object-explorer-menu), create something and share it.
+
+
 
 ## Known Issues
 
@@ -164,11 +176,15 @@ This happens when Windows security blocks dll files downloaded from the internet
 
 Please report any issues to <https://github.com/brink-daniel/ssms-object-explorer-menu/issues>.
 
+
+
 ## Credits
 
 All development is done by [Daniel Brink](https://www.linkedin.com/in/brinkdaniel/).
 
 Information on how to access the Object Explorer and TreeView control was learnt by studying Nicholas Ross's [SSMS-Schema-Folders](https://github.com/nicholas-ross/SSMS-Schema-Folders) project.
+
+
 
 ## Change Log
 
