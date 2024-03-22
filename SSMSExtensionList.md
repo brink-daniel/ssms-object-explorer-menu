@@ -37,6 +37,10 @@ List of SQL Server Management Studio (SSMS) extensions and add-ins. Please let u
 | [dbForge Monitor](https://www.devart.com/dbforge/sql/monitor) | Free       | No          |
 | [dbForge Source Control](https://www.devart.com/dbforge/sql/source-control) | Commercial | No          |
 | [dbForge SQL Complete](https://www.devart.com/dbforge/sql/sqlcomplete) | Commercial | No          |
+| [dbForge Schema Compare](https://www.devart.com/dbforge/sql/schemacompare) | Commercial | No          |
+| [dbForge Data Compare](https://www.devart.com/dbforge/sql/datacompare) | Commercial | No          |
+| [dbForge Data Generator](https://www.devart.com/dbforge/sql/data-generator) | Commercial | No          |
+| [dbForge Documenter](https://www.devart.com/dbforge/sql/documenter) | Commercial | No          |
 |                                                              |            |             |
 
 
