@@ -133,7 +133,6 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 Features that are planned for future releases:
 
-* Import/export settings as xml
 * How-to guides
 * Optional horizontal line between menu items
 * Sub-menus
@@ -188,7 +187,12 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ## Change Log
 
+### v2.1 (2024-03-23)
+
+* Import/export settings as xml
+
 ### v2.0 (2024-03-21)
+
 * SSMS 20.0 compatibility
 
 ### v1.7 (2023-08-01)
