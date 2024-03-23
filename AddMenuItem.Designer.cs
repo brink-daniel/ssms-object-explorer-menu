@@ -218,7 +218,7 @@
             this.Name = "AddMenuItem";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "SSMS Object Explorer Menu | Add menu item";
+            this.Text = "SSMS Object Explorer Menu | New menu item";
             this.ResumeLayout(false);
             this.PerformLayout();
 

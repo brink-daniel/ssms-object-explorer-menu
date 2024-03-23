@@ -134,7 +134,7 @@ namespace SSMSObjectExplorerMenu
 
 			if (options.ShowAddButton)
 			{
-				ToolStripMenuItem add = new ToolStripMenuItem("Add menu item");
+				ToolStripMenuItem add = new ToolStripMenuItem("New menu item");
 				add.Click += Add_Click;
 				add.Tag = nodeInfo;
 				myScriptsMenu.DropDownItems.Add(add);
