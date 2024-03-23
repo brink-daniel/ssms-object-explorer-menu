@@ -13,7 +13,6 @@ namespace SSMSObjectExplorerMenu
 		[Description("Collection of menu items")]
 		public List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
 
-
 		[DefaultValue(true)]
 		[Category("General options")]
 		[DisplayName("Icon")]
@@ -32,15 +31,30 @@ namespace SSMSObjectExplorerMenu
 		[Description("Display the Add button")]
 		public bool ShowAddButton { get; set; } = true;
 
+        [DefaultValue(true)]
+        [Category("General options")]
+        [DisplayName("Options")]
+        [Description("Display the Options button")]
+        public bool ShowOptionsButton { get; set; } = true;
 
+        [DefaultValue(true)]
+        [Category("General options")]
+        [DisplayName("Export")]
+        [Description("Display the Export button")]
+        public bool ShowExportButton { get; set; } = true;
 
-		[DefaultValue("")]
+        [DefaultValue(true)]
+        [Category("General options")]
+        [DisplayName("Import")]
+        [Description("Display the Import button")]
+        public bool ShowImportButton { get; set; } = true;
+
+        [DefaultValue("")]
 		[Category("General options")]
 		[DisplayName("MenuItemsXml")]
 		[Description("Menu items serialized to xml")]
 		[Browsable(false)]
 		public string MenuItemsXml { get; set; } = string.Empty;
-
 
 		public override void LoadSettingsFromStorage()
 		{

@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SSMSObjectExplorerMenu.objects;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -59,7 +60,7 @@ namespace SSMSObjectExplorerMenu
 			}
 			treeView.ContextMenuStripChanged += TreeView_ContextMenuStripChanged;
 		}
-		
+
 		private void TreeView_ContextMenuStripChanged(object sender, EventArgs e)
 		{
 			//sanity check objects
@@ -119,7 +120,13 @@ namespace SSMSObjectExplorerMenu
 				}
 			}
 
-			if (myScriptsMenu.DropDownItems.Count > 0 && options.ShowAddButton)
+			if (myScriptsMenu.DropDownItems.Count > 0
+				&& (
+					options.ShowAddButton
+					|| options.ShowOptionsButton
+					|| options.ShowImportButton
+					|| options.ShowExportButton
+				))
 			{
 				myScriptsMenu.DropDownItems.Add(new ToolStripSeparator());
 			}
@@ -132,6 +139,31 @@ namespace SSMSObjectExplorerMenu
 				add.Tag = nodeInfo;
 				myScriptsMenu.DropDownItems.Add(add);
 			}
+
+			if (options.ShowImportButton)
+			{
+				ToolStripMenuItem imp = new ToolStripMenuItem("Import");
+				imp.Click += Import_Click;
+				imp.Tag = nodeInfo;
+				myScriptsMenu.DropDownItems.Add(imp);
+			}
+
+			if (options.ShowExportButton)
+			{
+				ToolStripMenuItem exp = new ToolStripMenuItem("Export");
+				exp.Click += Export_Click;
+				exp.Tag = nodeInfo;
+				myScriptsMenu.DropDownItems.Add(exp);
+			}			
+
+			if (options.ShowOptionsButton)
+			{
+				ToolStripMenuItem opt = new ToolStripMenuItem("Options");
+				opt.Click += Options_Click;
+				opt.Tag = nodeInfo;
+				myScriptsMenu.DropDownItems.Add(opt);
+			}
+
 
 			if (myScriptsMenu.DropDownItems.Count == 0)
 			{
@@ -155,12 +187,77 @@ namespace SSMSObjectExplorerMenu
 				options.MenuItems.Add(add.GetMenuItem());
 				options.SaveSettingsToStorage();
 			}
-			else if (d == DialogResult.Abort) //this is misleading. Abort is returned when the Options button is pressed
+		}
+
+		private void Options_Click(object sender, EventArgs e)
+		{
+			ShowOptionPage(typeof(OptionsDialogPage));
+		}
+
+		private void Export_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog save = new SaveFileDialog
 			{
-				this.ShowOptionPage(typeof(OptionsDialogPage));
+				AddExtension = true,
+				Filter = "Xml (*.xml)|*.xml",
+				DefaultExt = "xml",
+				Title = "Export menu items as XML",
+				ValidateNames = true
+			};
+
+			if (save.ShowDialog() == DialogResult.OK)
+			{
+				try
+				{
+					File.WriteAllText(save.FileName, options.MenuItemsXml);
+				}
+				catch (Exception ex)
+				{
+					Error($"Error saving to {save.FileName}: {ex.Message}");
+				}
 			}
 		}
-				
+
+		private void Import_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog open = new OpenFileDialog
+			{
+				AddExtension = true,
+				CheckFileExists = true,
+				DefaultExt = "xml",
+				Filter = "Xml (*.xml)|*.xml",
+				Multiselect = false,
+				Title = "Import menu items from XML"
+			};
+
+			if (open.ShowDialog() == DialogResult.OK)
+			{
+				int count = 0;
+
+				try
+				{
+					List<objects.MenuItem> menuItems = File.ReadAllText(open.FileName).DeserializeObject<List<objects.MenuItem>>();
+
+					foreach (objects.MenuItem item in menuItems)
+					{
+						if (options.MenuItems.FindIndex(x => (x.Name == item.Name && x.Context == item.Context)) == -1)
+						{
+							options.MenuItems.Add(item);
+							count += 1;
+						}
+					}
+
+					options.SaveSettingsToStorage();
+
+					Show($"{count} menu item{ ((count == 1) ? "":"s") } imported", MessageBoxIcon.Information);
+				}
+				catch (Exception ex)
+				{
+					Error($"Error importing menu items from {open.FileName}: {ex.Message}");
+				}
+			}
+		}
+
 
 		private void Menu_Click(object sender, EventArgs e)
 		{
