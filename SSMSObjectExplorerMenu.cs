@@ -122,7 +122,7 @@ namespace SSMSObjectExplorerMenu
 
 			if (myScriptsMenu.DropDownItems.Count > 0
 				&& (
-					options.ShowAddButton
+					options.ShowNewButton
 					|| options.ShowOptionsButton
 					|| options.ShowImportButton
 					|| options.ShowExportButton
@@ -132,7 +132,7 @@ namespace SSMSObjectExplorerMenu
 			}
 
 
-			if (options.ShowAddButton)
+			if (options.ShowNewButton)
 			{
 				ToolStripMenuItem add = new ToolStripMenuItem("New menu item");
 				add.Click += Add_Click;

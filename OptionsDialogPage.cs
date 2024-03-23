@@ -27,9 +27,9 @@ namespace SSMSObjectExplorerMenu
 
 		[DefaultValue(true)]
 		[Category("General options")]
-		[DisplayName("Add")]
-		[Description("Display the Add button")]
-		public bool ShowAddButton { get; set; } = true;
+		[DisplayName("New")]
+		[Description("Display the New menu item button")]
+		public bool ShowNewButton { get; set; } = true;
 
         [DefaultValue(true)]
         [Category("General options")]
