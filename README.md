@@ -64,7 +64,7 @@ The following settings are available for each menu item:
 * Enabled - Show/hide the menu item.
 * Execute - Automatically run the selected script or tsql statements when the menu item is selected.
 * Name - Text displayed on the menu item.
-* Path - Location of script file to execute OR tsql statements to execute.
+* Script - Inline tsql statements OR path to script file.
 
 
 ### Text substitution

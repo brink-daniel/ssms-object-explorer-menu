@@ -18,10 +18,10 @@ namespace SSMSObjectExplorerMenu.objects
 		public string Name { get; set; } = string.Empty;
 
 		[Category("Menu item")]
-		[DisplayName("Path")]
-		[Description("Location of script file to execute OR tsql statements to execute.")]
+		[DisplayName("Script")]
+		[Description("Inline tsql statements OR path to script file.")]
 		[DefaultValue("")]
-		public string Path { get; set; } = string.Empty;
+		public string Script { get; set; } = string.Empty;
 
 		[Category("Menu item")]
 		[DisplayName("Execute")]
@@ -47,12 +47,12 @@ namespace SSMSObjectExplorerMenu.objects
 			
 		}
 
-		public MenuItem(bool enabled, string context, string name, string path, bool execute, bool confirm)
+		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm)
 		{
 			Enabled = enabled;
 			Context = context;
 			Name = name;
-			Path = path;
+			Script = script;
 			Execute = execute;
 			Confirm = confirm;
 		}

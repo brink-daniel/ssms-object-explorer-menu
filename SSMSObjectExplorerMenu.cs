@@ -134,7 +134,7 @@ namespace SSMSObjectExplorerMenu
 
 			if (options.ShowNewButton)
 			{
-				ToolStripMenuItem add = new ToolStripMenuItem("New menu item");
+				ToolStripMenuItem add = new ToolStripMenuItem("New");
 				add.Click += Add_Click;
 				add.Tag = nodeInfo;
 				myScriptsMenu.DropDownItems.Add(add);
@@ -282,22 +282,22 @@ namespace SSMSObjectExplorerMenu
 
 			string script;
 
-			if (File.Exists(itemInstance.MenuItem.Path))
+			if (File.Exists(itemInstance.MenuItem.Script))
 			{
 				try
 				{
-					script = File.ReadAllText(itemInstance.MenuItem.Path);
-					script = $"-- File:\t\t{itemInstance.MenuItem.Path}{Environment.NewLine}" + script;
+					script = File.ReadAllText(itemInstance.MenuItem.Script);
+					script = $"-- File:\t\t{itemInstance.MenuItem.Script}{Environment.NewLine}" + script;
 				}
 				catch (Exception ex)
 				{
-					Error($"Error reading {itemInstance.MenuItem.Path}: {ex.Message}");
+					Error($"Error reading {itemInstance.MenuItem.Script}: {ex.Message}");
 					return;
 				}
 			}
 			else
 			{
-				script = itemInstance.MenuItem.Path;
+				script = itemInstance.MenuItem.Script;
 			}
 
 

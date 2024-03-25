@@ -23,7 +23,7 @@ begin
 end
 go
 
---create unit text if not exists
+--create unit test if not exists
 if object_id('test.[test {SCHEMA}.{STORED_PROCEDURE}]') is null
 begin
 	exec ('
