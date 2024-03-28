@@ -165,6 +165,10 @@ If you are new  to tSQLt, have a look at their Quick Start guide [here](https://
 
 We love SSMS and especially [SSMS extensions](SSMSExtensionList.md). They make our lives better. We would love to see more extensions for SSMS. Please fork our [code](https://github.com/brink-daniel/ssms-object-explorer-menu), create something and share it.
 
+### Why use the SSMS Object Explorer Menu extension when other extensions also allow users to create custom menu items?
+
+SSMS extensions should only do one thing and do it well. The problem with a lot of extensions are that they have too many features and subsequently become intrusive or slow down SSMS. The SSMS Object Explorer Menu extension only adds context sensitive menu items to the Object Explorer in SSMS and have no impact on SSMS application loading times or UI performance. The menu items allow for the substitution of tags in their configured tsql script, with context specific values such as database, table or stored procedure name.  
+
 
 
 ## Known Issues
