@@ -79,17 +79,26 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{FUNCTION}`
 * `{JOB}`
 
+Example 1
 
-### Sample scripts
+```sql
+select
+    '{SERVER}' as [server]
+    , '{DATABASE}' as [database]
+    , '{SCHEMA}' as _https://learn.microsoft.c[schema]
+    , '{TABLE}' as [table]
+    , '{STORED_PROCEDURE}' as [stored_procedure]
+    , '{FUNCTION}' as [function]
+    , '{JOB}' as [job]
+```
 
-| Script | Context |
-|--------|--------|
-| [text_substitution_demo.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/text_substitution_demo.sql)<br />Demo of text substitution | All |
-| [script_data_as_insert.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/script_data_as_insert.sql)<br />Script data as insert statements | Server_Database_Table |
-| [stored_procedure_unit_test.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test.sql)<br />Run tSQLt unit test for a stored procedure | Server_Database_StoredProcedure |
-| [stored_procedure_unit_test_all.sql](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/scripts/stored_procedure_unit_test_all.sql)<br />Run all tSQLt unit tests | Server_Database_StoredProceduresFolder |
+Example 2
 
-More tsql scripts are available [here](Scripts.md).
+```sql
+select top 10
+	*
+from {DATABASE}.{SCHEMA}.{TABLE}
+```
 
 
 
@@ -193,7 +202,7 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ### v2.1 (2024-03-23)
 
-* Import/export settings as xml
+* Import/export menu items and tsql scripts as xml
 
 ### v2.0 (2024-03-21)
 
