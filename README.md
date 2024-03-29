@@ -25,10 +25,10 @@ Extract the zip file and copy the SSMSObjectExplorerMenu folder into the SSMS ex
 The default install location is `C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu`.
 
 When installed correctly, you should have the following folder & file structure:
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\LICENSE
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\README.md
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\SSMSObjectExplorerMenu.dll
-* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu\SSMSObjectExplorerMenu.pkgdef
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**LICENSE**
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**README.md**
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**SSMSObjectExplorerMenu.dll**
+* C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**SSMSObjectExplorerMenu.pkgdef**
 
 Please note that SSMS 20 does allow installing extensions in a different location. You may need to search around for SSMS's extensions folder.
 
@@ -124,7 +124,7 @@ SSMS 19.x is no longer supported. The last version compatibile with SSMS 19.x is
 ### Recompile for SSMS 18.x
 
 SSMS 18.x is not officially supported, but the SSMS Object Explorer Menu extension can be recompiled with the correct dll files for SSMS 18.x and made to work.
-Download the [source code](https://github.com/brink-daniel/ssms-object-explorer-menu) and replace the lib/SqlPackageBase.dll and lib/SqlWorkbench.Interfaces.dll with your local SSMS 18.x version of the same files found in C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE. Then recompile the extension and follow the installation instructions below.
+Download the [source code](https://github.com/brink-daniel/ssms-object-explorer-menu) and replace the `lib/SqlPackageBase.dll` and `lib/SqlWorkbench.Interfaces.dll` with your local SSMS 18.x version of the same files found in `C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE`. Then recompile the extension and follow the installation instructions below, copying the files from your release folder to `C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu`.
 
 
 
