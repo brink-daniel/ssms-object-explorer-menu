@@ -79,20 +79,20 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{FUNCTION}`
 * `{JOB}`
 
-Example 1
+#### Example 1
 
 ```sql
 select
     '{SERVER}' as [server]
     , '{DATABASE}' as [database]
-    , '{SCHEMA}' as _https://learn.microsoft.c[schema]
+    , '{SCHEMA}' as [schema]
     , '{TABLE}' as [table]
     , '{STORED_PROCEDURE}' as [stored_procedure]
     , '{FUNCTION}' as [function]
     , '{JOB}' as [job]
 ```
 
-Example 2
+#### Example 2
 
 ```sql
 select top 10
@@ -176,7 +176,11 @@ We love SSMS and especially [SSMS extensions](SSMSExtensionList.md). They make o
 
 ### Why use the SSMS Object Explorer Menu extension when other extensions also allow users to create custom menu items?
 
-SSMS extensions should only do one thing and do it well. The problem with a lot of extensions are that they have too many features and subsequently become intrusive or slow down SSMS. The SSMS Object Explorer Menu extension only adds context sensitive menu items to the Object Explorer in SSMS and have no impact on SSMS application loading times or UI performance. The menu items allow for the substitution of tags in their configured tsql script, with context specific values such as database, table or stored procedure name.  
+SSMS extensions should only do one thing and do it well. The problem with a lot of extensions are that they have too many features and subsequently become intrusive or slow down SSMS. The SSMS Object Explorer Menu extension only adds context sensitive menu items to the Object Explorer in SSMS and have no impact on SSMS application loading times or UI performance. The menu items allow for the substitution of tags in their configured tsql script, with context specific values such as database, table or stored procedure name. 
+
+### How do I uninstall the SSMS Object Explorer Menu extension?
+
+Simply delete the `SSMSObjectExplorerMenu` folder from `C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions` and restart SQL Server Management Studio.
 
 
 
