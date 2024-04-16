@@ -104,7 +104,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ## Compatibility
 
-This extension has been tested and used with **SQL Server Management Studio 20.0**.
+This extension has been tested and used with **SQL Server Management Studio 20.1**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
