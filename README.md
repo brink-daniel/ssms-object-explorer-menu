@@ -20,6 +20,8 @@ The installation process is currently manual. We have an item on our roadmap to 
 You must unblock the zip file **before** extracting it. Right click on the zip file in Windows Explorer and select Properties. 
 If you see an `Unblock` button or checkbox then click it. 
 
+![Unblock zip file via properties dialog](images/unblock.png)
+
 Extract the zip file and copy the SSMSObjectExplorerMenu folder into the SSMS extension folder. Remove or replace any previous version. 
 
 The default install location is `C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSObjectExplorerMenu`.
@@ -190,7 +192,15 @@ Simply delete the `SSMSObjectExplorerMenu` folder from `C:\Program Files (x86)\M
 
 ### Not running/No options
 
-This happens when Windows security blocks dll files downloaded from the internet. Unblock the zip file BEFORE extracting it.
+This happens when Windows security blocks dll files downloaded from the internet. 
+
+![Error message when files are blocked](images/error.png)
+
+You must unblock the zip file **before** extracting it. Right click on the zip file in Windows Explorer and select Properties. 
+If you see an `Unblock` button or checkbox then click it.
+
+![How to unblock files via properties dialog](images/unblock.png)
+
 
 Please report any issues at [https://github.com/brink-daniel/ssms-object-explorer-menu/issues](https://github.com/brink-daniel/ssms-object-explorer-menu/issues).
 
