@@ -65,7 +65,21 @@ namespace SSMSObjectExplorerMenu
 					continue;
 				}
 
-				if (s.StartsWith("StoredProcedure[@Name='"))
+                if (s.StartsWith("View[@Name='"))
+                {
+                    string[] t = s.Replace("View[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+                    if (t.Length == 2)
+                    {
+                        info.Table = t[0];
+                        info.Schema = t[1];
+                    }
+                    continue;
+                }
+
+
+
+                if (s.StartsWith("StoredProcedure[@Name='"))
 				{
 					string[] t = s.Replace("StoredProcedure[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 

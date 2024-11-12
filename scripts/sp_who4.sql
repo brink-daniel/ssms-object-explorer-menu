@@ -2,12 +2,13 @@
 -- Name:		sp_who4.sql
 -- Description:	Get all current activity
 -- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
---				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {VIEW}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
 
 select	
 	r.session_id as spid
 	, r.blocking_session_id as blocked_by
 	, r.status
+	, r.command
 	, isnull(cast(object_name(t.objectid, t.dbid) as varchar(1000)), i.event_info) as object_name
 	, b.event_info as blocked_by_query	
 	, db_name(r.database_id) as [db]	

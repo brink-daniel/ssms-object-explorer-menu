@@ -75,6 +75,7 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{DATABASE}`
 * `{SCHEMA}`
 * `{TABLE}`
+* `{VIEW}`
 * `{STORED_PROCEDURE}`
 * `{FUNCTION}`
 * `{JOB}`
@@ -87,6 +88,7 @@ select
     , '{DATABASE}' as [database]
     , '{SCHEMA}' as [schema]
     , '{TABLE}' as [table]
+    , '{VIEW}' as [view]	
     , '{STORED_PROCEDURE}' as [stored_procedure]
     , '{FUNCTION}' as [function]
     , '{JOB}' as [job]
@@ -104,7 +106,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ## Compatibility
 
-This extension has been tested and used with **SQL Server Management Studio 20.1**.
+This extension has been tested and used with **SQL Server Management Studio 20.2**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -203,6 +205,10 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v2.2 (2024-11-12)
+
+* Add support for `{VIEW}` tag
 
 ### v2.1 (2024-03-23)
 

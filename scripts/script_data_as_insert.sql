@@ -2,7 +2,7 @@
 -- Name:		script_data_as_insert.sql
 -- Description:	Script data from table as an insert statement
 -- Project:		https://github.com/brink-daniel/ssms-object-explorer-menu
---				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
+--				Tags; {SERVER}, {DATABASE}, {SCHEMA}, {TABLE}, {VIEW}, {STORED_PROCEDURE}, {FUNCTION} & {JOB} are replaced by the SSMSObjectExplorerMenu extension.
 
 declare 
 	@Database varchar(250) = '{DATABASE}'
