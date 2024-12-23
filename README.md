@@ -58,6 +58,7 @@ The following settings are available for each menu item:
 	 - Server/Database
 	 - Server/Database/UserTablesFolder
 	 - Server/Database/Table
+	 - Server/Database/View
 	 - Server/Database/StoredProceduresFolder
 	 - Server/Database/StoredProcedure
 	 - Server/JobServer
@@ -81,6 +82,9 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{STORED_PROCEDURE}`
 * `{FUNCTION}`
 * `{JOB}`
+* `{YYYY-MM-DD}`
+* `{HH:mm:ss}`
+* `{YYYY-MM-DD HH:mm:ss}`
 
 #### Example 1
 
@@ -94,6 +98,9 @@ select
     , '{STORED_PROCEDURE}' as [stored_procedure]
     , '{FUNCTION}' as [function]
     , '{JOB}' as [job]
+    , '{YYYY-MM-DD}' as [date]
+    , '{HH:mm:ss}' as [time]
+    , '{YYYY-MM-DD HH:mm:ss}' as [datetime]
 ```
 
 #### Example 2
@@ -215,6 +222,11 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v2.3 (2024-12-23)
+
+* Add support for `{YYYY-MM-DD}`, `{HH:mm:ss}` and `{YYYY-MM-DD HH:mm:ss}` tags
+* Fix bug causing the `{TABLE}` tag to be populated with the view name when using the `{VIEW}` tag
 
 ### v2.2 (2024-11-12)
 

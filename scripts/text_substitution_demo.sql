@@ -11,11 +11,14 @@ set nocount on;
 go
 
 select
-    '{SERVER}' as [server]
-    , '{DATABASE}' as [database]
-    , '{SCHEMA}' as [schema]
-    , '{TABLE}' as [table]
-    , '{VIEW}' as [view]
-    , '{STORED_PROCEDURE}' as [stored_procedure]
-    , '{FUNCTION}' as [function]
-    , '{JOB}' as [job]
+	'{SERVER}' as [server]
+	, '{DATABASE}' as [database]
+	, '{SCHEMA}' as [schema]
+	, '{TABLE}' as [table]
+	, '{VIEW}' as [view]
+	, '{STORED_PROCEDURE}' as [stored_procedure]
+	, '{FUNCTION}' as [function]
+	, '{JOB}' as [job]
+	, '{YYYY-MM-DD}' as [date]
+	, '{HH:mm:ss}' as [time]
+	, '{YYYY-MM-DD HH:mm:ss}' as [datetime]

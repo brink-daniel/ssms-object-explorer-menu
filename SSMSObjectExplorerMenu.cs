@@ -305,11 +305,17 @@ namespace SSMSObjectExplorerMenu
 					.Replace("{SERVER}", itemInstance.NodeInfo.Server)
 					.Replace("{DATABASE}", itemInstance.NodeInfo.Database)
 					.Replace("{TABLE}", itemInstance.NodeInfo.Table)
-                    .Replace("{VIEW}", itemInstance.NodeInfo.View)
-                    .Replace("{STORED_PROCEDURE}", itemInstance.NodeInfo.StoredProcedure)
+					.Replace("{VIEW}", itemInstance.NodeInfo.View)
+					.Replace("{STORED_PROCEDURE}", itemInstance.NodeInfo.StoredProcedure)
 					.Replace("{FUNCTION}", itemInstance.NodeInfo.Function)
 					.Replace("{SCHEMA}", itemInstance.NodeInfo.Schema)
-					.Replace("{JOB}", itemInstance.NodeInfo.Job);
+					.Replace("{JOB}", itemInstance.NodeInfo.Job)
+					.Replace("{YYYY-MM-DD}", DateTime.Now.ToString("yyyy-MM-dd"))
+					.Replace("{HH:mm:ss}", DateTime.Now.ToString("HH:mm:ss"))
+					.Replace("{YYYY-MM-DD HH:mm:ss}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+
+
 
 			DTE2 dte = (DTE2)this.GetService(typeof(DTE));
 			if (dte == null)

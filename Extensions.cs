@@ -71,7 +71,7 @@ namespace SSMSObjectExplorerMenu
 
                     if (t.Length == 2)
                     {
-                        info.Table = t[0];
+                        info.View = t[0];
                         info.Schema = t[1];
                     }
                     continue;

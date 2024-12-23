@@ -89,6 +89,7 @@
             "Server/Database",
             "Server/Database/Table",
             "Server/Database/UserTablesFolder",
+            "Server/Database/View",
             "Server/Database/StoredProcedure",
             "Server/Database/StoredProceduresFolder",
             "Server/JobServer",
