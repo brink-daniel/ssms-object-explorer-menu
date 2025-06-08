@@ -10,13 +10,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu
 {
-	[ProvideAutoLoad("d114938f-591c-46cf-a785-500a82d97410")] //CommandGuids.ObjectExplorerToolWindowIDString
+	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+	[ProvideAutoLoad("d114938f-591c-46cf-a785-500a82d97410", PackageAutoLoadFlags.BackgroundLoad)] //CommandGuids.ObjectExplorerToolWindowIDString
 	[ProvideOptionPage(typeof(OptionsDialogPage), "SQL Server Object Explorer", "SSMS Object Explorer Menu", 0, 0, true)]
-	public sealed class SSMSObjectExplorerMenu : Package
+	public sealed class SSMSObjectExplorerMenu : AsyncPackage
 	{
 		private OptionsDialogPage options;
 		private TreeView treeView;
@@ -26,9 +28,9 @@ namespace SSMSObjectExplorerMenu
 		{
 		}
 
-		protected override void Initialize()
+		protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
-			base.Initialize();
+			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
 			//load settings from options dialog
 			(this as IVsPackage).GetAutomationObject("SQL Server Object Explorer.SSMS Object Explorer Menu", out object automationObject);
@@ -40,7 +42,7 @@ namespace SSMSObjectExplorerMenu
 			options = (OptionsDialogPage)automationObject;
 
 			//find tree control in the Object Explorer window
-			objectExplorerService = (IObjectExplorerService)this.GetService(typeof(IObjectExplorerService));
+			objectExplorerService = GetObjectExplorerService();
 			if (objectExplorerService == null)
 			{
 				Error("Object Explorer Service not found");
@@ -61,8 +63,15 @@ namespace SSMSObjectExplorerMenu
 			treeView.ContextMenuStripChanged += TreeView_ContextMenuStripChanged;
 		}
 
-		private void TreeView_ContextMenuStripChanged(object sender, EventArgs e)
+
+		private IObjectExplorerService GetObjectExplorerService()
 		{
+			return (IObjectExplorerService)this.GetService(typeof(IObjectExplorerService)); ;
+		}
+
+
+		private void TreeView_ContextMenuStripChanged(object sender, EventArgs e)
+		{			
 			//sanity check objects
 			if (treeView == null || options == null || objectExplorerService == null)
 			{
@@ -261,6 +270,14 @@ namespace SSMSObjectExplorerMenu
 
 		private void Menu_Click(object sender, EventArgs e)
 		{
+			Execute(sender, e);
+		}
+
+		//TODO: Fix "async void" warning 
+		private async void Execute(object sender, EventArgs e)
+		{
+			await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
+
 			if (treeView == null || sender == null)
 			{
 				return;
@@ -340,9 +357,11 @@ namespace SSMSObjectExplorerMenu
 				{
 					if (itemInstance.MenuItem.Confirm)
 					{
-						Warning($"Execute \"{itemInstance.MenuItem.Name}\"?{Environment.NewLine}{Environment.NewLine}{itemInstance.NodeInfo}", () =>
+						//TODO: Fix "async lamda" warning 
+						Warning($"Execute \"{itemInstance.MenuItem.Name}\"?{Environment.NewLine}{Environment.NewLine}{itemInstance.NodeInfo}", async () =>
 						{
-							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
+							await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
+							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");							
 						});
 					}
 					else
