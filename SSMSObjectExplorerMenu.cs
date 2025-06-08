@@ -268,14 +268,8 @@ namespace SSMSObjectExplorerMenu
 		}
 
 
-		private void Menu_Click(object sender, EventArgs e)
-		{
-			Execute(sender, e);
-		}
-
-		//TODO: Fix "async void" warning 
-		private async void Execute(object sender, EventArgs e)
-		{
+		private async void Menu_Click(object sender, EventArgs e)
+		{		
 			await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
 
 			if (treeView == null || sender == null)
@@ -357,12 +351,10 @@ namespace SSMSObjectExplorerMenu
 				{
 					if (itemInstance.MenuItem.Confirm)
 					{
-						//TODO: Fix "async lamda" warning 
-						Warning($"Execute \"{itemInstance.MenuItem.Name}\"?{Environment.NewLine}{Environment.NewLine}{itemInstance.NodeInfo}", async () =>
+						if (MessageBox.Show($"Execute \"{itemInstance.MenuItem.Name}\"?{Environment.NewLine}{Environment.NewLine}{itemInstance.NodeInfo}", "SSMS Object Explorer Menu", MessageBoxButtons.OKCancel) == DialogResult.OK)
 						{
-							await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
-							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");							
-						});
+							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
+						}
 					}
 					else
 					{
@@ -370,11 +362,6 @@ namespace SSMSObjectExplorerMenu
 					}
 				}
 			}
-		}
-
-		private void Warning(string message, Action action)
-		{
-			Show(message, MessageBoxIcon.Warning, MessageBoxButtons.OKCancel, action);
 		}
 
 		private void Error(string message)
