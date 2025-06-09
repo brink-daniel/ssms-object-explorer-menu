@@ -152,8 +152,7 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 Features that are planned for future releases:
 
-* Resolve two async warnings in code
-* Installer* 
+* Installer
 
 
 

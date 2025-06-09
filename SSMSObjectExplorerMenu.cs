@@ -5,12 +5,14 @@ using Microsoft.SqlServer.Management.UI.VSIntegration.Editors;
 using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu
@@ -28,7 +30,7 @@ namespace SSMSObjectExplorerMenu
 		{
 		}
 
-		protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+		protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
@@ -122,7 +124,9 @@ namespace SSMSObjectExplorerMenu
 						{
 							Tag = instance
 						};
-						s.Click += Menu_Click;
+						s.Click += delegate (object send, EventArgs ev) {
+							_ = Menu_ClickAsync(send, ev);
+						};
 
 						myScriptsMenu.DropDownItems.Add(s);
 					}
@@ -267,8 +271,7 @@ namespace SSMSObjectExplorerMenu
 			}
 		}
 
-
-		private async void Menu_Click(object sender, EventArgs e)
+		private async Task Menu_ClickAsync(object sender, EventArgs e)
 		{		
 			await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
 
@@ -328,7 +331,7 @@ namespace SSMSObjectExplorerMenu
 
 
 
-			DTE2 dte = (DTE2)this.GetService(typeof(DTE));
+			DTE2 dte = (DTE2)await this.GetServiceAsync(typeof(DTE));
 			if (dte == null)
 			{
 				return;
