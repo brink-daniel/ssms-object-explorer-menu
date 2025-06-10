@@ -81,6 +81,8 @@
     <Compile Include="SSMSObjectExplorerMenu.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\VSIX_install.png" />
+    <Content Include="images\VSIX_install_complete.png" />
     <Content Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
