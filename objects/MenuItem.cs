@@ -1,10 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace SSMSObjectExplorerMenu.objects
 {
 
 	public class MenuItem
 	{
+		private string _script = string.Empty; 
+
 		[Category("Menu item")]
 		[DisplayName("Enabled")]
 		[Description("Show/hide the menu item.")]
@@ -20,8 +23,12 @@ namespace SSMSObjectExplorerMenu.objects
 		[Category("Menu item")]
 		[DisplayName("Script")]
 		[Description("Inline tsql statements OR path to script file.")]
-		[DefaultValue("")]
-		public string Script { get; set; } = string.Empty;
+		[DefaultValue("")]		
+		public string Script 
+		{ 
+			get => _script; 
+			set => _script = value.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine); 
+		}
 
 		[Category("Menu item")]
 		[DisplayName("Execute")]
