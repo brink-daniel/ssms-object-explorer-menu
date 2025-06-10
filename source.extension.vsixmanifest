@@ -4,9 +4,13 @@
         <Identity Id="SSMSObjectExplorerMenu.Daniel Brink.51536115-423C-4B96-9550-8B26E9AB0B59" Version="3.0" Language="en-US" Publisher="Daniel Brink" />
         <DisplayName>SSMS Object Explorer Menu</DisplayName>
         <Description>SSMS Object Explorer Menu</Description>
+        <MoreInfo>https://sqlmedic.com/</MoreInfo>
+        <License>LICENSE</License>
     </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />
+    <Installation AllUsers="true">
+        <InstallationTarget Id="Microsoft.VisualStudio.Ssms" Version="[21.0,)">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
     </Installation>
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
@@ -14,4 +18,7 @@
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
 </PackageManifest>
