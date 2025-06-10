@@ -13,9 +13,23 @@ The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
 ## Install
 
-The installation process is currently manual. We have an item on our roadmap to create an installer for the SSMS Object Explorer Menu extension, but for now you will have to manually extract the files and copy them into SSMS extensions folder.
+There are two options for installing the SSMS Object Explorer Menu extension in SQL Server Management Studio (SSMS). The recommended method is to run the VSIX installer package. The alternative method is to manually extract the files into the Extensions folder.
 
-[Download the latest release](https://github.com/brink-daniel/ssms-object-explorer-menu/releases)
+### VSIX installer
+
+Download the [SSMSObjectExplorerMenu.vsix](https://github.com/brink-daniel/ssms-object-explorer-menu/releases) from the latest release.
+
+Double click on the SSMSObjectExplorerMenu.vsix to run it and install the SSMS Object Explorer Menu extension.
+
+![Start VSIX extension install](images/VSIX_install.png)
+
+![Completed VSIX extension install](images/VSIX_install_complete.png)
+
+
+
+### Manual installation
+
+Download the [SSMSObjectExplorerMenu.zip](https://github.com/brink-daniel/ssms-object-explorer-menu/releases) from the latest release
 
 You must unblock the zip file **before** extracting it. Right click on the zip file in Windows Explorer and select Properties. 
 If you see an `Unblock` button or checkbox then click it. 
@@ -148,14 +162,6 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 
 
-## Roadmap
-
-Features that are planned for future releases:
-
-* Installer
-
-
-
 ## FAQ
 
 ### Where can I get the source code for the SSMS Object Explorer Menu extension?
@@ -217,6 +223,10 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v3.1 (2025-06-10)
+
+* Added VSIX installer
 
 ### v3.0 (2025-06-08)
 
