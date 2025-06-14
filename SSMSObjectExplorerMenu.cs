@@ -3,6 +3,7 @@ using EnvDTE80;
 using Microsoft.SqlServer.Management.UI.VSIntegration;
 using Microsoft.SqlServer.Management.UI.VSIntegration.Editors;
 using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
@@ -10,6 +11,7 @@ using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -343,12 +345,15 @@ namespace SSMSObjectExplorerMenu
 				return;
 			}
 
-			scriptFactory.CreateNewBlankScript(ScriptType.Sql);
+			var s = scriptFactory.CreateNewBlankScript(ScriptType.Sql);
+			
 
 			if (dte.ActiveDocument != null)
 			{
 				TextSelection ts = (TextSelection)dte.ActiveDocument.Selection;
 				ts.Insert(script, (int)vsInsertFlags.vsInsertFlagsInsertAtStart);
+
+				dte.ActiveDocument.Activate();
 
 				if (itemInstance.MenuItem.Execute)
 				{
