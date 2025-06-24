@@ -50,7 +50,7 @@ Please note that SSMS 21 does allow installing extensions in a different locatio
 
 
 
-### How to add menu items to the Object Explorer
+## How to add menu items to the Object Explorer
 
 Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using either of the following two methods:
 1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Add menu item` from the `My Scripts` menu. 
@@ -129,7 +129,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ## Compatibility
 
-This extension has been tested and used with **SQL Server Management Studio 21.3.6**.
+This extension has been tested and used with **SQL Server Management Studio 21.3.7**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
