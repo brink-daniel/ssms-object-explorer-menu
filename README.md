@@ -129,7 +129,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ## Compatibility
 
-This extension has been tested and used with **SQL Server Management Studio 21.3.7**.
+This extension has been tested and used with **SQL Server Management Studio 21.4.8**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
