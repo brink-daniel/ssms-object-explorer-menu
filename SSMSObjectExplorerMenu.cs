@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
+using Microsoft.VisualStudio.VCProjectEngine;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
@@ -363,11 +364,19 @@ namespace SSMSObjectExplorerMenu
 						{
 							dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
 						}
+						else
+						{
+							ts.Cancel();
+						}
 					}
 					else
 					{
 						dte.ActiveDocument.DTE.ExecuteCommand("Query.Execute");
 					}
+				}
+				else 
+				{
+					ts.Cancel();
 				}
 			}
 		}

@@ -103,8 +103,6 @@
             // checkExecute
             // 
             this.checkExecute.AutoSize = true;
-            this.checkExecute.Checked = true;
-            this.checkExecute.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkExecute.Location = new System.Drawing.Point(88, 65);
             this.checkExecute.Name = "checkExecute";
             this.checkExecute.Size = new System.Drawing.Size(65, 17);
