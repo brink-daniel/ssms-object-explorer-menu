@@ -99,6 +99,8 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{YYYY-MM-DD}`
 * `{HH:mm:ss}`
 * `{YYYY-MM-DD HH:mm:ss}`
+* `{OBJECT}`
+
 
 #### Example 1
 
@@ -115,6 +117,7 @@ select
     , '{YYYY-MM-DD}' as [date]
     , '{HH:mm:ss}' as [time]
     , '{YYYY-MM-DD HH:mm:ss}' as [datetime]
+    , '{OBJECT}' as [object]
 ```
 
 #### Example 2
@@ -223,6 +226,12 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v3.2 (2025-07-31)
+
+* Add support for `{OBJECT}` tag
+* Icons to indicate menu item actions for Execute and Confirm
+* Version number on New Menu Item window
 
 ### v3.1 (2025-06-10)
 

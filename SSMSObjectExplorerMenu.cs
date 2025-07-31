@@ -102,7 +102,7 @@ namespace SSMSObjectExplorerMenu
 
 			//get meta data from tree node
 			NodeInfo nodeInfo = nodes[0].GetInfo();
-
+		
 			//build context menu
 			ToolStripMenuItem myScriptsMenu = new ToolStripMenuItem(options.Text);
 			if (options.ShowIcon)
@@ -121,12 +121,20 @@ namespace SSMSObjectExplorerMenu
 
 					if (menuItem.Context == "All" || menuItem.Context == nodes[0].UrnPath)
 					{
-						MenuItemInstance instance = new MenuItemInstance(menuItem, nodeInfo);
+						MenuItemInstance instance = new MenuItemInstance(menuItem, nodeInfo, nodes[0].InvariantName);
 
 						ToolStripMenuItem s = new ToolStripMenuItem(menuItem.Name)
 						{
 							Tag = instance
 						};
+						if (menuItem.Execute)
+						{
+							s.Image = Properties.Resources.Play;
+						}
+						if (menuItem.Execute && menuItem.Confirm)
+						{
+							s.Image = Properties.Resources.QuestionMark;
+						}
 						s.Click += delegate (object send, EventArgs ev) {
 							_ = Menu_ClickAsync(send, ev);
 						};
@@ -319,6 +327,7 @@ namespace SSMSObjectExplorerMenu
 
 
 			script = script
+					.Replace("{OBJECT}", itemInstance.Name)
 					.Replace("{SERVER}", itemInstance.NodeInfo.Server)
 					.Replace("{DATABASE}", itemInstance.NodeInfo.Database)
 					.Replace("{TABLE}", itemInstance.NodeInfo.Table)

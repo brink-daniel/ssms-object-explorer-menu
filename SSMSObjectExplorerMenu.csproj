@@ -118,6 +118,9 @@
     <Content Include="images\ObjectExplorer.png" />
     <Content Include="images\Options.png" />
     <Content Include="images\plus.jpg" />
+    <None Include="Resources\Play.svg" />
+    <None Include="Resources\Play.png" />
+    <None Include="Resources\QuestionMark.png" />
     <Content Include="scripts\last_restored.sql" />
     <Content Include="scripts\script_data_as_insert.sql" />
     <Content Include="scripts\sp_readerrorlog_agent.sql" />

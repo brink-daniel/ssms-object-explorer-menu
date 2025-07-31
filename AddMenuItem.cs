@@ -1,5 +1,6 @@
 ﻿using SSMSObjectExplorerMenu.objects;
 using System;
+using System.Reflection;
 using System.Windows.Forms;
 using MenuItem = SSMSObjectExplorerMenu.objects.MenuItem;
 
@@ -11,6 +12,7 @@ namespace SSMSObjectExplorerMenu
 		{
 			InitializeComponent();
 
+			labelVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 			comboContext.Text = nodeInfo.UrnPath;
 			this.ActiveControl = textName;
 			buttonOpen.Visible = false;

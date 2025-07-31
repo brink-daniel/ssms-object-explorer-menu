@@ -129,7 +129,8 @@
     , '{JOB}' as [job]
     , '{YYYY-MM-DD}' as [date]
     , '{HH:mm:ss}' as [time]
-    , '{YYYY-MM-DD HH:mm:ss}' as [datetime]</value>
+    , '{YYYY-MM-DD HH:mm:ss}' as [datetime]
+    , '{OBJECT}' as [object]</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
