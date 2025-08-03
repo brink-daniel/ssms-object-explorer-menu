@@ -1,12 +1,14 @@
 ﻿# SSMS Extensions and add-ins
 
-List of SQL Server Management Studio (SSMS) extensions and add-ins. Please let us know, by logging an [issue](https://github.com/brink-daniel/brink-daniel.github.io/issues), if you would like to add your extension to the list, update details in the list or know of any other SSMS extensions. 
+This is a curated list of useful extensions and add-ins for SSMS. If you would like to have your extension included, update existing details, or know of other SSMS extensions that should be added, please let us know by submitting an [issue](https://github.com/brink-daniel/brink-daniel.github.io/issues).
+
 
 | Name                                                         | License    | Open Source |
 | ------------------------------------------------------------ | ---------- | ----------- |
 | [SSMS Object Explorer Menu](https://github.com/brink-daniel/ssms-object-explorer-menu) | Free       | Yes         |
 | [SSMS Plus](https://github.com/akarzazi/SSMSPlus)            | Free       | Yes         |
 | [SSMS Schema Folders](https://github.com/nicholas-ross/SSMS-Schema-Folders) | Free       | Yes         |
+| [SSMS Executor](https://github.com/tkwj/ssms-executor)       | Free       | Yes         |
 |                                                              |            |             |
 | [SSMS Tool Pack](https://www.ssmstoolspack.com)              | Commercial | No          |
 | [SSMSBoost](https://www.ssmsboost.com)                       | Commercial | No          |
@@ -16,7 +18,6 @@ List of SQL Server Management Studio (SSMS) extensions and add-ins. Please let u
 | [Tabs Studio](https://tabsstudio.com)                        | Commercial | No          |
 | [Version SQL](https://www.versionsql.com)                    | Commercial | No          |
 | [SQL Shades](https://www.sqlshades.com)                      | Free       | No          |
-| [Spotlight Tuning Pack](https://www.spotlightcloud.io/spotlight-tuning-pack) | Commercial | No          |
 | [SQL Enlight](https://sqlenlight.com)                        | Commercial | No          |
 |                                                              |            |             |
 | [Redgate SQL Prompt](https://www.red-gate.com/products/sql-prompt) | Commercial | No          |
