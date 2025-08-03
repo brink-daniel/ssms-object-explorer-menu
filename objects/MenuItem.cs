@@ -62,6 +62,10 @@ namespace SSMSObjectExplorerMenu.objects
 			Script = script;
 			Execute = execute;
 			Confirm = confirm;
+
+			if (Confirm) {
+				Execute = true;
+			}
 		}
 	}
 }

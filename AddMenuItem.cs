@@ -70,5 +70,21 @@ namespace SSMSObjectExplorerMenu
 			textPath.Text = string.Empty;
 			buttonOpen.Visible = radioPath.Checked;
 		}
+
+		private void checkConfirm_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkConfirm.Checked)
+			{ 
+				checkExecute.Checked = true;
+			}
+		}
+
+		private void checkExecute_CheckedChanged(object sender, EventArgs e)
+		{
+			if (!checkExecute.Checked)
+			{
+				checkConfirm.Checked = false;
+			}
+		}
 	}
 }

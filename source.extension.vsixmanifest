@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="SSMSObjectExplorerMenu.Daniel Brink.51536115-423C-4B96-9550-8B26E9AB0B59" Version="3.2.0" Language="en-US" Publisher="Daniel Brink" />
+        <Identity Id="SSMSObjectExplorerMenu.Daniel Brink.51536115-423C-4B96-9550-8B26E9AB0B59" Version="3.2.1" Language="en-US" Publisher="Daniel Brink" />
         <DisplayName>SSMS Object Explorer Menu</DisplayName>
         <Description>SSMS Object Explorer Menu</Description>
         <MoreInfo>https://sqlmedic.com/</MoreInfo>

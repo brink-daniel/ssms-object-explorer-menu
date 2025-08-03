@@ -131,7 +131,7 @@ namespace SSMSObjectExplorerMenu
 						{
 							s.Image = Properties.Resources.Play;
 						}
-						if (menuItem.Execute && menuItem.Confirm)
+						if (menuItem.Confirm)
 						{
 							s.Image = Properties.Resources.QuestionMark;
 						}
@@ -365,7 +365,7 @@ namespace SSMSObjectExplorerMenu
 
 				dte.ActiveDocument.Activate();
 
-				if (itemInstance.MenuItem.Execute)
+				if (itemInstance.MenuItem.Execute || itemInstance.MenuItem.Confirm)
 				{
 					if (itemInstance.MenuItem.Confirm)
 					{

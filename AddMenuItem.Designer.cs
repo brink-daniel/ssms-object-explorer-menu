@@ -115,6 +115,7 @@
 			this.checkExecute.TabIndex = 2;
 			this.checkExecute.Text = "Execute";
 			this.checkExecute.UseVisualStyleBackColor = true;
+			this.checkExecute.CheckedChanged += new System.EventHandler(this.checkExecute_CheckedChanged);
 			// 
 			// checkConfirm
 			// 
@@ -126,6 +127,7 @@
 			this.checkConfirm.TabIndex = 3;
 			this.checkConfirm.Text = "Confirm before execute";
 			this.checkConfirm.UseVisualStyleBackColor = true;
+			this.checkConfirm.CheckedChanged += new System.EventHandler(this.checkConfirm_CheckedChanged);
 			// 
 			// textPath
 			// 
