@@ -174,33 +174,45 @@ The Visual Studio extension development toolset can be installed via the `Tools 
 
 ### Where can I get the source code for the SSMS Object Explorer Menu extension?
 
-Source code, documentation and issues can be found at [https://github.com/brink-daniel/ssms-object-explorer-menu](https://github.com/brink-daniel/ssms-object-explorer-menu).
+You can find the full source code, documentation, and issue tracker on our GitHub repository: [https://github.com/brink-daniel/ssms-object-explorer-menu](https://github.com/brink-daniel/ssms-object-explorer-menu)
 
 ### How can I contribute to the project?
 
-Please log any bugs found at [https://github.com/brink-daniel/ssms-object-explorer-menu/issues](https://github.com/brink-daniel/ssms-object-explorer-menu/issues). We also welcome pull requests. If you can fix a bug in the code or improve a feature, please do send us a pull request. We will happily review the change, test and merge it.
+If you encounter any issues, please report them on our [GitHub Issues](https://github.com/brink-daniel/ssms-object-explorer-menu/issues) page.
+We also welcome community contributions. If you'd like to fix a bug or enhance a feature, feel free to submit a pull request. All contributions are reviewed, tested, and considered for inclusion in the project.
 
 ### Why do you only support the latest version of SSMS?
 
-Currently we only have one developer working on the SSMS Object Explorer Menu extension and all work is unpaid and done in private time. Limiting the support to only the latest version of SSMS reduces the complexity of the project and makes the code easier to maintain and support. Due to the productivity enhancements that the SSMS Object Explorer Menu extension provides, we want this this project to survive for a very long time. Keeping it simple will help this project survive.
+SSMS Object Explorer Menu is currently maintained by a single developer, with all work done voluntarily during personal time. To keep the project sustainable and maintainable, support is limited to the latest version of SQL Server Management Studio (SSMS).
+
+Focusing on a single SSMS version reduces complexity, simplifies maintenance, and ensures a more stable experience for users. Given the productivity benefits this extension offers, our goal is to ensure its longevity—and keeping it simple is key to that goal.
 
 ### Why was the SSMS Object Explorer Menu extension created?
 
-We are all SQL Server Database Developers. We spend 8 hours a day in SSMS and lots of that time is spent using the [https://tsqlt.org](https://tsqlt.org) unit testing framework. tSQLt is amazing, but it lacks a free and open source UI. The SSMS Object Explorer Menu extension was created out the desire to be able to right-click on any stored procedure in the Object Explorer and select an option to run all unit tests related to the stored procedure. Subsequently,  the SSMS Object Explorer Menu extension evolved to allow any inline tsql statement or scripts files to be executed directly from the right-click menu in the Object Explorer.
+As full-time SQL Server database developers, we spend countless hours in SQL Server Management Studio (SSMS)—often working with the [tSQLt](https://tsqlt.org) unit testing framework. While tSQLt is a powerful tool for database testing, it lacks a free and open-source UI for seamless interaction.
 
-If you are new  to tSQLt, have a look at their Quick Start guide [here](https://tsqlt.org/user-guide/quick-start/). We've also written a great article about how to solve the [Insert Exec Statement Cannot be Nested](https://www.sqlservercentral.com/articles/insert-exec-statement-cannot-be-nested-the-simple-solution) problem.
+The SSMS Object Explorer Menu extension was born from a simple need: the ability to right-click a stored procedure in the Object Explorer and run all related unit tests with a single action. From that initial idea, the extension has evolved to support the execution of any inline T-SQL statement or script file directly from the right-click context menu in Object Explorer.
+
+If you're new to tSQLt, we recommend starting with their [Quick Start](https://tsqlt.org/user-guide/quick-start) Guide.
+You might also find our article on resolving the common “[INSERT EXEC statement cannot be nested](https://www.sqlservercentral.com/articles/insert-exec-statement-cannot-be-nested-the-simple-solution)” issue helpful.
 
 ### Why is the SSMS Object Explorer Menu extension free and open source?
 
-We love SSMS and especially [SSMS extensions](SSMSExtensionList.md). They make our lives better. We would love to see more extensions for SSMS. Please fork our [code](https://github.com/brink-daniel/ssms-object-explorer-menu), create something and share it.
+We’re passionate about SQL Server Management Studio (SSMS)—and especially about [SSMS extensions](SSMSExtensionList.md), which enhance productivity and make daily work easier.
+
+We’d love to see more developers building great extensions for SSMS. Feel free to fork our [code](https://github.com/brink-daniel/ssms-object-explorer-menu), experiment, and create something useful. If you build something cool, share it with the community!
 
 ### Why use the SSMS Object Explorer Menu extension when other extensions also allow users to create custom menu items?
 
-SSMS extensions should only do one thing and do it well. The problem with a lot of extensions are that they have too many features and subsequently become intrusive or slow down SSMS. The SSMS Object Explorer Menu extension only adds context sensitive menu items to the Object Explorer in SSMS and have no impact on SSMS application loading times or UI performance. The menu items allow for the substitution of tags in their configured tsql script, with context specific values such as database, table or stored procedure name. 
+SSMS extensions should follow the Unix philosophy: do one thing and do it well. Many extensions become bloated with excessive features, which can lead to performance issues or interfere with the SSMS user experience.
+
+SSMS Object Explorer Menu is intentionally lightweight and focused. It adds only context-sensitive menu items to the Object Explorer, with no impact on SSMS startup time or overall UI performance. Each menu item supports tag substitution, enabling scripts to dynamically incorporate context-specific values such as the selected database, table, or stored procedure name.
 
 ### How do I uninstall the SSMS Object Explorer Menu extension?
 
-Simply delete the `SSMSObjectExplorerMenu` folder from `C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions` and restart SQL Server Management Studio.
+To uninstall the SSMS Object Explorer Menu extension, simply delete the SSMSObjectExplorerMenu folder located at: `C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions`. 
+
+After deleting the folder, restart SQL Server Management Studio to complete the uninstallation.
 
 
 
