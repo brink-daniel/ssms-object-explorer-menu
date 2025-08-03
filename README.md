@@ -53,7 +53,7 @@ Please note that SSMS 21 does allow installing extensions in a different locatio
 ## How to add menu items to the Object Explorer
 
 Once the SSMS Object Explorer Menu add-in is installed, new menu items can be added to the Object Explorer using either of the following two methods:
-1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `Add menu item` from the `My Scripts` menu. 
+1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `New` from the `My Scripts` menu. 
     ![Object Explorer](images/ObjectExplorer.png)
     ![Add Menu Item](images/AddMenuItem.png)
 2. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and add new menu items to the collection. Menu items can also be rearranged or removed using the Options dialog. 
