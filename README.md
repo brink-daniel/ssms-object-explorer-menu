@@ -1,6 +1,8 @@
 # SSMS Object Explorer Menu
 
-SSMS Object Explorer Menu is a free and open source extension for SQL Server Management Studio (SSMS) written in C#. It allows custom menu items to be added to the right-click context menu in the Object Explorer window. The menu items can be used to execute any tsql script file or inline tsql statement. When the menu item is selected, a new query window is opened displaying your tsql script. The menu item can be configured to automatically substitute tags in the script and also execute it. 
+SSMS Object Explorer Menu is a free, open-source extension for SQL Server Management Studio (SSMS), developed in C#. It enables users to add custom menu items to the right-click context menu within the Object Explorer window.
+
+These menu items can be configured to run either external T-SQL script files or inline T-SQL statements. Upon selection, the extension opens a new query window displaying the script. It also supports tag substitution within scripts and optional automatic execution, streamlining routine database tasks and enhancing productivity.
 
 The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
@@ -13,9 +15,12 @@ The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
 ## Install
 
-There are two options for installing the SSMS Object Explorer Menu extension in SQL Server Management Studio (SSMS). The recommended method is to run the VSIX installer package. The alternative method is to manually extract the files into the Extensions folder.
+There are two installation methods available for the SSMS Object Explorer Menu extension in SQL Server Management Studio (SSMS):
+1. **Recommended Method** – Install using the VSIX installer package, which provides a streamlined and automated setup process.
+2. **Manual Installation** – Alternatively, you can manually extract the extension files into the SSMS Extensions folder.
 
-### VSIX installer
+
+### VSIX installer (Recommended)
 
 Download the [SSMSObjectExplorerMenu.vsix](https://github.com/brink-daniel/ssms-object-explorer-menu/releases) from the latest release.
 
