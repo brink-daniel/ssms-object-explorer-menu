@@ -1,4 +1,5 @@
 # SSMS Object Explorer Menu
+{:.no_toc}
 
 SSMS Object Explorer Menu is a free, open-source extension for SQL Server Management Studio (SSMS), developed in C#. It enables users to add custom menu items to the right-click context menu within the Object Explorer window.
 
@@ -10,6 +11,11 @@ The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 [![GitHub license](https://img.shields.io/github/license/brink-daniel/ssms-object-explorer-menu)](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/LICENSE)
 
 ![Object Explorer](images/ObjectExplorer.png)
+
+
+
+* TOC
+{:toc}
 
 
 
@@ -136,6 +142,8 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 
 ## Compatibility
+
+### SQL Server Management Studio 21.x
 
 This extension has been tested and used with **SQL Server Management Studio 21.4.8**.
 
