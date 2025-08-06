@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing.Design;
 
 namespace SSMSObjectExplorerMenu.objects
 {
@@ -23,7 +25,8 @@ namespace SSMSObjectExplorerMenu.objects
 		[Category("Menu item")]
 		[DisplayName("Script")]
 		[Description("Inline tsql statements OR path to script file.")]
-		[DefaultValue("")]		
+		[DefaultValue("")]
+		[Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
 		public string Script 
 		{ 
 			get => _script; 
