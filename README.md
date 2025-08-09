@@ -1,4 +1,4 @@
-# SSMS Object Explorer Menu
+# Object Explorer Menu extension for SSMS
 
 SSMS Object Explorer Menu is a free, open-source extension for SQL Server Management Studio (SSMS), developed in C#. It enables users to add custom menu items to the right-click context menu within the Object Explorer window.
 
