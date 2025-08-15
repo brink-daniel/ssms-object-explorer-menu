@@ -15,13 +15,6 @@ The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
 ## Install
 
-There are two installation methods available for the Object Explorer Menu extension in SQL Server Management Studio (SSMS):
-1. **Recommended Method** – Install using the VSIX installer package, which provides a streamlined and automated setup process.
-2. **Manual Installation** – Alternatively, you can manually extract the files into SSMS's extensions folder.
-
-
-### VSIX installer (Recommended)
-
 Download the [SSMSObjectExplorerMenu.vsix](https://github.com/brink-daniel/ssms-object-explorer-menu/releases) from the latest release.
 
 Double click on the SSMSObjectExplorerMenu.vsix to run it and install the Object Explorer Menu extension.
@@ -29,29 +22,6 @@ Double click on the SSMSObjectExplorerMenu.vsix to run it and install the Object
 ![Start VSIX extension install](images/VSIX_install.png)
 
 ![Completed VSIX extension install](images/VSIX_install_complete.png)
-
-
-
-### Manual installation
-
-Download the [SSMSObjectExplorerMenu.zip](https://github.com/brink-daniel/ssms-object-explorer-menu/releases) from the latest release
-
-You must unblock the zip file **before** extracting it. Right click on the zip file in Windows Explorer and select Properties. 
-If you see an `Unblock` button or checkbox then click it. 
-
-![Unblock zip file via properties dialog](images/unblock.png)
-
-Extract the zip file and copy the SSMSObjectExplorerMenu folder into the SSMS extension folder. Remove or replace any previous version. 
-
-The default install location is `C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions\SSMSObjectExplorerMenu`.
-
-When installed correctly, you should have the following folder & file structure:
-* C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**LICENSE**
-* C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**README.md**
-* C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**SSMSObjectExplorerMenu.dll**
-* C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions\\**SSMSObjectExplorerMenu**\\**SSMSObjectExplorerMenu.pkgdef**
-
-Please note that SSMS 21 does allow installing extensions in a different location. You may need to search around for SSMS's extensions folder.
 
 
 
@@ -139,7 +109,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ### SQL Server Management Studio 21.x
 
-This extension has been tested and used with **SQL Server Management Studio 21.4.8**.
+This extension has been tested and used with **SQL Server Management Studio 21.4.12**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -215,24 +185,6 @@ The Object Explorer Menu extension is intentionally lightweight and focused. It 
 To uninstall the Object Explorer Menu extension, simply delete the SSMSObjectExplorerMenu folder located at: `C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions`. 
 
 After deleting the folder, restart SQL Server Management Studio to complete the uninstallation.
-
-
-
-## Known Issues
-
-### Not running/No options
-
-This happens when Windows security blocks dll files downloaded from the internet. 
-
-![Error message when files are blocked](images/error.png)
-
-You must unblock the zip file **before** extracting it. Right click on the zip file in Windows Explorer and select Properties. 
-If you see an `Unblock` button or checkbox then click it.
-
-![How to unblock files via properties dialog](images/unblock.png)
-
-
-Please report any issues at [https://github.com/brink-daniel/ssms-object-explorer-menu/issues](https://github.com/brink-daniel/ssms-object-explorer-menu/issues).
 
 
 
