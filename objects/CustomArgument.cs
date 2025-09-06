@@ -1,5 +1,4 @@
-﻿using Microsoft.Internal.VisualStudio.Shell;
-using SSMSObjectExplorerMenu.enums;
+﻿using SSMSObjectExplorerMenu.enums;
 using System;
 
 namespace SSMSObjectExplorerMenu.objects
