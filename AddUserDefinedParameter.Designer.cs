@@ -1,6 +1,6 @@
 ﻿namespace SSMSObjectExplorerMenu
 {
-    partial class AddUserDefinedArgument
+    partial class AddUserDefinedParameter
     {
         /// <summary>
         /// Required designer variable.
@@ -28,47 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserDefinedArgument));
-            this.textBoxArgumentName = new System.Windows.Forms.TextBox();
-            this.comboBoxArgumentType = new System.Windows.Forms.ComboBox();
-            this.labelArgumentName = new System.Windows.Forms.Label();
-            this.labelArgumentType = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserDefinedParameter));
+            this.textBoxParameterName = new System.Windows.Forms.TextBox();
+            this.comboBoxParameterType = new System.Windows.Forms.ComboBox();
+            this.labelParameterName = new System.Windows.Forms.Label();
+            this.labelParameterType = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBoxArgumentName
+            // textBoxParameterName
             // 
-            this.textBoxArgumentName.Location = new System.Drawing.Point(103, 24);
-            this.textBoxArgumentName.Name = "textBoxArgumentName";
-            this.textBoxArgumentName.Size = new System.Drawing.Size(170, 20);
-            this.textBoxArgumentName.TabIndex = 0;
+            this.textBoxParameterName.Location = new System.Drawing.Point(103, 24);
+            this.textBoxParameterName.Name = "textBoxParameterName";
+            this.textBoxParameterName.Size = new System.Drawing.Size(170, 20);
+            this.textBoxParameterName.TabIndex = 0;
             // 
-            // comboBoxArgumentType
+            // comboBoxParameterType
             // 
-            this.comboBoxArgumentType.FormattingEnabled = true;
-            this.comboBoxArgumentType.Location = new System.Drawing.Point(103, 66);
-            this.comboBoxArgumentType.Name = "comboBoxArgumentType";
-            this.comboBoxArgumentType.Size = new System.Drawing.Size(170, 21);
-            this.comboBoxArgumentType.TabIndex = 1;
+            this.comboBoxParameterType.FormattingEnabled = true;
+            this.comboBoxParameterType.Location = new System.Drawing.Point(103, 66);
+            this.comboBoxParameterType.Name = "comboBoxParameterType";
+            this.comboBoxParameterType.Size = new System.Drawing.Size(170, 21);
+            this.comboBoxParameterType.TabIndex = 1;
             // 
-            // labelArgumentName
+            // labelParameterName
             // 
-            this.labelArgumentName.AutoSize = true;
-            this.labelArgumentName.Location = new System.Drawing.Point(13, 24);
-            this.labelArgumentName.Name = "labelArgumentName";
-            this.labelArgumentName.Size = new System.Drawing.Size(84, 13);
-            this.labelArgumentName.TabIndex = 2;
-            this.labelArgumentName.Text = "Argument name:";
+            this.labelParameterName.AutoSize = true;
+            this.labelParameterName.Location = new System.Drawing.Point(13, 24);
+            this.labelParameterName.Name = "labelParameterName";
+            this.labelParameterName.Size = new System.Drawing.Size(87, 13);
+            this.labelParameterName.TabIndex = 2;
+            this.labelParameterName.Text = "Parameter name:";
             // 
-            // labelArgumentType
+            // labelParameterType
             // 
-            this.labelArgumentType.AutoSize = true;
-            this.labelArgumentType.Location = new System.Drawing.Point(13, 66);
-            this.labelArgumentType.Name = "labelArgumentType";
-            this.labelArgumentType.Size = new System.Drawing.Size(78, 13);
-            this.labelArgumentType.TabIndex = 3;
-            this.labelArgumentType.Text = "Argument type:";
+            this.labelParameterType.AutoSize = true;
+            this.labelParameterType.Location = new System.Drawing.Point(13, 66);
+            this.labelParameterType.Name = "labelParameterType";
+            this.labelParameterType.Size = new System.Drawing.Size(81, 13);
+            this.labelParameterType.TabIndex = 3;
+            this.labelParameterType.Text = "Parameter type:";
             // 
             // buttonSave
             // 
@@ -90,7 +90,7 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // AddOrEditCustomArgument
+            // AddUserDefinedParameter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,13 +98,13 @@
             this.ControlBox = false;
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.labelArgumentType);
-            this.Controls.Add(this.labelArgumentName);
-            this.Controls.Add(this.comboBoxArgumentType);
-            this.Controls.Add(this.textBoxArgumentName);
+            this.Controls.Add(this.labelParameterType);
+            this.Controls.Add(this.labelParameterName);
+            this.Controls.Add(this.comboBoxParameterType);
+            this.Controls.Add(this.textBoxParameterName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AddOrEditCustomArgument";
-            this.Text = "AddOrEditCustomArgument";
+            this.Name = "AddUserDefinedParameter";
+            this.Text = "AddUserDefinedParameter";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,10 +112,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxArgumentName;
-        private System.Windows.Forms.ComboBox comboBoxArgumentType;
-        private System.Windows.Forms.Label labelArgumentName;
-        private System.Windows.Forms.Label labelArgumentType;
+        private System.Windows.Forms.TextBox textBoxParameterName;
+        private System.Windows.Forms.ComboBox comboBoxParameterType;
+        private System.Windows.Forms.Label labelParameterName;
+        private System.Windows.Forms.Label labelParameterType;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
     }

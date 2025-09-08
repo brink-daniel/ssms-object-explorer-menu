@@ -1,4 +1,5 @@
 ﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace SSMSObjectExplorerMenu
 
 		public MenuItem GetMenuItem()
 		{
-			return new MenuItem(true, comboContext.Text, textName.Text, textPath.Text, checkExecute.Checked, checkConfirm.Checked);
+			return new MenuItem(true, comboContext.Text, textName.Text, textPath.Text, checkExecute.Checked, checkConfirm.Checked, listViewUserDefinedParam.GetUserDefinedParams());
 		}
 
 		
@@ -89,33 +90,33 @@ namespace SSMSObjectExplorerMenu
 			}
 		}
 
-        private void buttonAddCustomArg_Click(object sender, EventArgs e)
+        private void buttonAddUserDefinedParam_Click(object sender, EventArgs e)
         {
-			var argumentNamesInUse = this.listViewCustomArgs.Items.Cast<ListViewItem>().Select(item => item.Text);
-            var addDialog = new AddUserDefinedArgument(argumentNamesInUse);
-			if(addDialog.ShowDialog() == DialogResult.OK)
-			{
-                var newArgument = addDialog.Argument;
-				var newListViewItem = new ListViewItem { Text = newArgument.Name };
-				newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = Enum.GetName(typeof(UserDefinedArgumentType), newArgument.Type) });
-                listViewCustomArgs.Items.Add(newListViewItem);
+            var argumentNamesInUse = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Select(item => item.Text);
+            var addDialog = new AddUserDefinedParameter(argumentNamesInUse);
+            if (addDialog.ShowDialog() == DialogResult.OK)
+            {
+                var newParam = addDialog.Parameter;
+                var newListViewItem = new ListViewItem { Text = newParam.Name };
+                newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = Enum.GetName(typeof(UserDefinedParameterType), newParam.Type), Tag = newParam.Type });
+                listViewUserDefinedParam.Items.Add(newListViewItem);
             }
         }
 
-        private void buttonRemoveCustomArg_Click(object sender, EventArgs e)
+        private void buttonRemoveUserDefinedParam_Click(object sender, EventArgs e)
         {
-			var selectedItems = this.listViewCustomArgs.Items.Cast<ListViewItem>().Where(item => item.Selected);
-			if (selectedItems.Any() &&
-                DialogResult.Yes == MessageBox.Show("Are you sure?", "Deleting arguments", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-			{
-				foreach (var item in selectedItems)
-				{
-                    this.listViewCustomArgs.Items.Remove(item);
+            var selectedItems = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Where(item => item.Selected);
+            if (selectedItems.Any() &&
+                DialogResult.Yes == MessageBox.Show("Are you sure?", "Deleting parameter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            {
+                foreach (var item in selectedItems)
+                {
+                    this.listViewUserDefinedParam.Items.Remove(item);
                 }
-			}
-			else
-			{
-				MessageBox.Show("You must select an item to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("You must select an item to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

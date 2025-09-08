@@ -4,27 +4,26 @@ using System.ComponentModel;
 
 namespace SSMSObjectExplorerMenu.objects
 {
-
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class UserDefinedArgument
+    public class UserDefinedParameter
     {
         public const short NAME_MAX_LENGTH = 128;
 
         [DisplayName("Name")]
-        [Description("Name of the user-defined argument")]
+        [Description("Name of the user-defined parameter")]
         public string Name { get; set; }
 
         [DisplayName("Data type")]
-        [Description("Data type of the user-defined argument")]
-        public UserDefinedArgumentType Type { get; set; }
+        [Description("Data type of the user-defined parameter")]
+        public UserDefinedParameterType Type { get; set; }
 
         public override bool Equals(object other)
         {
-            var otherAsCustomArg = other as UserDefinedArgument;
+            var otherAsParam = other as UserDefinedParameter;
 
-            if (otherAsCustomArg is null) return false;
+            if (otherAsParam is null) return false;
 
-            return StringComparer.OrdinalIgnoreCase.Equals(Name, otherAsCustomArg.Name) && Type == otherAsCustomArg.Type;
+            return StringComparer.OrdinalIgnoreCase.Equals(Name, otherAsParam.Name) && Type == otherAsParam.Type;
         }
 
         public override int GetHashCode()
@@ -38,13 +37,13 @@ namespace SSMSObjectExplorerMenu.objects
             }
         }
 
-        public static bool operator ==(UserDefinedArgument left, UserDefinedArgument right)
+        public static bool operator ==(UserDefinedParameter left, UserDefinedParameter right)
         {
             if (ReferenceEquals(left, right)) return true;
             if (left is null || right is null) return false;
             return left.Equals(right);
         }
 
-        public static bool operator !=(UserDefinedArgument left, UserDefinedArgument right) => !(left == right); 
+        public static bool operator !=(UserDefinedParameter left, UserDefinedParameter right) => !(left == right); 
     }
 }

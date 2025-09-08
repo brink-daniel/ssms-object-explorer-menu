@@ -4,7 +4,7 @@ namespace SSMSObjectExplorerMenu
 {
     public static class Utils
     {
-        public static IEnumerable<string> ArgumentsFromContext = new string[]
+        public static IEnumerable<string> ParametersFromContext = new string[]
         {
             "{OBJECT}",
             "{SERVER}",

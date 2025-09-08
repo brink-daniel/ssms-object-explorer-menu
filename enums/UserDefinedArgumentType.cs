@@ -1,6 +1,6 @@
 ﻿namespace SSMSObjectExplorerMenu.enums
 {
-    public enum UserDefinedArgumentType : byte
+    public enum UserDefinedParameterType : byte
     {
         UniqueIdentifier,
         Int,

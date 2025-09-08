@@ -1,5 +1,4 @@
-﻿using SSMSObjectExplorerMenu.enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
@@ -55,17 +54,17 @@ namespace SSMSObjectExplorerMenu.objects
 		public string Context { get; set; } = "All";
 
         [Category("Menu item")]
-        [DisplayName("User-defined arguments")]
-        [Description("List of user-deifned arguments can be used in the T-SQL script.")]
+        [DisplayName("User-defined parameters")]
+        [Description("List of user-deifned parameters can be used in the T-SQL script.")]
 		[Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
-        public BindingList<UserDefinedArgument> UserDefinedArguments { get; private set; } = new BindingList<UserDefinedArgument>();
+        public BindingList<UserDefinedParameter> UserDefinedParameters { get; private set; } = new BindingList<UserDefinedParameter>();
 
 		public MenuItem()
 		{
 			
 		}
 
-		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedArgument> userDefinedArguments = null)
+		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedParameter> userDefinedParams = null)
 		{
             Enabled = enabled;
 			Context = context;
@@ -74,12 +73,9 @@ namespace SSMSObjectExplorerMenu.objects
 			Execute = execute;
 			Confirm = confirm;
 
-			if(userDefinedArguments != null)
-			{
-                foreach(var arg in userDefinedArguments)
-				{
-                    UserDefinedArguments.Add(arg);
-                }
+            foreach (var param in userDefinedParams ?? Enumerable.Empty<UserDefinedParameter>())
+            {
+                UserDefinedParameters.Add(param);
             }
 
 			if (Confirm) {

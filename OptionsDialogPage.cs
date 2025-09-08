@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
+using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
 using System.ComponentModel;

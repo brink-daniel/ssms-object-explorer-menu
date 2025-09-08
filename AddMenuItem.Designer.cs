@@ -43,12 +43,12 @@
             this.buttonOpen = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.listViewCustomArgs = new System.Windows.Forms.ListView();
-            this.ArgumentName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ArgumentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonAddCustomArg = new System.Windows.Forms.Button();
-            this.buttonRemoveCustomArg = new System.Windows.Forms.Button();
-            this.labelCustomArgs = new System.Windows.Forms.Label();
+            this.listViewUserDefinedParam = new System.Windows.Forms.ListView();
+            this.ParameterName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ParameterType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonAddUserDefinedParam = new System.Windows.Forms.Button();
+            this.buttonRemoveUserDefinedParam = new System.Windows.Forms.Button();
+            this.labelUserDefinedParameters = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -216,67 +216,67 @@
             this.labelVersion.TabIndex = 13;
             this.labelVersion.Text = "0.0.0";
             // 
-            // listViewCustomArgs
+            // listViewUserDefinedParam
             // 
-            this.listViewCustomArgs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ArgumentName,
-            this.ArgumentType});
-            this.listViewCustomArgs.HideSelection = false;
-            this.listViewCustomArgs.Location = new System.Drawing.Point(88, 135);
-            this.listViewCustomArgs.Name = "listViewCustomArgs";
-            this.listViewCustomArgs.Size = new System.Drawing.Size(275, 75);
-            this.listViewCustomArgs.TabIndex = 15;
-            this.listViewCustomArgs.UseCompatibleStateImageBehavior = false;
-            this.listViewCustomArgs.View = System.Windows.Forms.View.Details;
+            this.listViewUserDefinedParam.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ParameterName,
+            this.ParameterType});
+            this.listViewUserDefinedParam.HideSelection = false;
+            this.listViewUserDefinedParam.Location = new System.Drawing.Point(88, 135);
+            this.listViewUserDefinedParam.Name = "listViewUserDefinedParam";
+            this.listViewUserDefinedParam.Size = new System.Drawing.Size(275, 75);
+            this.listViewUserDefinedParam.TabIndex = 15;
+            this.listViewUserDefinedParam.UseCompatibleStateImageBehavior = false;
+            this.listViewUserDefinedParam.View = System.Windows.Forms.View.Details;
             // 
-            // ArgumentName
+            // ParameterName
             // 
-            this.ArgumentName.Text = "Argument name";
-            this.ArgumentName.Width = 160;
+            this.ParameterName.Text = "Parameter name";
+            this.ParameterName.Width = 160;
             // 
-            // ArgumentType
+            // ParameterType
             // 
-            this.ArgumentType.Text = "Argument type";
-            this.ArgumentType.Width = 106;
+            this.ParameterType.Text = "Parameter type";
+            this.ParameterType.Width = 106;
             // 
-            // buttonAddCustomArg
+            // buttonAddUserDefinedParam
             // 
-            this.buttonAddCustomArg.Location = new System.Drawing.Point(374, 135);
-            this.buttonAddCustomArg.Name = "buttonAddCustomArg";
-            this.buttonAddCustomArg.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddCustomArg.TabIndex = 16;
-            this.buttonAddCustomArg.Text = "Add";
-            this.buttonAddCustomArg.UseVisualStyleBackColor = true;
-            this.buttonAddCustomArg.Click += new System.EventHandler(this.buttonAddCustomArg_Click);
+            this.buttonAddUserDefinedParam.Location = new System.Drawing.Point(374, 135);
+            this.buttonAddUserDefinedParam.Name = "buttonAddUserDefinedParam";
+            this.buttonAddUserDefinedParam.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddUserDefinedParam.TabIndex = 16;
+            this.buttonAddUserDefinedParam.Text = "Add";
+            this.buttonAddUserDefinedParam.UseVisualStyleBackColor = true;
+            this.buttonAddUserDefinedParam.Click += new System.EventHandler(this.buttonAddUserDefinedParam_Click);
             // 
-            // buttonRemoveCustomArg
+            // buttonRemoveUserDefinedParam
             // 
-            this.buttonRemoveCustomArg.Location = new System.Drawing.Point(374, 164);
-            this.buttonRemoveCustomArg.Name = "buttonRemoveCustomArg";
-            this.buttonRemoveCustomArg.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemoveCustomArg.TabIndex = 18;
-            this.buttonRemoveCustomArg.Text = "Remove";
-            this.buttonRemoveCustomArg.UseVisualStyleBackColor = true;
-            this.buttonRemoveCustomArg.Click += new System.EventHandler(this.buttonRemoveCustomArg_Click);
+            this.buttonRemoveUserDefinedParam.Location = new System.Drawing.Point(374, 164);
+            this.buttonRemoveUserDefinedParam.Name = "buttonRemoveUserDefinedParam";
+            this.buttonRemoveUserDefinedParam.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemoveUserDefinedParam.TabIndex = 18;
+            this.buttonRemoveUserDefinedParam.Text = "Remove";
+            this.buttonRemoveUserDefinedParam.UseVisualStyleBackColor = true;
+            this.buttonRemoveUserDefinedParam.Click += new System.EventHandler(this.buttonRemoveUserDefinedParam_Click);
             // 
-            // labelCustomArgs
+            // labelUserDefinedParameters
             // 
-            this.labelCustomArgs.AutoSize = true;
-            this.labelCustomArgs.Location = new System.Drawing.Point(91, 117);
-            this.labelCustomArgs.Name = "labelCustomArgs";
-            this.labelCustomArgs.Size = new System.Drawing.Size(151, 13);
-            this.labelCustomArgs.TabIndex = 19;
-            this.labelCustomArgs.Text = "List of user-defined arguments:";
+            this.labelUserDefinedParameters.AutoSize = true;
+            this.labelUserDefinedParameters.Location = new System.Drawing.Point(91, 117);
+            this.labelUserDefinedParameters.Name = "labelUserDefinedParameters";
+            this.labelUserDefinedParameters.Size = new System.Drawing.Size(154, 13);
+            this.labelUserDefinedParameters.TabIndex = 19;
+            this.labelUserDefinedParameters.Text = "List of user-defined parameters:";
             // 
             // AddMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 475);
-            this.Controls.Add(this.labelCustomArgs);
-            this.Controls.Add(this.buttonRemoveCustomArg);
-            this.Controls.Add(this.buttonAddCustomArg);
-            this.Controls.Add(this.listViewCustomArgs);
+            this.Controls.Add(this.labelUserDefinedParameters);
+            this.Controls.Add(this.buttonRemoveUserDefinedParam);
+            this.Controls.Add(this.buttonAddUserDefinedParam);
+            this.Controls.Add(this.listViewUserDefinedParam);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.radioScript);
@@ -316,11 +316,11 @@
 		private System.Windows.Forms.Button buttonOpen;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.ListView listViewCustomArgs;
-        private System.Windows.Forms.ColumnHeader ArgumentName;
-        private System.Windows.Forms.ColumnHeader ArgumentType;
-        private System.Windows.Forms.Button buttonAddCustomArg;
-        private System.Windows.Forms.Button buttonRemoveCustomArg;
-        private System.Windows.Forms.Label labelCustomArgs;
+        private System.Windows.Forms.ListView listViewUserDefinedParam;
+        private System.Windows.Forms.ColumnHeader ParameterName;
+        private System.Windows.Forms.ColumnHeader ParameterType;
+        private System.Windows.Forms.Button buttonAddUserDefinedParam;
+        private System.Windows.Forms.Button buttonRemoveUserDefinedParam;
+        private System.Windows.Forms.Label labelUserDefinedParameters;
     }
 }
