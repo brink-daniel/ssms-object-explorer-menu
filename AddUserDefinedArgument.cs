@@ -9,7 +9,6 @@ namespace SSMSObjectExplorerMenu
 {
     public partial class AddUserDefinedArgument : Form
     {
-        private bool _editing;
         private IEnumerable<string> _argumentNamesInUse;
         private UserDefinedArgument _argument;
 
@@ -24,25 +23,20 @@ namespace SSMSObjectExplorerMenu
             }
         }
 
-        public AddUserDefinedArgument(IEnumerable<string> argumentNamesInUse, bool edit = false, UserDefinedArgument argumentToEdit = null)
+        public AddUserDefinedArgument(IEnumerable<string> argumentNamesInUse)
         {
             InitializeComponent();
 
             // Can't add arguments already added by the user once or coming from the execution context...
             _argumentNamesInUse = argumentNamesInUse.Concat(Utils.ArgumentsFromContext);
-            _editing = edit;
-            if(_editing && argumentToEdit is null)
-            {
-                throw new ArgumentException($"{nameof(argumentToEdit)} cannot be null if the dialog is in edit mode.", nameof(argumentToEdit));
-            }
 
             _argument = new UserDefinedArgument
             {
-                Name = _editing ? argumentToEdit.Name : string.Empty,
-                Type = _editing ? argumentToEdit.Type : UserDefinedArgumentType.UniqueIdentifier
+                Name = string.Empty,
+                Type = UserDefinedArgumentType.UniqueIdentifier
             };
 
-            this.Text = $"{(_editing ? "Editing" : "Adding new")} custom argument...";
+            this.Text = "Adding new custom argument...";
 
             this.textBoxArgumentName.MaxLength = UserDefinedArgument.NAME_MAX_LENGTH;
             this.textBoxArgumentName.DataBindings.Add(nameof(textBoxArgumentName.Text), _argument, nameof(_argument.Name), true, DataSourceUpdateMode.OnPropertyChanged);
