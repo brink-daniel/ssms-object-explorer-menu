@@ -45,25 +45,23 @@ namespace SSMSObjectExplorerMenu
             this.Text = $"{(_editing ? "Editing" : "Adding new")} custom argument...";
 
             this.textBoxArgumentName.MaxLength = UserDefinedArgument.NAME_MAX_LENGTH;
-            this.textBoxArgumentName.DataBindings.Add(nameof(textBoxArgumentName.Text), _argument, nameof(_argument.Name));
+            this.textBoxArgumentName.DataBindings.Add(nameof(textBoxArgumentName.Text), _argument, nameof(_argument.Name), true, DataSourceUpdateMode.OnPropertyChanged);
 
             this.comboBoxArgumentType.DataSource = Enum.GetNames(typeof(UserDefinedArgumentType));
             this.comboBoxArgumentType.SelectedIndex = 0;
-            this.comboBoxArgumentType.ValueMember = ".";
-            this.comboBoxArgumentType.DataBindings.Add(nameof(comboBoxArgumentType.SelectedValue), _argument, nameof(_argument.Type));
+            this.comboBoxArgumentType.DataBindings.Add(nameof(comboBoxArgumentType.SelectedItem), _argument, nameof(_argument.Type), true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            var argumentNameToAdd = this.textBoxArgumentName.Text;
-            if (string.IsNullOrWhiteSpace(argumentNameToAdd))
+            if (string.IsNullOrWhiteSpace(_argument.Name))
             {
                 MessageBox.Show("You must choose a name for the argument!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (_argumentNamesInUse.Any(argumentName => StringComparer.OrdinalIgnoreCase.Equals(argumentName, argumentNameToAdd)))
+            if (_argumentNamesInUse.Any(argumentName => StringComparer.OrdinalIgnoreCase.Equals(argumentName, _argument.Name)))
             {
-                MessageBox.Show($"Name '{argumentNameToAdd}' is already in use! Choose a different one!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Name '{_argument.Name}' is already in use! Choose a different one!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

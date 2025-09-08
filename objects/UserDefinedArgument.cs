@@ -1,14 +1,21 @@
 ﻿using SSMSObjectExplorerMenu.enums;
 using System;
+using System.ComponentModel;
 
 namespace SSMSObjectExplorerMenu.objects
 {
+
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class UserDefinedArgument
     {
         public const short NAME_MAX_LENGTH = 128;
 
+        [DisplayName("Name")]
+        [Description("Name of the user-defined argument")]
         public string Name { get; set; }
 
+        [DisplayName("Data type")]
+        [Description("Data type of the user-defined argument")]
         public UserDefinedArgumentType Type { get; set; }
 
         public override bool Equals(object other)

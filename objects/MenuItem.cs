@@ -57,15 +57,15 @@ namespace SSMSObjectExplorerMenu.objects
         [Category("Menu item")]
         [DisplayName("User-defined arguments")]
         [Description("List of user-deifned arguments can be used in the T-SQL script.")]
-        [DefaultValue("All")]
-        public IEnumerable<UserDefinedArgument> UserDefinedArguments { get; private set; } = Enumerable.Empty<UserDefinedArgument>();
+		[Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
+        public BindingList<UserDefinedArgument> UserDefinedArguments { get; private set; } = new BindingList<UserDefinedArgument>();
 
 		public MenuItem()
 		{
 			
 		}
 
-		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedArgument> customArguments = null)
+		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedArgument> userDefinedArguments = null)
 		{
             Enabled = enabled;
 			Context = context;
@@ -74,9 +74,12 @@ namespace SSMSObjectExplorerMenu.objects
 			Execute = execute;
 			Confirm = confirm;
 
-			if(customArguments != null)
+			if(userDefinedArguments != null)
 			{
-                UserDefinedArguments = customArguments;
+                foreach(var arg in userDefinedArguments)
+				{
+                    UserDefinedArguments.Add(arg);
+                }
             }
 
 			if (Confirm) {
