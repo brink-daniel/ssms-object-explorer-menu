@@ -1,6 +1,6 @@
 ﻿namespace SSMSObjectExplorerMenu
 {
-    partial class AddOrEditUserDefinedArgument
+    partial class AddUserDefinedArgument
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddOrEditUserDefinedArgument));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserDefinedArgument));
             this.textBoxArgumentName = new System.Windows.Forms.TextBox();
             this.comboBoxArgumentType = new System.Windows.Forms.ComboBox();
             this.labelArgumentName = new System.Windows.Forms.Label();

@@ -92,7 +92,7 @@ namespace SSMSObjectExplorerMenu
         private void buttonAddCustomArg_Click(object sender, EventArgs e)
         {
 			var argumentNamesInUse = this.listViewCustomArgs.Items.Cast<ListViewItem>().Select(item => item.Text);
-            var addDialog = new AddOrEditUserDefinedArgument(argumentNamesInUse);
+            var addDialog = new AddUserDefinedArgument(argumentNamesInUse);
 			if(addDialog.ShowDialog() == DialogResult.OK)
 			{
                 var newArgument = addDialog.Argument;

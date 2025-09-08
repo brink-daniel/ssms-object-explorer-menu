@@ -65,11 +65,11 @@
     <Compile Include="AddMenuItem.Designer.cs">
       <DependentUpon>AddMenuItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddOrEditUserDefinedArgument.cs">
+    <Compile Include="AddUserDefinedArgument.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddOrEditUserDefinedArgument.Designer.cs">
-      <DependentUpon>AddOrEditUserDefinedArgument.cs</DependentUpon>
+    <Compile Include="AddUserDefinedArgument.Designer.cs">
+      <DependentUpon>AddUserDefinedArgument.cs</DependentUpon>
     </Compile>
     <Compile Include="enums\UserDefinedArgumentType.cs" />
     <Compile Include="Extensions.cs" />
@@ -144,8 +144,8 @@
       <DependentUpon>AddMenuItem.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddOrEditUserDefinedArgument.resx">
-      <DependentUpon>AddOrEditUserDefinedArgument.cs</DependentUpon>
+    <EmbeddedResource Include="AddUserDefinedArgument.resx">
+      <DependentUpon>AddUserDefinedArgument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

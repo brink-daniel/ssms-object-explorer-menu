@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu
 {
-    public partial class AddOrEditUserDefinedArgument : Form
+    public partial class AddUserDefinedArgument : Form
     {
         private bool _editing;
         private IEnumerable<string> _argumentNamesInUse;
@@ -24,7 +24,7 @@ namespace SSMSObjectExplorerMenu
             }
         }
 
-        public AddOrEditUserDefinedArgument(IEnumerable<string> argumentNamesInUse, bool edit = false, UserDefinedArgument argumentToEdit = null)
+        public AddUserDefinedArgument(IEnumerable<string> argumentNamesInUse, bool edit = false, UserDefinedArgument argumentToEdit = null)
         {
             InitializeComponent();
 
