@@ -1,7 +1,10 @@
-﻿using System;
+﻿using SSMSObjectExplorerMenu.enums;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
+using System.Linq;
 
 namespace SSMSObjectExplorerMenu.objects
 {
@@ -51,20 +54,30 @@ namespace SSMSObjectExplorerMenu.objects
 		[DefaultValue("All")]
 		public string Context { get; set; } = "All";
 
+        [Category("Menu item")]
+        [DisplayName("User-defined arguments")]
+        [Description("List of user-deifned arguments can be used in the T-SQL script.")]
+        [DefaultValue("All")]
+        public IEnumerable<UserDefinedArgument> UserDefinedArguments { get; private set; } = Enumerable.Empty<UserDefinedArgument>();
 
 		public MenuItem()
 		{
 			
 		}
 
-		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm)
+		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedArgument> customArguments = null)
 		{
-			Enabled = enabled;
+            Enabled = enabled;
 			Context = context;
 			Name = name;
 			Script = script;
 			Execute = execute;
 			Confirm = confirm;
+
+			if(customArguments != null)
+			{
+                UserDefinedArguments = customArguments;
+            }
 
 			if (Confirm) {
 				Execute = true;

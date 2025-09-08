@@ -1,5 +1,7 @@
-﻿using SSMSObjectExplorerMenu.objects;
+﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.objects;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using MenuItem = SSMSObjectExplorerMenu.objects.MenuItem;
@@ -86,5 +88,35 @@ namespace SSMSObjectExplorerMenu
 				checkConfirm.Checked = false;
 			}
 		}
-	}
+
+        private void buttonAddCustomArg_Click(object sender, EventArgs e)
+        {
+			var argumentNamesInUse = this.listViewCustomArgs.Items.Cast<ListViewItem>().Select(item => item.Text);
+            var addDialog = new AddOrEditUserDefinedArgument(argumentNamesInUse);
+			if(addDialog.ShowDialog() == DialogResult.OK)
+			{
+                var newArgument = addDialog.Argument;
+				var newListViewItem = new ListViewItem { Text = newArgument.Name };
+				newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = Enum.GetName(typeof(UserDefinedArgumentType), newArgument.Type) });
+                listViewCustomArgs.Items.Add(newListViewItem);
+            }
+        }
+
+        private void buttonRemoveCustomArg_Click(object sender, EventArgs e)
+        {
+			var selectedItems = this.listViewCustomArgs.Items.Cast<ListViewItem>().Where(item => item.Selected);
+			if (selectedItems.Any() &&
+                DialogResult.Yes == MessageBox.Show("Are you sure?", "Deleting arguments", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+			{
+				foreach (var item in selectedItems)
+				{
+                    this.listViewCustomArgs.Items.Remove(item);
+                }
+			}
+			else
+			{
+				MessageBox.Show("You must select an item to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
 }

@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu
 {
-    public partial class AddOrEditCustomArgument : Form
+    public partial class AddOrEditUserDefinedArgument : Form
     {
         private bool _editing;
         private IEnumerable<string> _argumentNamesInUse;
-        private CustomArgument _argument;
+        private UserDefinedArgument _argument;
 
-        public CustomArgument CustomArgument {
+        public UserDefinedArgument Argument {
             get
             {
                 if(this.DialogResult != DialogResult.OK)
@@ -22,34 +22,35 @@ namespace SSMSObjectExplorerMenu
                 }
                 return _argument;
             }
-            private set { _argument = value; }
         }
 
-        public AddOrEditCustomArgument(IEnumerable<string> argumentNamesInUse, bool edit = false, CustomArgument argumentToEdit = null)
+        public AddOrEditUserDefinedArgument(IEnumerable<string> argumentNamesInUse, bool edit = false, UserDefinedArgument argumentToEdit = null)
         {
-            _argumentNamesInUse = argumentNamesInUse;
+            InitializeComponent();
+
+            // Can't add arguments already added by the user once or coming from the execution context...
+            _argumentNamesInUse = argumentNamesInUse.Concat(Utils.ArgumentsFromContext);
             _editing = edit;
             if(_editing && argumentToEdit is null)
             {
                 throw new ArgumentException($"{nameof(argumentToEdit)} cannot be null if the dialog is in edit mode.", nameof(argumentToEdit));
             }
 
-            CustomArgument = new CustomArgument
+            _argument = new UserDefinedArgument
             {
                 Name = _editing ? argumentToEdit.Name : string.Empty,
-                Type = _editing ? argumentToEdit.Type : CustomArgumentType.UniqueIdentifier
+                Type = _editing ? argumentToEdit.Type : UserDefinedArgumentType.UniqueIdentifier
             };
 
             this.Text = $"{(_editing ? "Editing" : "Adding new")} custom argument...";
 
-            this.textBoxArgumentName.MaxLength = CustomArgument.NAME_MAX_LENGTH;
-            this.textBoxArgumentName.DataBindings.Add(nameof(textBoxArgumentName.Text), CustomArgument, nameof(CustomArgument.Name));
+            this.textBoxArgumentName.MaxLength = UserDefinedArgument.NAME_MAX_LENGTH;
+            this.textBoxArgumentName.DataBindings.Add(nameof(textBoxArgumentName.Text), _argument, nameof(_argument.Name));
 
-            this.comboBoxArgumentType.DataSource = Enum.GetNames(typeof(CustomArgumentType));
+            this.comboBoxArgumentType.DataSource = Enum.GetNames(typeof(UserDefinedArgumentType));
             this.comboBoxArgumentType.SelectedIndex = 0;
-            this.comboBoxArgumentType.DataBindings.Add(nameof(comboBoxArgumentType.SelectedValue), CustomArgument, nameof(CustomArgument.Type));
-
-            InitializeComponent();
+            this.comboBoxArgumentType.ValueMember = ".";
+            this.comboBoxArgumentType.DataBindings.Add(nameof(comboBoxArgumentType.SelectedValue), _argument, nameof(_argument.Type));
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

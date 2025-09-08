@@ -3,17 +3,17 @@ using System;
 
 namespace SSMSObjectExplorerMenu.objects
 {
-    public class CustomArgument
+    public class UserDefinedArgument
     {
         public const short NAME_MAX_LENGTH = 128;
 
         public string Name { get; set; }
 
-        public CustomArgumentType Type { get; set; }
+        public UserDefinedArgumentType Type { get; set; }
 
         public override bool Equals(object other)
         {
-            var otherAsCustomArg = other as CustomArgument;
+            var otherAsCustomArg = other as UserDefinedArgument;
 
             if (otherAsCustomArg is null) return false;
 
@@ -31,13 +31,13 @@ namespace SSMSObjectExplorerMenu.objects
             }
         }
 
-        public static bool operator ==(CustomArgument left, CustomArgument right)
+        public static bool operator ==(UserDefinedArgument left, UserDefinedArgument right)
         {
             if (ReferenceEquals(left, right)) return true;
             if (left is null || right is null) return false;
             return left.Equals(right);
         }
 
-        public static bool operator !=(CustomArgument left, CustomArgument right) => !(left == right); 
+        public static bool operator !=(UserDefinedArgument left, UserDefinedArgument right) => !(left == right); 
     }
 }

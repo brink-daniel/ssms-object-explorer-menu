@@ -65,18 +65,19 @@
     <Compile Include="AddMenuItem.Designer.cs">
       <DependentUpon>AddMenuItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddOrEditCustomArgument.cs">
+    <Compile Include="AddOrEditUserDefinedArgument.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddOrEditCustomArgument.Designer.cs">
-      <DependentUpon>AddOrEditCustomArgument.cs</DependentUpon>
+    <Compile Include="AddOrEditUserDefinedArgument.Designer.cs">
+      <DependentUpon>AddOrEditUserDefinedArgument.cs</DependentUpon>
     </Compile>
-    <Compile Include="enums\CustomArgumentType.cs" />
+    <Compile Include="enums\UserDefinedArgumentType.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="objects\CustomArgument.cs" />
+    <Compile Include="objects\UserDefinedArgument.cs" />
     <Compile Include="objects\NodeInfo.cs" />
     <Compile Include="objects\MenuItem.cs" />
     <Compile Include="objects\MenuItemInstance.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OptionsDialogPage.cs">
       <SubType>Component</SubType>
@@ -143,8 +144,8 @@
       <DependentUpon>AddMenuItem.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddOrEditCustomArgument.resx">
-      <DependentUpon>AddOrEditCustomArgument.cs</DependentUpon>
+    <EmbeddedResource Include="AddOrEditUserDefinedArgument.resx">
+      <DependentUpon>AddOrEditUserDefinedArgument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
