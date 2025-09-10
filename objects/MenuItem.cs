@@ -82,5 +82,26 @@ namespace SSMSObjectExplorerMenu.objects
 				Execute = true;
 			}
 		}
+
+		public bool TryValidate(out IEnumerable<MenuItemErrorModel> validationErrors)
+		{
+			var errorList = new List<MenuItemErrorModel>();
+
+			foreach(var param in UserDefinedParameters)
+			{
+				try
+				{
+					var otherParamNames = UserDefinedParameters.Where(p => p != param).Select(p => p.Name);
+                    UserDefinedParameter.ValidateName(param.Name, Utils.ParametersFromContext.Concat(otherParamNames));
+				}
+				catch (ArgumentException ex)
+				{
+					errorList.Add(new MenuItemErrorModel { MenuItemName = Name, ErrorMessage = ex.Message });
+				}
+            }
+
+			validationErrors = errorList;
+			return !errorList.Any();
+        }
 	}
 }

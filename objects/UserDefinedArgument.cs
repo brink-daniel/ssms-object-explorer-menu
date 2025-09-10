@@ -1,49 +1,35 @@
-﻿using SSMSObjectExplorerMenu.enums;
+﻿using Microsoft.Internal.VisualStudio.Shell;
+using SSMSObjectExplorerMenu.enums;
 using System;
-using System.ComponentModel;
 
 namespace SSMSObjectExplorerMenu.objects
 {
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class UserDefinedParameter
+    public class UserDefinedArgument : UserDefinedParameter
     {
-        public const short NAME_MAX_LENGTH = 128;
+        private string _valueStr;
 
-        [DisplayName("Name")]
-        [Description("Name of the user-defined parameter")]
-        public string Name { get; set; }
-
-        [DisplayName("Data type")]
-        [Description("Data type of the user-defined parameter")]
-        public UserDefinedParameterType Type { get; set; }
-
-        public override bool Equals(object other)
-        {
-            var otherAsParam = other as UserDefinedParameter;
-
-            if (otherAsParam is null) return false;
-
-            return StringComparer.OrdinalIgnoreCase.Equals(Name, otherAsParam.Name) && Type == otherAsParam.Type;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
+        public string ValueAsString {
+            get => _valueStr;
+            private set
             {
-                int hashCode = 13;
-                hashCode = hashCode * 41 + (Name?.GetHashCode() ?? 0);
-                hashCode = hashCode * 41 + Type.GetHashCode();
-                return hashCode;
+                ValidateValue(value);
+                _valueStr = value;
             }
         }
 
-        public static bool operator ==(UserDefinedParameter left, UserDefinedParameter right)
+        public UserDefinedArgument(string name, UserDefinedParameterType type, string value)
         {
-            if (ReferenceEquals(left, right)) return true;
-            if (left is null || right is null) return false;
-            return left.Equals(right);
+            Name = name;
+            Type = type;
+            ValueAsString = value;
         }
 
-        public static bool operator !=(UserDefinedParameter left, UserDefinedParameter right) => !(left == right); 
+        private static void ValidateValue(string value)
+        {
+            if (value is null)
+            {
+                throw new ArgumentNullException(nameof(value), "Value cannot be null.");
+            }
+        }
     }
 }

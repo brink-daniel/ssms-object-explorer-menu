@@ -1,0 +1,60 @@
+﻿using SSMSObjectExplorerMenu.extensions;
+using SSMSObjectExplorerMenu.objects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace SSMSObjectExplorerMenu
+{
+    public partial class EnterUserDefinedArguments : Form
+    {
+        private readonly ArgumentControl[] _argumentControls;
+
+        public IEnumerable<UserDefinedArgument> UserDefinedArguments { 
+            get
+            {
+                if(!TryValidate(out string _) || this.DialogResult != DialogResult.OK)
+                {
+                    throw new InvalidOperationException("Dialog is in invalid state.");
+                }
+                return _argumentControls.Select(ac => ac.ToUserDefinedArgument());
+            }
+        }
+
+        public EnterUserDefinedArguments(IEnumerable<UserDefinedParameter> parameters)
+        {
+            InitializeComponent();
+
+            int argumentControlWidth = this.flowLayoutPanelArguments.ClientSize.Width - SystemInformation.VerticalScrollBarWidth;
+            _argumentControls = parameters.Select(p => new ArgumentControl(p.Name, p.Type, argumentControlWidth)).ToArray();
+            this.flowLayoutPanelArguments.Controls.AddRange(_argumentControls);
+        }
+
+        private void buttonOK_Click(object sender, System.EventArgs e)
+        {
+            if(!TryValidate(out string validationErrorMessage))
+            {
+                MessageBox.Show(this, validationErrorMessage, "Invalid parameter value", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private bool TryValidate(out string validationErrorMessage)
+        {
+            foreach (var ac in _argumentControls)
+            {
+                if (!ac.Validator())
+                {
+                    validationErrorMessage = $"The value for parameter '{ac.ParameterName}' ({ac.ParameterType}) is not valid!";
+                    return false;
+                }
+            }
+
+            validationErrorMessage = null;
+            return true;
+        }
+    }
+}

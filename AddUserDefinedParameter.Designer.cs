@@ -104,7 +104,7 @@
             this.Controls.Add(this.textBoxParameterName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddUserDefinedParameter";
-            this.Text = "AddUserDefinedParameter";
+            this.Text = "Adding new user-defined parameter...";
             this.ResumeLayout(false);
             this.PerformLayout();
 

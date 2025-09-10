@@ -19,5 +19,8 @@ namespace SSMSObjectExplorerMenu.extensions
                 };
             }
         }
+
+        public static UserDefinedArgument ToUserDefinedArgument(this ArgumentControl control)
+            => new UserDefinedArgument(control.ParameterName, control.ParameterType, control.ParameterValueString);
     }
 }

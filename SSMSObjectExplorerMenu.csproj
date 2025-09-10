@@ -71,10 +71,24 @@
     <Compile Include="AddUserDefinedParameter.Designer.cs">
       <DependentUpon>AddUserDefinedParameter.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArgumentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ArgumentControl.Designer.cs">
+      <DependentUpon>ArgumentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnterUserDefinedArguments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnterUserDefinedArguments.Designer.cs">
+      <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
+    </Compile>
     <Compile Include="enums\UserDefinedArgumentType.cs" />
     <Compile Include="extensions\Extensions.cs" />
     <Compile Include="extensions\UIExtensions.cs" />
+    <Compile Include="objects\MenuItemErrorModel.cs" />
     <Compile Include="objects\UserDefinedArgument.cs" />
+    <Compile Include="objects\UserDefinedParameter.cs" />
     <Compile Include="objects\NodeInfo.cs" />
     <Compile Include="objects\MenuItem.cs" />
     <Compile Include="objects\MenuItemInstance.cs" />
@@ -147,6 +161,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddUserDefinedParameter.resx">
       <DependentUpon>AddUserDefinedParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArgumentControl.resx">
+      <DependentUpon>ArgumentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnterUserDefinedArguments.resx">
+      <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

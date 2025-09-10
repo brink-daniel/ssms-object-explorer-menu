@@ -92,7 +92,8 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonAddUserDefinedParam_Click(object sender, EventArgs e)
         {
-            var argumentNamesInUse = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Select(item => item.Text);
+            var argumentNamesInUse = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Select(item => item.Text)
+				.Concat(Utils.ParametersFromContext);
             var addDialog = new AddUserDefinedParameter(argumentNamesInUse);
             if (addDialog.ShowDialog() == DialogResult.OK)
             {

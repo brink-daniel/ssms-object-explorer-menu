@@ -1,6 +1,8 @@
 ﻿using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
 using SSMSObjectExplorerMenu.objects;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -27,7 +29,6 @@ namespace SSMSObjectExplorerMenu.extensions
 				return textWriter.ToString();
 			}
 		}
-
 
 		public static NodeInfo GetInfo(this INodeInformation node)
 		{
@@ -77,8 +78,6 @@ namespace SSMSObjectExplorerMenu.extensions
                     continue;
                 }
 
-
-
                 if (s.StartsWith("StoredProcedure[@Name='"))
 				{
 					string[] t = s.Replace("StoredProcedure[@Name='", "").Replace("' and @Schema='", "|").Replace("']", "").Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -115,11 +114,18 @@ namespace SSMSObjectExplorerMenu.extensions
 				}
 			}
 
-
 			return info;
 		}
 
-
-
+		public static string ReplaceRange(this string original, IEnumerable<(string Phrase, string Value)> elements)
+		{
+            // TODO: replacement case-insensitive?
+            string result = original;
+			foreach ((string Phrase, string Value) in elements)
+			{
+				result = result.Replace(Phrase, Value);
+			}
+			return result;
+        }
 	}
 }

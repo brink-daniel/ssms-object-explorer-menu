@@ -2,7 +2,6 @@
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu
@@ -10,16 +9,17 @@ namespace SSMSObjectExplorerMenu
     public partial class AddUserDefinedParameter : Form
     {
         private IEnumerable<string> _paramNamesInUse;
-        private UserDefinedParameter _parameter;
+        private ParameterItem _parameter;
 
-        public UserDefinedParameter Parameter {
+        public UserDefinedParameter Parameter
+        {
             get
             {
-                if(this.DialogResult != DialogResult.OK)
+                if (!TryValidate(out string _) || this.DialogResult != DialogResult.OK)
                 {
-                    throw new InvalidOperationException("Cannot get parameter from dialog without any user inter interaction.");
+                    throw new InvalidOperationException("Dialog is invalid state.");
                 }
-                return _parameter;
+                return new UserDefinedParameter { Name = _parameter.Name, Type = _parameter.Type };
             }
         }
 
@@ -27,16 +27,8 @@ namespace SSMSObjectExplorerMenu
         {
             InitializeComponent();
 
-            // Can't add parameters already added by the user once or coming from the execution context...
-            _paramNamesInUse = paramNamesInUse.Concat(Utils.ParametersFromContext);
-
-            _parameter = new UserDefinedParameter
-            {
-                Name = string.Empty,
-                Type = UserDefinedParameterType.UniqueIdentifier
-            };
-
-            this.Text = "Adding new user-defined parameter...";
+            _parameter = new ParameterItem { Name = string.Empty, Type = UserDefinedParameterType.UniqueIdentifier };
+            _paramNamesInUse = paramNamesInUse;
 
             this.textBoxParameterName.MaxLength = UserDefinedParameter.NAME_MAX_LENGTH;
             this.textBoxParameterName.DataBindings.Add(nameof(textBoxParameterName.Text), _parameter, nameof(_parameter.Name), true, DataSourceUpdateMode.OnPropertyChanged);
@@ -48,18 +40,36 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(_parameter.Name))
+            if (!TryValidate(out string validationErrorMessage))
             {
-                MessageBox.Show("You must choose a name for the parameter!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (_paramNamesInUse.Any(paramName => StringComparer.OrdinalIgnoreCase.Equals(paramName, _parameter.Name)))
-            {
-                MessageBox.Show($"Name '{_parameter.Name}' is already in use! Choose a different one!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(validationErrorMessage, "Invalid parameter", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             this.DialogResult = DialogResult.OK;
+        }
+
+        private bool TryValidate(out string validationErrorMessage)
+        {
+            try
+            {
+                // Can't add parameters already added by the user once or coming from the execution context...
+                UserDefinedParameter.ValidateName(_parameter.Name, _paramNamesInUse);
+            }
+            catch (ArgumentException ex)
+            {
+                validationErrorMessage = ex.Message;
+                return false;
+            }
+
+            validationErrorMessage = null;
+            return true;
+        }
+
+        class ParameterItem
+        {
+            public string Name { get; set; }
+            public UserDefinedParameterType Type { get; set; }
         }
     }
 }
