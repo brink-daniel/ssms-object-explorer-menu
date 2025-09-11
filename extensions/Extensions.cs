@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace SSMSObjectExplorerMenu.extensions
@@ -119,11 +120,11 @@ namespace SSMSObjectExplorerMenu.extensions
 
 		public static string ReplaceRange(this string original, IEnumerable<(string Phrase, string Value)> elements)
 		{
-            // TODO: replacement case-insensitive?
             string result = original;
 			foreach ((string Phrase, string Value) in elements)
 			{
-				result = result.Replace(Phrase, Value);
+				var replacementRegex = Regex.Escape(Phrase);
+                result = Regex.Replace(result, replacementRegex, Value, RegexOptions.IgnoreCase);
 			}
 			return result;
         }
