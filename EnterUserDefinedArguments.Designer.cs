@@ -47,16 +47,23 @@
             // 
             // flowLayoutPanelArguments
             // 
+            this.flowLayoutPanelArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelArguments.AutoScroll = true;
+            this.flowLayoutPanelArguments.AutoSize = true;
             this.flowLayoutPanelArguments.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelArguments.Location = new System.Drawing.Point(15, 26);
+            this.flowLayoutPanelArguments.MaximumSize = new System.Drawing.Size(300, 200);
             this.flowLayoutPanelArguments.Name = "flowLayoutPanelArguments";
-            this.flowLayoutPanelArguments.Size = new System.Drawing.Size(300, 150);
+            this.flowLayoutPanelArguments.Size = new System.Drawing.Size(300, 50);
             this.flowLayoutPanelArguments.TabIndex = 1;
+            this.flowLayoutPanelArguments.WrapContents = false;
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(159, 182);
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.Location = new System.Drawing.Point(159, 82);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 2;
@@ -66,8 +73,9 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(240, 182);
+            this.buttonCancel.Location = new System.Drawing.Point(240, 82);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -78,16 +86,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(329, 216);
+            this.ClientSize = new System.Drawing.Size(329, 111);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.flowLayoutPanelArguments);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EnterUserDefinedArguments";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter script arguments...";
             this.ResumeLayout(false);
             this.PerformLayout();

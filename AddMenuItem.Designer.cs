@@ -55,7 +55,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(455, 440);
+            this.buttonCancel.Location = new System.Drawing.Point(444, 502);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -67,7 +67,7 @@
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(374, 440);
+            this.buttonOK.Location = new System.Drawing.Point(363, 502);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -80,7 +80,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textName.Location = new System.Drawing.Point(88, 12);
             this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(442, 20);
+            this.textName.Size = new System.Drawing.Size(431, 20);
             this.textName.TabIndex = 0;
             this.textName.TextChanged += new System.EventHandler(this.textName_TextChanged);
             // 
@@ -104,7 +104,7 @@
             "Server/JobServer/Job"});
             this.comboContext.Location = new System.Drawing.Point(88, 38);
             this.comboContext.Name = "comboContext";
-            this.comboContext.Size = new System.Drawing.Size(442, 21);
+            this.comboContext.Size = new System.Drawing.Size(431, 21);
             this.comboContext.TabIndex = 1;
             // 
             // checkExecute
@@ -136,11 +136,11 @@
             this.textPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textPath.Location = new System.Drawing.Point(88, 245);
+            this.textPath.Location = new System.Drawing.Point(89, 284);
             this.textPath.Multiline = true;
             this.textPath.Name = "textPath";
             this.textPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textPath.Size = new System.Drawing.Size(442, 189);
+            this.textPath.Size = new System.Drawing.Size(431, 210);
             this.textPath.TabIndex = 4;
             this.textPath.Text = resources.GetString("textPath.Text");
             this.textPath.WordWrap = false;
@@ -167,7 +167,7 @@
             // radioPath
             // 
             this.radioPath.AutoSize = true;
-            this.radioPath.Location = new System.Drawing.Point(146, 222);
+            this.radioPath.Location = new System.Drawing.Point(146, 261);
             this.radioPath.Name = "radioPath";
             this.radioPath.Size = new System.Drawing.Size(47, 17);
             this.radioPath.TabIndex = 10;
@@ -179,7 +179,7 @@
             // 
             this.radioScript.AutoSize = true;
             this.radioScript.Checked = true;
-            this.radioScript.Location = new System.Drawing.Point(88, 222);
+            this.radioScript.Location = new System.Drawing.Point(88, 261);
             this.radioScript.Name = "radioScript";
             this.radioScript.Size = new System.Drawing.Size(52, 17);
             this.radioScript.TabIndex = 11;
@@ -191,7 +191,7 @@
             // buttonOpen
             // 
             this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOpen.Location = new System.Drawing.Point(505, 219);
+            this.buttonOpen.Location = new System.Drawing.Point(495, 255);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(25, 23);
             this.buttonOpen.TabIndex = 12;
@@ -209,7 +209,7 @@
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(12, 445);
+            this.labelVersion.Location = new System.Drawing.Point(12, 510);
             this.labelVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(31, 13);
@@ -218,13 +218,15 @@
             // 
             // listViewUserDefinedParam
             // 
+            this.listViewUserDefinedParam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewUserDefinedParam.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ParameterName,
             this.ParameterType});
             this.listViewUserDefinedParam.HideSelection = false;
             this.listViewUserDefinedParam.Location = new System.Drawing.Point(88, 135);
             this.listViewUserDefinedParam.Name = "listViewUserDefinedParam";
-            this.listViewUserDefinedParam.Size = new System.Drawing.Size(275, 75);
+            this.listViewUserDefinedParam.Size = new System.Drawing.Size(350, 120);
             this.listViewUserDefinedParam.TabIndex = 15;
             this.listViewUserDefinedParam.UseCompatibleStateImageBehavior = false;
             this.listViewUserDefinedParam.View = System.Windows.Forms.View.Details;
@@ -232,16 +234,17 @@
             // ParameterName
             // 
             this.ParameterName.Text = "Parameter name";
-            this.ParameterName.Width = 160;
+            this.ParameterName.Width = 197;
             // 
             // ParameterType
             // 
             this.ParameterType.Text = "Parameter type";
-            this.ParameterType.Width = 106;
+            this.ParameterType.Width = 109;
             // 
             // buttonAddUserDefinedParam
             // 
-            this.buttonAddUserDefinedParam.Location = new System.Drawing.Point(374, 135);
+            this.buttonAddUserDefinedParam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddUserDefinedParam.Location = new System.Drawing.Point(444, 135);
             this.buttonAddUserDefinedParam.Name = "buttonAddUserDefinedParam";
             this.buttonAddUserDefinedParam.Size = new System.Drawing.Size(75, 23);
             this.buttonAddUserDefinedParam.TabIndex = 16;
@@ -251,7 +254,8 @@
             // 
             // buttonRemoveUserDefinedParam
             // 
-            this.buttonRemoveUserDefinedParam.Location = new System.Drawing.Point(374, 164);
+            this.buttonRemoveUserDefinedParam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveUserDefinedParam.Location = new System.Drawing.Point(444, 164);
             this.buttonRemoveUserDefinedParam.Name = "buttonRemoveUserDefinedParam";
             this.buttonRemoveUserDefinedParam.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveUserDefinedParam.TabIndex = 18;
@@ -272,7 +276,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 475);
+            this.ClientSize = new System.Drawing.Size(531, 540);
             this.Controls.Add(this.labelUserDefinedParameters);
             this.Controls.Add(this.buttonRemoveUserDefinedParam);
             this.Controls.Add(this.buttonAddUserDefinedParam);
