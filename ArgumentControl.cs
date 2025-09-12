@@ -16,7 +16,17 @@ namespace SSMSObjectExplorerMenu
 
         public string ParameterName { get; private set; }
         public UserDefinedParameterType ParameterType { get; private set; }
-        public string ParameterValueString => _valueControl.Text;
+        public string ParameterValueString
+        {
+            get
+            {
+                if(ParameterType == UserDefinedParameterType.Bit)
+                {
+                    return ((CheckBox)_valueControl).Checked ? "1" : "0";
+                }
+                else return _valueControl.Text;
+            }
+        }
 
         public Func<bool> Validator { get; private set; }
 
@@ -49,6 +59,9 @@ namespace SSMSObjectExplorerMenu
                     break;
                 case UserDefinedParameterType.Int:
                     Init_Int();
+                    break;
+                case UserDefinedParameterType.Bit:
+                    Init_Bit();
                     break;
                 default:
                     throw new ArgumentException("Parameter type is not known.", nameof(parameterType));
@@ -86,6 +99,12 @@ namespace SSMSObjectExplorerMenu
         private void Init_Int()
         {
             _valueControl = new NumericUpDown();
+            Validator = () => true;
+        }
+
+        private void Init_Bit()
+        {
+            _valueControl = new CheckBox();
             Validator = () => true;
         }
 

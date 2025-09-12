@@ -4,6 +4,7 @@
     {
         UniqueIdentifier,
         Int,
-        Nvarchar
+        Nvarchar,
+        Bit
     }
 }
