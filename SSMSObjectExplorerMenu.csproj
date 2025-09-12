@@ -87,6 +87,7 @@
     <Compile Include="extensions\Extensions.cs" />
     <Compile Include="extensions\UIExtensions.cs" />
     <Compile Include="objects\MenuItemErrorModel.cs" />
+    <Compile Include="objects\StringListItem.cs" />
     <Compile Include="objects\UserDefinedArgument.cs" />
     <Compile Include="objects\UserDefinedParameter.cs" />
     <Compile Include="objects\NodeInfo.cs" />

@@ -1,9 +1,11 @@
-﻿namespace SSMSObjectExplorerMenu.objects
+﻿using System.Collections.Generic;
+
+namespace SSMSObjectExplorerMenu.objects
 {
     public class MenuItemErrorModel
     {
         public string MenuItemName { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public IEnumerable<string> ErrorMessages { get; set; }
     }
 }

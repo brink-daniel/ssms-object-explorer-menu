@@ -89,15 +89,11 @@ namespace SSMSObjectExplorerMenu.objects
 
 			foreach(var param in UserDefinedParameters)
 			{
-				try
+                var otherParamNames = UserDefinedParameters.Where(p => p != param).Select(p => p.Name);
+				if(!param.TryValidate(out IEnumerable<string> paramErrors, Utils.ParametersFromContext.Concat(otherParamNames)))
 				{
-					var otherParamNames = UserDefinedParameters.Where(p => p != param).Select(p => p.Name);
-                    UserDefinedParameter.ValidateName(param.Name, Utils.ParametersFromContext.Concat(otherParamNames));
-				}
-				catch (ArgumentException ex)
-				{
-					errorList.Add(new MenuItemErrorModel { MenuItemName = Name, ErrorMessage = ex.Message });
-				}
+                    errorList.Add(new MenuItemErrorModel { MenuItemName = Name, ErrorMessages = paramErrors });
+                }
             }
 
 			validationErrors = errorList;

@@ -99,7 +99,7 @@ namespace SSMSObjectExplorerMenu
 
 		protected override void OnApply(PageApplyEventArgs e)
 		{
-			if(!TryValidate(out IEnumerable<MenuItemErrorModel> validationErrors))
+			if(!TryValidate(out List<MenuItemErrorModel> validationErrors))
 			{
                 ShowValidationErrorDialog(validationErrors);
                 e.ApplyBehavior = ApplyKind.CancelNoNavigate;
@@ -110,28 +110,27 @@ namespace SSMSObjectExplorerMenu
 			base.OnApply(e);
 		}
 
-		private bool TryValidate(out IEnumerable<MenuItemErrorModel> validationErrors)
+		private bool TryValidate(out List<MenuItemErrorModel> validationErrors)
 		{
-			var errorList = new List<MenuItemErrorModel>();
+			validationErrors = new List<MenuItemErrorModel>();
 			foreach (var menuItem in MenuItems)
 			{
 				if (!menuItem.TryValidate(out IEnumerable<MenuItemErrorModel> errors))
 				{
-					errorList.AddRange(errors);
+                    validationErrors.AddRange(errors);
 				}
 			}
-			validationErrors = errorList;
-			return !errorList.Any();
+			return !validationErrors.Any();
         }
 
-		private void ShowValidationErrorDialog(IEnumerable<MenuItemErrorModel> validationErrors)
+		private void ShowValidationErrorDialog(List<MenuItemErrorModel> validationErrors)
 		{
 			if(validationErrors.Any())
 			{
-                StringBuilder builder = new StringBuilder();
+                var builder = new StringBuilder();
 
                 builder.AppendLine($"One or more validation errors occurred:{Environment.NewLine}");
-                foreach (var error in validationErrors)
+                foreach (var error in validationErrors.SelectMany(e => e.ErrorMessages, (m, e) => new { m.MenuItemName, ErrorMessage = e}))
                 {
                     builder.AppendLine($"Menu item '{error.MenuItemName}': {error.ErrorMessage}");
                 }

@@ -98,8 +98,8 @@ namespace SSMSObjectExplorerMenu
             if (addDialog.ShowDialog() == DialogResult.OK)
             {
                 var newParam = addDialog.Parameter;
-                var newListViewItem = new ListViewItem { Text = newParam.Name };
-                newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = Enum.GetName(typeof(UserDefinedParameterType), newParam.Type), Tag = newParam.Type });
+                var newListViewItem = new ListViewItem { Text = newParam.Name, Tag = newParam };
+                newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = Enum.GetName(typeof(UserDefinedParameterType), newParam.Type) });
                 listViewUserDefinedParam.Items.Add(newListViewItem);
             }
         }

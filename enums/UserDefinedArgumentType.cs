@@ -5,6 +5,10 @@
         UniqueIdentifier,
         Int,
         Nvarchar,
-        Bit
+        Bit,
+        /// <summary>
+        /// This is not a SQL Server data type. Represents a list of custom values defined by the user.
+        /// </summary>
+        CustomList
     }
 }

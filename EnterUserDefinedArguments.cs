@@ -32,11 +32,11 @@ namespace SSMSObjectExplorerMenu
             InitializeComponent();
 
             int argumentControlWidth = this.flowLayoutPanelArguments.ClientSize.Width - FLOWLAYOUTPANEL_PADDING;
-            _argumentControls = parameters.Select(p => new ArgumentControl(p.Name, p.Type, argumentControlWidth)).ToArray();
+            _argumentControls = parameters.Select(p => new ArgumentControl(p, argumentControlWidth)).ToArray();
             this.flowLayoutPanelArguments.Controls.AddRange(_argumentControls);
         }
 
-        private void buttonOK_Click(object sender, System.EventArgs e)
+        private void buttonOK_Click(object sender, EventArgs e)
         {
             if(!TryValidate(out string validationErrorMessage))
             {
@@ -53,7 +53,7 @@ namespace SSMSObjectExplorerMenu
             {
                 if (!ac.Validator())
                 {
-                    validationErrorMessage = $"The value for parameter '{ac.ParameterName}' ({ac.ParameterType}) is not valid!";
+                    validationErrorMessage = $"The value for parameter '{ac.Parameter.Name}' ({ac.Parameter.Type}) is not valid!";
                     return false;
                 }
             }

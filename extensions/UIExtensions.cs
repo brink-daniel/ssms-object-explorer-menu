@@ -1,7 +1,5 @@
-﻿using SSMSObjectExplorerMenu.enums;
-using SSMSObjectExplorerMenu.objects;
+﻿using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu.extensions
@@ -12,15 +10,19 @@ namespace SSMSObjectExplorerMenu.extensions
         {
             foreach (ListViewItem item in listView.Items)
             {
-                yield return new UserDefinedParameter
-                {
-                    Name = item.Text,
-                    Type = (UserDefinedParameterType)item.SubItems.Cast<ListViewItem.ListViewSubItem>().Last().Tag
-                };
+                yield return item.Tag as UserDefinedParameter;
             }
         }
 
         public static UserDefinedArgument ToUserDefinedArgument(this ArgumentControl control)
-            => new UserDefinedArgument(control.ParameterName, control.ParameterType, control.ParameterValueString);
+            => new UserDefinedArgument(control.Parameter.Name, control.Parameter.Type, control.ParameterValueString);
+
+        public static void RemoveRange(this ListView.ListViewItemCollection litViewItems, IEnumerable<ListViewItem> itemsToRemove)
+        {
+            foreach (var item in itemsToRemove)
+            {
+                litViewItems.Remove(item);
+            }
+        }
     }
 }

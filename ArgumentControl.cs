@@ -1,5 +1,7 @@
 ﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.objects;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -14,13 +16,12 @@ namespace SSMSObjectExplorerMenu
         private Label _labelParameterName;
         private Control _valueControl;
 
-        public string ParameterName { get; private set; }
-        public UserDefinedParameterType ParameterType { get; private set; }
+        public UserDefinedParameter Parameter { get; private set; }
         public string ParameterValueString
         {
             get
             {
-                if(ParameterType == UserDefinedParameterType.Bit)
+                if(Parameter.Type == UserDefinedParameterType.Bit)
                 {
                     return ((CheckBox)_valueControl).Checked ? "1" : "0";
                 }
@@ -30,26 +31,23 @@ namespace SSMSObjectExplorerMenu
 
         public Func<bool> Validator { get; private set; }
 
-        public ArgumentControl(string parameterName, UserDefinedParameterType parameterType, int width)
+        public ArgumentControl(UserDefinedParameter parameter, int width)
         {
-            if(string.IsNullOrWhiteSpace(parameterName))
+            if(!parameter.TryValidate(out IEnumerable<string> _))
             {
-                throw new ArgumentException("Parameter name cannot be null or whitespace.", nameof(parameterName));
+                throw new ArgumentException("Parameter validation has failed.", nameof(parameter));
             }
-
             if (width < 0)
             {
                 throw new ArgumentException("Width cannot be negative.", nameof(width));
             }
 
-            ParameterName = parameterName;
-            ParameterType = parameterType;
+            Parameter = parameter;
 
             InitializeComponent();
-
             this.Size = new Size(width, HEIGHT_LABEL + HEIGHT_VALUECONTROL);
 
-            switch (parameterType)
+            switch (Parameter.Type)
             {
                 case UserDefinedParameterType.UniqueIdentifier:
                     Init_Uniqueidentifier();
@@ -63,8 +61,11 @@ namespace SSMSObjectExplorerMenu
                 case UserDefinedParameterType.Bit:
                     Init_Bit();
                     break;
+                case UserDefinedParameterType.CustomList:
+                    Init_CustomList();
+                    break;
                 default:
-                    throw new ArgumentException("Parameter type is not known.", nameof(parameterType));
+                    throw new ArgumentException("Parameter type is not known.", nameof(Parameter.Type));
             }
             this._valueControl.Location = new Point(0, HEIGHT_LABEL);
             this._valueControl.Size = new Size(this.Size.Width, HEIGHT_VALUECONTROL);
@@ -73,7 +74,7 @@ namespace SSMSObjectExplorerMenu
             this._labelParameterName = new Label();
             this._labelParameterName.Location = Point.Empty;
             this._labelParameterName.Size = new Size(this.Size.Width, HEIGHT_LABEL);
-            this._labelParameterName.Text = $"{parameterName} ({parameterType}):";
+            this._labelParameterName.Text = $"{Parameter.Name} ({Parameter.Type}):";
             this.Controls.Add(this._labelParameterName);
         }
 
@@ -105,6 +106,14 @@ namespace SSMSObjectExplorerMenu
         private void Init_Bit()
         {
             _valueControl = new CheckBox();
+            Validator = () => true;
+        }
+        private void Init_CustomList()
+        {
+            var comboBox = new ComboBox();
+            comboBox.DataSource = Parameter.ValueSetOfCustomList;
+
+            _valueControl = comboBox;
             Validator = () => true;
         }
 
