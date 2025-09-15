@@ -7,19 +7,28 @@ using System.Reflection;
 
 namespace SSMSObjectExplorerMenu
 {
-    public class MenuItemContextConverter : EnumConverter
+
+    public class MenuItemContextConverter : EnumConverter<MenuItemContext>
     {
-        public MenuItemContextConverter() : base(typeof(MenuItemContext))
+    }
+
+    public class UserDefinedArgumentTypeConverter : EnumConverter<UserDefinedParameterType>
+    {
+    }
+
+    public abstract class EnumConverter<T> : EnumConverter where T : Enum
+    {
+        public EnumConverter() : base(typeof(T))
         {
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (value is MenuItemContext && destinationType == typeof(string))
+            if (value is T && destinationType == typeof(string))
             {
-                var field = typeof(MenuItemContext).GetField(value.ToString());
+                var field = typeof(T).GetField(value.ToString());
                 var desc = field?.GetCustomAttribute<DescriptionAttribute>();
-                return (desc?.Description) ?? throw new ArgumentException($"Unknown {typeof(MenuItemContext)} value", nameof(value));
+                return (desc?.Description) ?? throw new ArgumentException($"Unknown {typeof(T)} value.", nameof(value));
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -28,11 +37,11 @@ namespace SSMSObjectExplorerMenu
         {
             if(value is string val)
             {
-                var targetField = typeof(MenuItemContext).GetFields()
+                var targetField = typeof(T).GetFields()
                     .SingleOrDefault(f => f.GetCustomAttribute<DescriptionAttribute>()?.Description == val);
                 return targetField != null ?
-                    Enum.Parse(typeof(MenuItemContext), targetField.Name) :
-                    throw new ArgumentException($"Unknown {typeof(MenuItemContext)} value", nameof(value));
+                    Enum.Parse(typeof(T), targetField.Name) :
+                    throw new ArgumentException($"Unknown {typeof(T)} value.", nameof(value));
             }
             return base.ConvertFrom(context, culture, value);
         }

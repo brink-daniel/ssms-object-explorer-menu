@@ -19,13 +19,14 @@ namespace SSMSObjectExplorerMenu.objects
 
         [DisplayName("Data type")]
         [Description("Data type of the user-defined parameter.")]
+        [TypeConverter(typeof(UserDefinedArgumentTypeConverter))]
         public UserDefinedParameterType Type { get; set; }
 
         /// <summary>
         /// Populate if <see cref="Type"/> is <see cref="UserDefinedParameterType.CustomList"/>. Otherwise it's ignored.
         /// </summary>
-        [DisplayName("List of values")]
-        [Description("List of selectable values")]
+        [DisplayName("List of options")]
+        [Description("List of options. If the parameter's data type is not \"List of options\", it is ignored.")]
         [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
         public BindingList<StringListItem> ValueSetOfCustomList { get; set; } = new BindingList<StringListItem>();
 

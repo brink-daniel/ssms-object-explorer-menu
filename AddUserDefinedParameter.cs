@@ -49,7 +49,7 @@ namespace SSMSObjectExplorerMenu
             this.comboBoxParameterType.DataSource = 
                 Enum.GetValues(typeof(UserDefinedParameterType))
                     .Cast<UserDefinedParameterType>()
-                    .Select(type => new ComboBoxItem<UserDefinedParameterType> { Displayed = Enum.GetName(typeof(UserDefinedParameterType), type), Value = type }).ToList();
+                    .Select(type => new ComboBoxItem<UserDefinedParameterType> { Displayed = type.ToStringDescription(), Value = type }).ToList();
             this.comboBoxParameterType.DisplayMember = nameof(ComboBoxItem<UserDefinedParameterType>.Displayed);
             this.comboBoxParameterType.ValueMember = nameof(ComboBoxItem<UserDefinedParameterType>.Value);
             this.comboBoxParameterType.DataBindings.Add(nameof(comboBoxParameterType.SelectedValue), _parameter, nameof(_parameter.Type), true, DataSourceUpdateMode.OnPropertyChanged);

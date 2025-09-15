@@ -134,9 +134,9 @@
             this.labelCustomList.AutoSize = true;
             this.labelCustomList.Location = new System.Drawing.Point(3, 2);
             this.labelCustomList.Name = "labelCustomList";
-            this.labelCustomList.Size = new System.Drawing.Size(113, 13);
+            this.labelCustomList.Size = new System.Drawing.Size(75, 13);
             this.labelCustomList.TabIndex = 9;
-            this.labelCustomList.Text = "List of possible values:";
+            this.labelCustomList.Text = "List of options:";
             // 
             // panelCustomList
             // 
