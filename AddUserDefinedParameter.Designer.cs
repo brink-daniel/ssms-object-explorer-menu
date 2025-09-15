@@ -108,6 +108,7 @@
             this.listViewCustomList.Size = new System.Drawing.Size(228, 79);
             this.listViewCustomList.TabIndex = 6;
             this.listViewCustomList.UseCompatibleStateImageBehavior = false;
+            this.listViewCustomList.View = System.Windows.Forms.View.List;
             // 
             // buttonAddCustomList
             // 
