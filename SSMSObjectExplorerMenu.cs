@@ -118,7 +118,8 @@ namespace SSMSObjectExplorerMenu
 						continue;
 					}
 
-					if (menuItem.Context == "All" || menuItem.Context == nodes[0].UrnPath)
+					var menuItemContext = menuItem.Context.ToStringDescription();
+                    if (menuItemContext == "All" || menuItemContext == nodes[0].UrnPath)
 					{
 						MenuItemInstance instance = new MenuItemInstance(menuItem, nodeInfo, nodes[0].InvariantName);
 

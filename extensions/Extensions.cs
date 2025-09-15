@@ -1,8 +1,11 @@
 ﻿using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
+using Newtonsoft.Json.Linq;
+using SSMSObjectExplorerMenu.enums;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -127,6 +130,25 @@ namespace SSMSObjectExplorerMenu.extensions
                 result = Regex.Replace(result, replacementRegex, Value, RegexOptions.IgnoreCase);
 			}
 			return result;
+        }
+
+		public static string ToStringDescription<T>(this T context) where T : Enum
+        {
+			var enumType = typeof(T);
+            var name = Enum.GetName(enumType, context);
+            if (name != null)
+            {
+                var field = enumType.GetField(name);
+                if (field != null)
+                {
+                    var attr = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+                    if (attr != null)
+					{
+                        return attr.Description;
+                    }
+                }
+            }
+            throw new ArgumentException($"Unknown {nameof(T)} value.", nameof(context));
         }
 	}
 }

@@ -83,9 +83,12 @@
     <Compile Include="EnterUserDefinedArguments.Designer.cs">
       <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
     </Compile>
+    <Compile Include="enums\MenuItemContext.cs" />
     <Compile Include="enums\UserDefinedArgumentType.cs" />
     <Compile Include="extensions\Extensions.cs" />
     <Compile Include="extensions\UIExtensions.cs" />
+    <Compile Include="MenuItemContextConverter.cs" />
+    <Compile Include="objects\ComboBoxItem.cs" />
     <Compile Include="objects\MenuItemErrorModel.cs" />
     <Compile Include="objects\StringListItem.cs" />
     <Compile Include="objects\UserDefinedArgument.cs" />

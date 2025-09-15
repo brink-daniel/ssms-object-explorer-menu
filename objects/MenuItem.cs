@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SSMSObjectExplorerMenu.enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
@@ -50,8 +51,9 @@ namespace SSMSObjectExplorerMenu.objects
 		[Category("Menu item")]
 		[DisplayName("Context")]
 		[Description("Tree node level where to display menu item.")]
-		[DefaultValue("All")]
-		public string Context { get; set; } = "All";
+		[DefaultValue(MenuItemContext.All)]
+        [TypeConverter(typeof(MenuItemContextConverter))]
+        public MenuItemContext Context { get; set; } = MenuItemContext.All;
 
         [Category("Menu item")]
         [DisplayName("User-defined parameters")]
@@ -64,7 +66,7 @@ namespace SSMSObjectExplorerMenu.objects
 			
 		}
 
-		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedParameter> userDefinedParams = null)
+		public MenuItem(bool enabled, MenuItemContext context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedParameter> userDefinedParams = null)
 		{
             Enabled = enabled;
 			Context = context;
