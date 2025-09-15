@@ -9,8 +9,10 @@ namespace SSMSObjectExplorerMenu
 {
     public partial class ArgumentControl : UserControl
     {
-        private const int HEIGHT_LABEL = 15;
-        private const int HEIGHT_VALUECONTROL = 20;
+        /// <summary>
+        /// Padding of the control in pixels.
+        /// </summary>
+        private const int PADDING_TOP_BOTTOM = 2;
         private const byte UNIQUEIDENTIFIER_LENGTH = 36;
 
         private Label _labelParameterName;
@@ -45,7 +47,6 @@ namespace SSMSObjectExplorerMenu
             Parameter = parameter;
 
             InitializeComponent();
-            this.Size = new Size(width, HEIGHT_LABEL + HEIGHT_VALUECONTROL);
 
             switch (Parameter.Type)
             {
@@ -67,15 +68,18 @@ namespace SSMSObjectExplorerMenu
                 default:
                     throw new ArgumentException("Parameter type is not known.", nameof(Parameter.Type));
             }
-            this._valueControl.Location = new Point(0, HEIGHT_LABEL);
-            this._valueControl.Size = new Size(this.Size.Width, HEIGHT_VALUECONTROL);
-            this.Controls.Add(this._valueControl);
-
             this._labelParameterName = new Label();
-            this._labelParameterName.Location = Point.Empty;
-            this._labelParameterName.Size = new Size(this.Size.Width, HEIGHT_LABEL);
+
+            this.Size = new Size(width, (2 * PADDING_TOP_BOTTOM) + this._labelParameterName.Height + this._valueControl.Height);
+
+            this._labelParameterName.Location = new Point(0, PADDING_TOP_BOTTOM);
+            this._labelParameterName.Width = this.Width;
             this._labelParameterName.Text = $"{Parameter.Name} ({Parameter.Type}):";
             this.Controls.Add(this._labelParameterName);
+
+            this._valueControl.Location = new Point(0, this._labelParameterName.Location.Y + this._labelParameterName.Height);
+            this._valueControl.Width = this.Size.Width;
+            this.Controls.Add(this._valueControl);
         }
 
         private void Init_Uniqueidentifier()
