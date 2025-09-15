@@ -27,7 +27,7 @@ namespace SSMSObjectExplorerMenu.objects
         [DisplayName("List of values")]
         [Description("List of selectable values")]
         [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
-        public BindingList<StringListItem> ValueSetOfCustomList { get; set; }
+        public BindingList<StringListItem> ValueSetOfCustomList { get; set; } = new BindingList<StringListItem>();
 
         public bool TryValidate(out IEnumerable<string> validationErrors, IEnumerable<string> reservedNames = null)
         {
