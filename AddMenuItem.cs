@@ -2,6 +2,7 @@
 using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -99,9 +100,7 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonAddUserDefinedParam_Click(object sender, EventArgs e)
         {
-            var argumentNamesInUse = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Select(item => item.Text)
-				.Concat(Utils.ParametersFromContext);
-            var addDialog = new AddUserDefinedParameter(argumentNamesInUse);
+            var addDialog = new AddUserDefinedParameter(GetArgumentNamesInUse());
             if (addDialog.ShowDialog() == DialogResult.OK)
             {
                 var newParam = addDialog.Parameter;
@@ -111,21 +110,45 @@ namespace SSMSObjectExplorerMenu
             }
         }
 
+        private void buttonEditUserDefinedParam_Click(object sender, EventArgs e)
+        {
+			var selectedItem = this.listViewUserDefinedParam.GetSelectedItems().SingleOrDefault();
+            if (selectedItem != null)
+            {
+				var editDialog = new AddUserDefinedParameter(GetArgumentNamesInUse(), true, (UserDefinedParameter)selectedItem.Tag);
+				if (editDialog.ShowDialog() == DialogResult.OK)
+				{
+					var editedParam = editDialog.Parameter;
+					selectedItem.Text = editedParam.Name;
+					selectedItem.SubItems[1].Text = Enum.GetName(typeof(UserDefinedParameterType), editedParam.Type);
+					selectedItem.Tag = editedParam;
+                }
+            }
+        }
+
         private void buttonRemoveUserDefinedParam_Click(object sender, EventArgs e)
         {
-            var selectedItems = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Where(item => item.Selected);
+			var selectedItems = this.listViewUserDefinedParam.GetSelectedItems();
             if (selectedItems.Any() &&
-                DialogResult.Yes == MessageBox.Show("Are you sure?", "Delete parameter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                DialogResult.Yes == MessageBox.Show("Are you sure?", "Delete parameter(s)", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 foreach (var item in selectedItems)
                 {
                     this.listViewUserDefinedParam.Items.Remove(item);
                 }
             }
-            else
-            {
-                MessageBox.Show("You must select an item to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
+
+        private void listViewUserDefinedParam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BeginInvoke((Action)(() =>
+			{
+				var selectedItemsCount = this.listViewUserDefinedParam.GetSelectedItems().Count();
+				this.buttonEditUserDefinedParameter.Enabled = selectedItemsCount == 1;
+				this.buttonRemoveUserDefinedParam.Enabled = selectedItemsCount > 0;
+			}));
+        }
+
+        private IEnumerable<string> GetArgumentNamesInUse() => this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Select(item => item.Text).Concat(Utils.ParametersFromContext);
     }
 }

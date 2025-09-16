@@ -36,12 +36,17 @@ namespace SSMSObjectExplorerMenu
             }
         }
 
-        public AddUserDefinedParameter(IEnumerable<string> paramNamesInUse)
+        public AddUserDefinedParameter(IEnumerable<string> paramNamesInUse, bool edit = false, UserDefinedParameter parameterToEdit = null)
         {
+            if(edit && parameterToEdit is null)
+            {
+                throw new ArgumentNullException(nameof(parameterToEdit), "Parameter to edit must be provided when edit is true.");
+            }
+
             InitializeComponent();
 
             _parameter = new ParameterItem { Name = string.Empty, Type = UserDefinedParameterType.UniqueIdentifier };
-            _paramNamesInUse = paramNamesInUse;
+            _paramNamesInUse = !edit ? paramNamesInUse : paramNamesInUse.Except(new[] { parameterToEdit.Name });
 
             this.textBoxParameterName.MaxLength = UserDefinedParameter.NAME_MAX_LENGTH;
             this.textBoxParameterName.DataBindings.Add(nameof(textBoxParameterName.Text), _parameter, nameof(_parameter.Name), true, DataSourceUpdateMode.OnPropertyChanged);
@@ -53,6 +58,14 @@ namespace SSMSObjectExplorerMenu
             this.comboBoxParameterType.DisplayMember = nameof(ComboBoxItem<UserDefinedParameterType>.Displayed);
             this.comboBoxParameterType.ValueMember = nameof(ComboBoxItem<UserDefinedParameterType>.Value);
             this.comboBoxParameterType.DataBindings.Add(nameof(comboBoxParameterType.SelectedValue), _parameter, nameof(_parameter.Type), true, DataSourceUpdateMode.OnPropertyChanged);
+
+            if(edit)
+            {
+                _parameter.Name = parameterToEdit.Name;
+                _parameter.Type = parameterToEdit.Type;
+                this.listViewCustomList.Items.AddRange(parameterToEdit.ValueSetOfCustomList.Select(item => new ListViewItem(item.Value)).ToArray());
+                this.Text = "Edit user-defined parameter...";
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -103,6 +116,10 @@ namespace SSMSObjectExplorerMenu
         {
             var selectedItems = this.listViewCustomList.Items.Cast<ListViewItem>().Where(item => item.Selected);
             this.listViewCustomList.Items.RemoveRange(selectedItems);
+        }
+        private void listViewCustomList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BeginInvoke((Action)(() => this.buttonRemoveCustomList.Enabled = this.listViewCustomList.GetSelectedItems().Any()));
         }
 
         class ParameterItem

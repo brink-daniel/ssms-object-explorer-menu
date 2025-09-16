@@ -109,6 +109,7 @@
             this.listViewCustomList.TabIndex = 6;
             this.listViewCustomList.UseCompatibleStateImageBehavior = false;
             this.listViewCustomList.View = System.Windows.Forms.View.List;
+            this.listViewCustomList.SelectedIndexChanged += new System.EventHandler(this.listViewCustomList_SelectedIndexChanged);
             // 
             // buttonAddCustomList
             // 
@@ -122,6 +123,7 @@
             // 
             // buttonRemoveCustomList
             // 
+            this.buttonRemoveCustomList.Enabled = false;
             this.buttonRemoveCustomList.Location = new System.Drawing.Point(234, 45);
             this.buttonRemoveCustomList.Name = "buttonRemoveCustomList";
             this.buttonRemoveCustomList.Size = new System.Drawing.Size(23, 23);
@@ -170,7 +172,7 @@
             this.MinimizeBox = false;
             this.Name = "AddUserDefinedParameter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Adding new user-defined parameter...";
+            this.Text = "Adding user-defined parameter...";
             this.panelCustomList.ResumeLayout(false);
             this.panelCustomList.PerformLayout();
             this.ResumeLayout(false);

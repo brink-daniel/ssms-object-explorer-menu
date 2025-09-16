@@ -1,5 +1,6 @@
 ﻿using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu.extensions
@@ -24,5 +25,7 @@ namespace SSMSObjectExplorerMenu.extensions
                 litViewItems.Remove(item);
             }
         }
+
+        public static IEnumerable<ListViewItem> GetSelectedItems(this ListView listView) => listView.Items.Cast<ListViewItem>().Where(item => item.Selected);
     }
 }

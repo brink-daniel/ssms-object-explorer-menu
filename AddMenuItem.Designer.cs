@@ -49,6 +49,7 @@
             this.buttonAddUserDefinedParam = new System.Windows.Forms.Button();
             this.buttonRemoveUserDefinedParam = new System.Windows.Forms.Button();
             this.labelUserDefinedParameters = new System.Windows.Forms.Label();
+            this.buttonEditUserDefinedParameter = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -217,6 +218,7 @@
             this.listViewUserDefinedParam.TabIndex = 15;
             this.listViewUserDefinedParam.UseCompatibleStateImageBehavior = false;
             this.listViewUserDefinedParam.View = System.Windows.Forms.View.Details;
+            this.listViewUserDefinedParam.SelectedIndexChanged += new System.EventHandler(this.listViewUserDefinedParam_SelectedIndexChanged);
             // 
             // ParameterName
             // 
@@ -242,7 +244,8 @@
             // buttonRemoveUserDefinedParam
             // 
             this.buttonRemoveUserDefinedParam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveUserDefinedParam.Location = new System.Drawing.Point(444, 164);
+            this.buttonRemoveUserDefinedParam.Enabled = false;
+            this.buttonRemoveUserDefinedParam.Location = new System.Drawing.Point(445, 193);
             this.buttonRemoveUserDefinedParam.Name = "buttonRemoveUserDefinedParam";
             this.buttonRemoveUserDefinedParam.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveUserDefinedParam.TabIndex = 18;
@@ -259,11 +262,24 @@
             this.labelUserDefinedParameters.TabIndex = 19;
             this.labelUserDefinedParameters.Text = "List of user-defined parameters:";
             // 
+            // buttonEditUserDefinedParameter
+            // 
+            this.buttonEditUserDefinedParameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEditUserDefinedParameter.Enabled = false;
+            this.buttonEditUserDefinedParameter.Location = new System.Drawing.Point(444, 164);
+            this.buttonEditUserDefinedParameter.Name = "buttonEditUserDefinedParameter";
+            this.buttonEditUserDefinedParameter.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditUserDefinedParameter.TabIndex = 20;
+            this.buttonEditUserDefinedParameter.Text = "Edit";
+            this.buttonEditUserDefinedParameter.UseVisualStyleBackColor = true;
+            this.buttonEditUserDefinedParameter.Click += new System.EventHandler(this.buttonEditUserDefinedParam_Click);
+            // 
             // AddMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 540);
+            this.Controls.Add(this.buttonEditUserDefinedParameter);
             this.Controls.Add(this.labelUserDefinedParameters);
             this.Controls.Add(this.buttonRemoveUserDefinedParam);
             this.Controls.Add(this.buttonAddUserDefinedParam);
@@ -313,5 +329,6 @@
         private System.Windows.Forms.Button buttonAddUserDefinedParam;
         private System.Windows.Forms.Button buttonRemoveUserDefinedParam;
         private System.Windows.Forms.Label labelUserDefinedParameters;
+        private System.Windows.Forms.Button buttonEditUserDefinedParameter;
     }
 }
