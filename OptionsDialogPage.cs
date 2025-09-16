@@ -135,7 +135,7 @@ namespace SSMSObjectExplorerMenu
                     builder.AppendLine($"Menu item '{error.MenuItemName}': {error.ErrorMessage}");
                 }
                 // TODO: more advanced error dialog?
-                MessageBox.Show(builder.ToString(), "SSMS Object Explorer Menu - Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(builder.ToString(), "SSMS Object Explorer Menu | Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

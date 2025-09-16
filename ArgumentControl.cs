@@ -1,4 +1,5 @@
 ﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace SSMSObjectExplorerMenu
 
             this._labelParameterName.Location = new Point(0, PADDING_TOP_BOTTOM);
             this._labelParameterName.Width = this.Width;
-            this._labelParameterName.Text = $"{Parameter.Name} ({Parameter.Type}):";
+            this._labelParameterName.Text = $"{Parameter.Name} ({Parameter.Type.ToStringDescription()}):";
             this.Controls.Add(this._labelParameterName);
 
             this._valueControl.Location = new Point(0, this._labelParameterName.Location.Y + this._labelParameterName.Height);

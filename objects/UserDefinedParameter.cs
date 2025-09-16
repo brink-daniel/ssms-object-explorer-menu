@@ -42,15 +42,15 @@ namespace SSMSObjectExplorerMenu.objects
             {
                 if (ValueSetOfCustomList is null || ValueSetOfCustomList.Count == 0)
                 {
-                    errors.Add("Value set of CustomList parameter cannot be empty.");
+                    errors.Add("List of options cannot be empty.");
                 }
                 if (ValueSetOfCustomList.Any(value => string.IsNullOrWhiteSpace(value)))
                 {
-                    errors.Add("Value set of CustomList parameter cannot contain empty or whitespace-only elements.");
+                    errors.Add("List of options cannot contain empty or whitespace-only elements.");
                 }
                 if(ValueSetOfCustomList.Distinct(new StringListItemComparer(StringComparison.OrdinalIgnoreCase)).Count() != ValueSetOfCustomList.Count)
                 {
-                    errors.Add("Value set of CustomList parameter cannot have duplicate elements.");
+                    errors.Add("List of options cannot have duplicate elements.");
                 }
             }
 

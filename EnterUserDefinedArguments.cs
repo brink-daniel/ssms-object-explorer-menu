@@ -40,7 +40,7 @@ namespace SSMSObjectExplorerMenu
         {
             if(!TryValidate(out string validationErrorMessage))
             {
-                MessageBox.Show(this, validationErrorMessage, "Invalid parameter value", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, validationErrorMessage, "Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

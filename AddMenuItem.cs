@@ -115,7 +115,7 @@ namespace SSMSObjectExplorerMenu
         {
             var selectedItems = this.listViewUserDefinedParam.Items.Cast<ListViewItem>().Where(item => item.Selected);
             if (selectedItems.Any() &&
-                DialogResult.Yes == MessageBox.Show("Are you sure?", "Deleting parameter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                DialogResult.Yes == MessageBox.Show("Are you sure?", "Delete parameter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 foreach (var item in selectedItems)
                 {

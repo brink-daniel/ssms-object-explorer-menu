@@ -96,7 +96,7 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonAddCustomList_Click(object sender, EventArgs e)
         {
-            this.listViewCustomList.Items.Add("New value (click to edit)...");
+            this.listViewCustomList.Items.Add("New value (double-click to edit)...");
         }
 
         private void buttonRemoveCustomList_Click(object sender, EventArgs e)

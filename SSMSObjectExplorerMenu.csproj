@@ -83,6 +83,7 @@
     <Compile Include="EnterUserDefinedArguments.Designer.cs">
       <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
     </Compile>
+    <Compile Include="EnumConverter.cs" />
     <Compile Include="enums\MenuItemContext.cs" />
     <Compile Include="enums\UserDefinedArgumentType.cs" />
     <Compile Include="extensions\Extensions.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="objects\NodeInfo.cs" />
     <Compile Include="objects\MenuItem.cs" />
     <Compile Include="objects\MenuItemInstance.cs" />
+    <Compile Include="UserDefinedArgumentTypeConverter.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OptionsDialogPage.cs">
