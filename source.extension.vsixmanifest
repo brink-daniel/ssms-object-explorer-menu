@@ -6,8 +6,11 @@
         <Description xml:space="preserve">Object Explorer Menu is a free, open-source extension for SQL Server Management Studio (SSMS), developed in C#. It enables users to add custom menu items to the right-click context menu within the Object Explorer window. These menu items can be configured to run either external T-SQL script files or inline T-SQL statements. Upon selection, the extension opens a new query window displaying the script. It also supports tag substitution within scripts and optional automatic execution, streamlining routine database tasks and enhancing productivity.</Description>
         <MoreInfo>https://sqlmedic.com/</MoreInfo>
         <License>LICENSE</License>
+        <GettingStartedGuide>README.md</GettingStartedGuide>
+        <ReleaseNotes>README.md</ReleaseNotes>
         <Icon>images\plus_small.jpg</Icon>
         <PreviewImage>images\ObjectExplorer.png</PreviewImage>
+        <Tags>SSMS; Object Explorer</Tags>
     </Metadata>
     <Installation AllUsers="true">
         <InstallationTarget Id="Microsoft.VisualStudio.Ssms" Version="[21.0,)">

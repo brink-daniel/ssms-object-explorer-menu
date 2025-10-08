@@ -93,6 +93,7 @@
     </Content>
     <Content Include="README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="Scripts.md" />
     <None Include="source.extension.vsixmanifest">
