@@ -1,10 +1,12 @@
 ﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace SSMSObjectExplorerMenu.objects
 {
@@ -53,7 +55,16 @@ namespace SSMSObjectExplorerMenu.objects
 		[Description("Tree node level where to display menu item.")]
 		[DefaultValue(MenuItemContext.All)]
         [TypeConverter(typeof(MenuItemContextConverter))]
+		[XmlIgnore]
         public MenuItemContext Context { get; set; } = MenuItemContext.All;
+
+		[Browsable(false)]
+		[XmlElement("Context")]
+		public string ContextDescription
+		{
+			get => Context.ToStringDescription();
+			set => Context = value.FromDescription<MenuItemContext>();
+        }
 
         [Category("Menu item")]
         [DisplayName("User-defined parameters")]
