@@ -10,7 +10,7 @@
         <ReleaseNotes>README.md</ReleaseNotes>
         <Icon>images\plus_small.jpg</Icon>
         <PreviewImage>images\ObjectExplorer.png</PreviewImage>
-        <Tags>SSMS; Object Explorer</Tags>
+        <Tags>SSMS, Object Explorer</Tags>
     </Metadata>
     <Installation AllUsers="true">
         <InstallationTarget Id="Microsoft.VisualStudio.Ssms" Version="[21.0,)">
