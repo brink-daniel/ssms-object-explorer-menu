@@ -11,12 +11,13 @@ This is a curated list of useful extensions and add-ins for SQL Server Managemen
 | [SSMS Executor](https://github.com/tkwj/ssms-executor)       | Free       | Yes         |
 | [SQL Formatter for SSMS (preview)](https://www.vsixgallery.com/extension/SqlFormatter.70C3AE03-7E78-41F3-8FE0-11BF482F5F69)       | Free       | Yes         |
 | [SQL Server Compact and SQLite Toolbox for SSMS](https://github.com/ErikEJ/SqlCeToolbox)       | Free       | Yes         |
+| [AxialSqlTools](https://github.com/Axial-SQL/AxialSqlTools)  | Free       | Yes         |
 |                                                              |            |             |
 | [SSMS Tool Pack](https://www.ssmstoolspack.com)              | Commercial | No          |
 | [SSMSBoost](https://www.ssmsboost.com)                       | Commercial | No          |
 | [SSMS Lizard](https://lizard-labs.com/sql_server_management_studio_ssms_extension_lizard.aspx) | Free       | No          |
 | [SQL Smash](https://sqlsmash.com)                            | Commercial | No          |
-| [SQL Treeo](https://www.sqltreeo.com/sqltreeo-ssms-add-in)   | Commercial | No          |
+| [SQL Treeo](https://www.sqltreeo.com)                        | Commercial | No          |
 | [Tabs Studio](https://tabsstudio.com)                        | Commercial | No          |
 | [Version SQL](https://www.versionsql.com)                    | Commercial | No          |
 | [SQL Shades](https://www.sqlshades.com)                      | Free       | No          |
