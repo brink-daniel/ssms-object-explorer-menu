@@ -109,7 +109,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ### SQL Server Management Studio 21.x
 
-This extension has been tested and used with **SQL Server Management Studio 21.5.14**.
+This extension has been tested and used with **SQL Server Management Studio 21.6.17**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
