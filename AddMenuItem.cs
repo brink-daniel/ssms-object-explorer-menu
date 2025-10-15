@@ -141,6 +141,7 @@ namespace SSMSObjectExplorerMenu
 
         private void listViewUserDefinedParam_SelectedIndexChanged(object sender, EventArgs e)
         {
+			// In case of removing items, a minimal delay is needed to work with the state of the listview after the item has been removed.
             this.BeginInvoke((Action)(() =>
 			{
 				var selectedItemsCount = this.listViewUserDefinedParam.GetSelectedItems().Count();

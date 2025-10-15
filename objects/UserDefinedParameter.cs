@@ -42,15 +42,15 @@ namespace SSMSObjectExplorerMenu.objects
             {
                 if (ValueSetOfCustomList is null || ValueSetOfCustomList.Count == 0)
                 {
-                    errors.Add("List of options cannot be empty.");
+                    errors.Add($"Parameter '{Name}': list of options cannot be empty.");
                 }
                 if (ValueSetOfCustomList.Any(value => string.IsNullOrWhiteSpace(value)))
                 {
-                    errors.Add("List of options cannot contain empty or whitespace-only elements.");
+                    errors.Add($"Parameter '{Name}': list of options cannot contain empty or whitespace-only elements.");
                 }
                 if(ValueSetOfCustomList.Distinct(new StringListItemComparer(StringComparison.OrdinalIgnoreCase)).Count() != ValueSetOfCustomList.Count)
                 {
-                    errors.Add("List of options cannot have duplicate elements.");
+                    errors.Add($"Parameter '{Name}': list of options cannot have duplicate elements.");
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SSMSObjectExplorerMenu.objects
             {
                 errors.Add("User-defined parameter name cannot be null or whitespace.");
             }
-            if (parameterName.Length > NAME_MAX_LENGTH)
+            if (parameterName?.Length > NAME_MAX_LENGTH)
             {
                 errors.Add($"User-defined parameter name cannot be longer than {NAME_MAX_LENGTH} characters.");
             }

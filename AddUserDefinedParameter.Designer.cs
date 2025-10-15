@@ -172,7 +172,7 @@
             this.MinimizeBox = false;
             this.Name = "AddUserDefinedParameter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Adding user-defined parameter...";
+            this.Text = "Add user-defined parameter...";
             this.panelCustomList.ResumeLayout(false);
             this.panelCustomList.PerformLayout();
             this.ResumeLayout(false);

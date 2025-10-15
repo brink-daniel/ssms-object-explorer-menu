@@ -32,8 +32,6 @@ namespace SSMSObjectExplorerMenu
             }
         }
 
-        public Func<bool> Validator { get; private set; }
-
         public ArgumentControl(UserDefinedParameter parameter, int width)
         {
             if(!parameter.TryValidate(out IEnumerable<string> _))
@@ -67,7 +65,7 @@ namespace SSMSObjectExplorerMenu
                     Init_CustomList();
                     break;
                 default:
-                    throw new ArgumentException("Parameter type is not known.", nameof(Parameter.Type));
+                    throw new ArgumentException("Parameter type is not known.", nameof(Parameter));
             }
             this._labelParameterName = new Label();
 
@@ -83,6 +81,23 @@ namespace SSMSObjectExplorerMenu
             this.Controls.Add(this._valueControl);
         }
 
+        public bool IsValid()
+        {
+            switch (Parameter.Type)
+            {
+                case UserDefinedParameterType.UniqueIdentifier:
+                    return Guid.TryParse(_valueControl.Text, out _);
+                case UserDefinedParameterType.Nvarchar:
+                    return !string.IsNullOrWhiteSpace(_valueControl.Text);
+                case UserDefinedParameterType.Int:
+                case UserDefinedParameterType.Bit:
+                case UserDefinedParameterType.CustomList:
+                    return true;
+                default:
+                    throw new NotImplementedException($"Validation for parameter type {Parameter.Type} has not been implemented.");
+            }
+        }
+
         private void Init_Uniqueidentifier()
         {
             var guidTextBox = new TextBox();
@@ -90,7 +105,6 @@ namespace SSMSObjectExplorerMenu
             guidTextBox.Text = string.Empty;
 
             _valueControl = guidTextBox;
-            Validator = Validate_Uniqueidentifier;
         }
 
         private void Init_Nvarchar()
@@ -99,31 +113,18 @@ namespace SSMSObjectExplorerMenu
             textBox.Text = string.Empty;
 
             _valueControl = textBox;
-            Validator = Validate_Nvarchar;
         }
 
-        private void Init_Int()
-        {
-            _valueControl = new NumericUpDown();
-            Validator = () => true;
-        }
+        private void Init_Int() => _valueControl = new NumericUpDown();
+        
+        private void Init_Bit() => _valueControl = new CheckBox();
 
-        private void Init_Bit()
-        {
-            _valueControl = new CheckBox();
-            Validator = () => true;
-        }
         private void Init_CustomList()
         {
             var comboBox = new ComboBox();
             comboBox.DataSource = Parameter.ValueSetOfCustomList;
 
             _valueControl = comboBox;
-            Validator = () => true;
         }
-
-        private bool Validate_Uniqueidentifier() => Guid.TryParse(_valueControl.Text, out _);
-
-        private bool Validate_Nvarchar() => !string.IsNullOrWhiteSpace(_valueControl.Text);
     }
 }

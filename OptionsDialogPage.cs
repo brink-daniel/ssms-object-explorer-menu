@@ -67,7 +67,7 @@ namespace SSMSObjectExplorerMenu
 		{
 			base.LoadSettingsFromStorage();
 
-			if (MenuItemsXml.Length > 0)
+			if (MenuItems.Count == 0 && MenuItemsXml.Length > 0)
 			{
 				try
 				{
@@ -103,24 +103,17 @@ namespace SSMSObjectExplorerMenu
 			{
                 ShowValidationErrorDialog(validationErrors);
                 e.ApplyBehavior = ApplyKind.CancelNoNavigate;
-                return;
             }
-
-			// Calls SaveSettingsToStorage
-			base.OnApply(e);
-		}
+			else base.OnApply(e); // Calls SaveSettingsToStorage
+        }
 
 		private bool TryValidate(out List<MenuItemErrorModel> validationErrors)
 		{
-			validationErrors = new List<MenuItemErrorModel>();
-			foreach (var menuItem in MenuItems)
-			{
-				if (!menuItem.TryValidate(out IEnumerable<MenuItemErrorModel> errors))
-				{
-                    validationErrors.AddRange(errors);
-				}
-			}
-			return !validationErrors.Any();
+			validationErrors = MenuItems.Select(mi => mi.TryValidate(out IEnumerable<MenuItemErrorModel> errors) ? null : errors)
+				.Where(e => e != null)
+				.SelectMany(e => e)
+				.ToList();
+            return !validationErrors.Any();
         }
 
 		private void ShowValidationErrorDialog(List<MenuItemErrorModel> validationErrors)
@@ -134,7 +127,6 @@ namespace SSMSObjectExplorerMenu
                 {
                     builder.AppendLine($"Menu item '{error.MenuItemName}': {error.ErrorMessage}");
                 }
-                // TODO: more advanced error dialog?
                 MessageBox.Show(builder.ToString(), "SSMS Object Explorer Menu | Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

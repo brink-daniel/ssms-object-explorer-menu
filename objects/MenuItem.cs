@@ -98,19 +98,13 @@ namespace SSMSObjectExplorerMenu.objects
 
 		public bool TryValidate(out IEnumerable<MenuItemErrorModel> validationErrors)
 		{
-			var errorList = new List<MenuItemErrorModel>();
-
-			foreach(var param in UserDefinedParameters)
-			{
-                var otherParamNames = UserDefinedParameters.Where(p => p != param).Select(p => p.Name);
-				if(!param.TryValidate(out IEnumerable<string> paramErrors, Utils.ParametersFromContext.Concat(otherParamNames)))
-				{
-                    errorList.Add(new MenuItemErrorModel { MenuItemName = Name, ErrorMessages = paramErrors });
-                }
-            }
-
-			validationErrors = errorList;
-			return !errorList.Any();
+            validationErrors = 
+				UserDefinedParameters.Select(
+                // reserved names: names coming from context + names of other user-defined parameters of the MenuItem
+                p => p.TryValidate(out IEnumerable<string> paramErrors, Utils.ParametersFromContext.Concat(UserDefinedParameters.Where(pa => pa != p).Select(pa => pa.Name)))
+					? null : new MenuItemErrorModel { MenuItemName = Name, ErrorMessages = paramErrors })
+				.Where(e => e != null);
+			return !validationErrors.Any();
         }
 	}
 }

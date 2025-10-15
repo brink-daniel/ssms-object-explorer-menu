@@ -19,7 +19,7 @@ namespace SSMSObjectExplorerMenu
         public IEnumerable<UserDefinedArgument> UserDefinedArguments { 
             get
             {
-                if(!TryValidate(out string _) || this.DialogResult != DialogResult.OK)
+                if(!TryValidate(out IEnumerable<string> _) || this.DialogResult != DialogResult.OK)
                 {
                     throw new InvalidOperationException("Dialog is in invalid state.");
                 }
@@ -38,28 +38,19 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if(!TryValidate(out string validationErrorMessage))
+            if(!TryValidate(out IEnumerable<string> invalidArguments))
             {
-                MessageBox.Show(this, validationErrorMessage, "Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, $"The following parameters have invalid values: {string.Join(", ", invalidArguments)}.", "Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             this.DialogResult = DialogResult.OK;
         }
 
-        private bool TryValidate(out string validationErrorMessage)
+        private bool TryValidate(out IEnumerable<string> invalidArguments)
         {
-            foreach (var ac in _argumentControls)
-            {
-                if (!ac.Validator())
-                {
-                    validationErrorMessage = $"The value for parameter '{ac.Parameter.Name}' ({ac.Parameter.Type}) is not valid!";
-                    return false;
-                }
-            }
-
-            validationErrorMessage = null;
-            return true;
+            invalidArguments = _argumentControls.Where(ac => !ac.IsValid()).Select(ac => ac.Parameter.Name);
+            return !invalidArguments.Any();
         }
     }
 }

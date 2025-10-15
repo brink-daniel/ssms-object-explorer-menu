@@ -19,20 +19,11 @@ namespace SSMSObjectExplorerMenu
         {
             get
             {
-                if (!TryValidate(out List<string> _) || this.DialogResult != DialogResult.OK)
+                if (!TryValidate(out UserDefinedParameter parameter, out List<string> _) || this.DialogResult != DialogResult.OK)
                 {
                     throw new InvalidOperationException("Dialog is in invalid state.");
                 }
-                return new UserDefinedParameter
-                {
-                    Name = _parameter.Name,
-                    Type = _parameter.Type,
-                    ValueSetOfCustomList = new BindingList<StringListItem>(
-                        _parameter.Type == UserDefinedParameterType.CustomList ?
-                            this.listViewCustomList.Items.Cast<ListViewItem>().Select(item => new StringListItem(item.Text)).ToList() :
-                            new List<StringListItem>()
-                    )
-                };
+                return parameter;
             }
         }
 
@@ -40,7 +31,7 @@ namespace SSMSObjectExplorerMenu
         {
             if(edit && parameterToEdit is null)
             {
-                throw new ArgumentNullException(nameof(parameterToEdit), "Parameter to edit must be provided when edit is true.");
+                throw new ArgumentNullException(nameof(parameterToEdit), $"Parameter '{nameof(parameterToEdit)}' must not be null if patameter '{nameof(edit)}' is set to true.");
             }
 
             InitializeComponent();
@@ -70,7 +61,7 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (!TryValidate(out List<string> validationErrors))
+            if (!TryValidate(out UserDefinedParameter _, out List<string> validationErrors))
             {
                 var errorMessageBuilder = new StringBuilder();
                 validationErrors.ForEach(error => errorMessageBuilder.AppendLine(error));
@@ -81,22 +72,26 @@ namespace SSMSObjectExplorerMenu
             this.DialogResult = DialogResult.OK;
         }
 
-        private bool TryValidate(out List<string> validationErros)
+        private bool TryValidate(out UserDefinedParameter validatedParameter, out List<string> validationErrors)
         {
-            var paramBuiltFromDialog = new UserDefinedParameter
-            {
-                Name = _parameter.Name,
-                Type = _parameter.Type,
-                ValueSetOfCustomList = new BindingList<StringListItem>(
+            var parameter = BuildParameter();
+            validationErrors = !parameter.TryValidate(out IEnumerable<string> errors, _paramNamesInUse) ? errors.ToList() : new List<string>();
+
+            bool success = !validationErrors.Any();
+            validatedParameter = success ? parameter : null;
+            return success;
+        }
+
+        private UserDefinedParameter BuildParameter() => new UserDefinedParameter
+        {
+            Name = _parameter.Name,
+            Type = _parameter.Type,
+            ValueSetOfCustomList = new BindingList<StringListItem>(
                         _parameter.Type == UserDefinedParameterType.CustomList ?
                             this.listViewCustomList.Items.Cast<ListViewItem>().Select(item => new StringListItem(item.Text)).ToList() :
                             new List<StringListItem>()
                 )
-            };
-
-            validationErros = !paramBuiltFromDialog.TryValidate(out IEnumerable<string> errors, _paramNamesInUse) ? errors.ToList() : new List<string>();
-            return !validationErros.Any();
-        }
+        };
 
         private void comboBoxParameterType_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -119,6 +114,10 @@ namespace SSMSObjectExplorerMenu
         }
         private void listViewCustomList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // In case of removing list items:
+            // This method is called shortly before the listview item is actually removed.
+            // So the collection returned by GetSelectedItems() contains also the item to remove.
+            // A very minor delay is needed to have the correct state of the listview.
             this.BeginInvoke((Action)(() => this.buttonRemoveCustomList.Enabled = this.listViewCustomList.GetSelectedItems().Any()));
         }
 

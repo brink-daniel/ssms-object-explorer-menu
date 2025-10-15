@@ -343,14 +343,14 @@ namespace SSMSObjectExplorerMenu
 
             IEnumerable<(string Parameter, string Value)> userDefinedArgs = Enumerable.Empty<(string, string)>();
             var userDefinedParams = itemInstance.MenuItem.UserDefinedParameters;
-            if (userDefinedParams?.Any() ?? false)
+            if (userDefinedParams.Any())
             {
                 var enterArgumentsDialog = new EnterUserDefinedArguments(userDefinedParams);
 				if (DialogResult.OK == enterArgumentsDialog.ShowDialog())
 				{
 					userDefinedArgs = enterArgumentsDialog.UserDefinedArguments.Select(arg => ($"{{{arg.Name}}}", arg.ValueAsString));
 				}
-				// Abort in case the user pressed on Cancel
+				// Abort if the user pressed Cancel
 				else return;
             }
 
