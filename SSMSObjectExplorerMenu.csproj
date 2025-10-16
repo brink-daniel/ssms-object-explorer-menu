@@ -111,6 +111,10 @@
     <Compile Include="SSMSObjectExplorerMenu.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\plus_small.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="images\VSIX_install.png" />
     <Content Include="images\VSIX_install_complete.png" />
     <Content Include="LICENSE">
@@ -119,6 +123,7 @@
     </Content>
     <Content Include="README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="Scripts.md" />
     <None Include="source.extension.vsixmanifest">
@@ -146,7 +151,10 @@
     <Content Include="favicon.ico" />
     <Content Include="images\AddMenuItem.png" />
     <Content Include="images\get-it-on-github.png" />
-    <Content Include="images\ObjectExplorer.png" />
+    <Content Include="images\ObjectExplorer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="images\Options.png" />
     <Content Include="images\plus.jpg" />
     <None Include="Resources\Play.svg" />
