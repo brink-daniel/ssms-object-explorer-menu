@@ -1,7 +1,14 @@
 ﻿using Microsoft.VisualStudio.Shell;
+using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using MessageBox = System.Windows.Forms.MessageBox;
+using MessageBoxButtons = System.Windows.Forms.MessageBoxButtons;
+using MessageBoxIcon = System.Windows.Forms.MessageBoxIcon;
 
 namespace SSMSObjectExplorerMenu
 {
@@ -90,5 +97,38 @@ namespace SSMSObjectExplorerMenu
 			base.SaveSettingsToStorage();
 		}
 
-	}
+		protected override void OnApply(PageApplyEventArgs e)
+		{
+			if(!TryValidate(out List<MenuItemErrorModel> validationErrors))
+			{
+                ShowValidationErrorDialog(validationErrors);
+                e.ApplyBehavior = ApplyKind.CancelNoNavigate;
+            }
+			else base.OnApply(e); // Calls SaveSettingsToStorage
+        }
+
+		private bool TryValidate(out List<MenuItemErrorModel> validationErrors)
+		{
+			validationErrors = MenuItems.Select(mi => mi.TryValidate(out IEnumerable<MenuItemErrorModel> errors) ? null : errors)
+				.Where(e => e != null)
+				.SelectMany(e => e)
+				.ToList();
+            return !validationErrors.Any();
+        }
+
+		private void ShowValidationErrorDialog(List<MenuItemErrorModel> validationErrors)
+		{
+			if(validationErrors.Any())
+			{
+                var builder = new StringBuilder();
+
+                builder.AppendLine($"One or more validation errors occurred:{Environment.NewLine}");
+                foreach (var error in validationErrors.SelectMany(e => e.ErrorMessages, (m, e) => new { m.MenuItemName, ErrorMessage = e}))
+                {
+                    builder.AppendLine($"Menu item '{error.MenuItemName}': {error.ErrorMessage}");
+                }
+                MessageBox.Show(builder.ToString(), "SSMS Object Explorer Menu | Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
 }

@@ -65,10 +65,40 @@
     <Compile Include="AddMenuItem.Designer.cs">
       <DependentUpon>AddMenuItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions.cs" />
+    <Compile Include="AddUserDefinedParameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddUserDefinedParameter.Designer.cs">
+      <DependentUpon>AddUserDefinedParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ArgumentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ArgumentControl.Designer.cs">
+      <DependentUpon>ArgumentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnterUserDefinedArguments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnterUserDefinedArguments.Designer.cs">
+      <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnumConverter.cs" />
+    <Compile Include="enums\MenuItemContext.cs" />
+    <Compile Include="enums\UserDefinedArgumentType.cs" />
+    <Compile Include="extensions\Extensions.cs" />
+    <Compile Include="extensions\UIExtensions.cs" />
+    <Compile Include="MenuItemContextConverter.cs" />
+    <Compile Include="objects\ComboBoxItem.cs" />
+    <Compile Include="objects\MenuItemErrorModel.cs" />
+    <Compile Include="objects\StringListItem.cs" />
+    <Compile Include="objects\UserDefinedArgument.cs" />
+    <Compile Include="objects\UserDefinedParameter.cs" />
     <Compile Include="objects\NodeInfo.cs" />
     <Compile Include="objects\MenuItem.cs" />
     <Compile Include="objects\MenuItemInstance.cs" />
+    <Compile Include="UserDefinedArgumentTypeConverter.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OptionsDialogPage.cs">
       <SubType>Component</SubType>
@@ -110,6 +140,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -142,6 +173,15 @@
     <EmbeddedResource Include="AddMenuItem.resx">
       <DependentUpon>AddMenuItem.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddUserDefinedParameter.resx">
+      <DependentUpon>AddUserDefinedParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArgumentControl.resx">
+      <DependentUpon>ArgumentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnterUserDefinedArguments.resx">
+      <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
