@@ -105,7 +105,7 @@ namespace SSMSObjectExplorerMenu
             {
                 var newParam = addDialog.Parameter;
                 var newListViewItem = new ListViewItem { Text = newParam.Name, Tag = newParam };
-                newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = Enum.GetName(typeof(UserDefinedParameterType), newParam.Type) });
+                newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = newParam.Type.ToStringDescription() });
                 listViewUserDefinedParam.Items.Add(newListViewItem);
             }
         }
