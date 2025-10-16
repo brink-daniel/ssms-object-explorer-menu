@@ -4,6 +4,8 @@ Object Explorer Menu is a free, open-source extension for SQL Server Management 
 
 These menu items can be configured to run either external T-SQL script files or inline T-SQL statements. Upon selection, the extension opens a new query window displaying the script. It also supports tag substitution within scripts and optional automatic execution, streamlining routine database tasks and enhancing productivity.
 
+Adding own parameters to the menu items are also supported. Every menu item can have its own list of them. Their values can be enetered in a dialog before the T-SQL script's execution.
+
 The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/brink-daniel/ssms-object-explorer-menu)](https://github.com/brink-daniel/ssms-object-explorer-menu/releases)
@@ -31,9 +33,10 @@ Once the Object Explorer Menu extension is installed, new menu items can be adde
 1. Right-click on the node in the Object Explorer where you would like to add a context menu item and select `New` from the `My Scripts` menu. 
     ![Object Explorer](images/ObjectExplorer.png)
     ![Add Menu Item](images/AddMenuItem.png)
+
 2. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and add new menu items to the collection. Menu items can also be rearranged or removed using the Options dialog. 
     ![Options Dialog](images/Options.png)
-
+    ![Options Dialog](images/Options_parameter.png)
 
 
 ## Settings
@@ -57,11 +60,14 @@ The following settings are available for each menu item:
 * Execute - Automatically run the selected script or tsql statements when the menu item is selected.
 * Name - Text displayed on the menu item.
 * Script - Inline tsql statements OR path to script file.
+* User-defined parameters - list of custom parameters. They can be interpreted as a custom tag. The main difference is that their substitution values are not taken from the execution context - the user can enter them, before the T-SQL script will be run.
 
 
 ### Text substitution
 
-The following tags are replaced in tsql scripts and statements before execution:
+#### Tags of the execution context
+
+The following tags are replaced in T-SQL scripts and statements before execution:
 
 * `{SERVER}`
 * `{DATABASE}`
@@ -76,6 +82,31 @@ The following tags are replaced in tsql scripts and statements before execution:
 * `{YYYY-MM-DD HH:mm:ss}`
 * `{OBJECT}`
 
+#### User-defined parameters (tags)
+
+Every menu item can have a set of additional parameters if needed. They can be defined at the time when the menu item is added and can be edited later in the Options grid. Each of them must have a unique name and a (data) type.
+
+When adding a parameter, do not wrap its name in curly braces. It will be wrapped automatically when looking for the parameter during text substitution in the T-SQL script.
+
+* Use form without braces when giving a name for a parameter: `MY_CUSTOM_PARAM`.
+* However, wrap the parameter name in braces in the T-SQL script: `{MY_CUSTOM_PARAM}`.
+
+The following rules are applied on parameter names:
+
+* A menu item cannot have two parameters having the same name (two names differ only in casing are considered as equal).
+* Tag names of the execution context (like `{SERVER}`, `{DATABASE}`, etc.) cannot be used as a custom parameter name.
+
+A custom parameter can have one of the below types:
+
+* uniqueidentifier
+* int
+* nvarchar
+* bit
+* List of options
+
+The list of options can't have duplicate elements.
+
+These user-defined parameters are substituted the same way like the tags of the execution context.
 
 #### Example 1
 
@@ -85,7 +116,7 @@ select
     , '{DATABASE}' as [database]
     , '{SCHEMA}' as [schema]
     , '{TABLE}' as [table]
-    , '{VIEW}' as [view]	
+    , '{VIEW}' as [view]
     , '{STORED_PROCEDURE}' as [stored_procedure]
     , '{FUNCTION}' as [function]
     , '{JOB}' as [job]
@@ -103,7 +134,13 @@ select top 10
 from {DATABASE}.{SCHEMA}.{TABLE}
 ```
 
+#### Example 3
 
+```sql
+-- {OBJECT_TYPE} and {NAME_FILTER_EXP} are user-defined (custom) parameters
+select * from sys.objects
+where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
+```
 
 ## Compatibility
 
