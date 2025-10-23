@@ -9,11 +9,6 @@ namespace SSMSObjectExplorerMenu
 {
     public partial class EnterUserDefinedArguments : Form
     {
-        /// <summary>
-        /// Space for the vertical scrollbar and some padding.
-        /// </summary>
-        private const int FLOWLAYOUTPANEL_PADDING = 25;
-
         private readonly ArgumentControl[] _argumentControls;
 
         public IEnumerable<UserDefinedArgument> UserDefinedArguments { 
@@ -31,7 +26,7 @@ namespace SSMSObjectExplorerMenu
         {
             InitializeComponent();
 
-            int argumentControlWidth = this.flowLayoutPanelArguments.ClientSize.Width - FLOWLAYOUTPANEL_PADDING;
+            int argumentControlWidth = this.flowLayoutPanelArguments.ClientSize.Width;
             _argumentControls = parameters.Select(p => new ArgumentControl(p, argumentControlWidth)).ToArray();
             this.flowLayoutPanelArguments.Controls.AddRange(_argumentControls);
         }
