@@ -115,7 +115,7 @@ namespace SSMSObjectExplorerMenu
             _valueControl = textBox;
         }
 
-        private void Init_Int() => _valueControl = new NumericUpDown();
+        private void Init_Int() => _valueControl = new NumericUpDown() { Minimum = int.MinValue, Maximum = int.MaxValue };
         
         private void Init_Bit() => _valueControl = new CheckBox();
 
