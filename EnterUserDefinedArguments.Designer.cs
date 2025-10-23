@@ -54,7 +54,6 @@
             this.flowLayoutPanelArguments.AutoSize = true;
             this.flowLayoutPanelArguments.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelArguments.Location = new System.Drawing.Point(15, 26);
-            this.flowLayoutPanelArguments.MaximumSize = new System.Drawing.Size(300, 200);
             this.flowLayoutPanelArguments.Name = "flowLayoutPanelArguments";
             this.flowLayoutPanelArguments.Size = new System.Drawing.Size(300, 50);
             this.flowLayoutPanelArguments.TabIndex = 1;
