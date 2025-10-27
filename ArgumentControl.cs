@@ -4,6 +4,7 @@ using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu
@@ -112,7 +113,7 @@ namespace SSMSObjectExplorerMenu
         {
             var guidTextBox = new TextBox();
             guidTextBox.MaxLength = UNIQUEIDENTIFIER_LENGTH;
-            guidTextBox.Text = string.Empty;
+            guidTextBox.Text = Parameter.UseDefaultValue ? Parameter.DefaultValueAsString : string.Empty;
 
             _valueControl = guidTextBox;
         }
@@ -120,30 +121,49 @@ namespace SSMSObjectExplorerMenu
         private void Init_Nvarchar()
         {
             var textBox = new TextBox();
-            textBox.Text = string.Empty;
+            textBox.Text = Parameter.UseDefaultValue ? Parameter.DefaultValueAsString : string.Empty;
 
             _valueControl = textBox;
         }
 
-        private void Init_Int() => _valueControl = new NumericUpDown() { Minimum = int.MinValue, Maximum = int.MaxValue };
-        
-        private void Init_Bit() => _valueControl = new CheckBox();
+        private void Init_Int() => _valueControl = new NumericUpDown() { 
+            Minimum = int.MinValue,
+            Maximum = int.MaxValue,
+            Value = Parameter.UseDefaultValue && int.TryParse(Parameter.DefaultValueAsString, out int defaultValue) ? defaultValue : 0
+        };
 
-        private void Init_DateTime2() => _valueControl = TextBoxWithPlaceholder("e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn]");
+        private void Init_Bit() => _valueControl = new CheckBox() { 
+            Checked = Parameter.UseDefaultValue && bool.TryParse(Parameter.DefaultValueAsString, out bool bitValue) ? bitValue : false
+        };
 
-        private void Init_DateTimeOffset() => _valueControl = TextBoxWithPlaceholder("e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn] [{+|-}hh:mm]");
+        private void Init_DateTime2() => _valueControl = TextBoxWithPlaceholder(
+            "e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn]",
+            Parameter.UseDefaultValue && DateTime.TryParse(Parameter.DefaultValueAsString, out DateTime _) ? Parameter.DefaultValueAsString : null);
+
+        private void Init_DateTimeOffset() => _valueControl = TextBoxWithPlaceholder(
+            "e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn] [{+|-}hh:mm]",
+            Parameter.UseDefaultValue && DateTimeOffset.TryParse(Parameter.DefaultValueAsString, out DateTimeOffset _) ? Parameter.DefaultValueAsString : null);
 
         private void Init_CustomList()
         {
             var comboBox = new ComboBox();
             comboBox.DataSource = Parameter.ValueSetOfCustomList;
 
+            if(Parameter.UseDefaultValue)
+            {
+                var itemToSelect = Parameter.ValueSetOfCustomList.SingleOrDefault(s => s.Value == Parameter.DefaultValueAsString);
+                if(itemToSelect != null)
+                {
+                    comboBox.SelectedItem = itemToSelect;
+                }
+            }
+
             _valueControl = comboBox;
         }
 
-        private TextBox TextBoxWithPlaceholder(string placeholder)
+        private TextBox TextBoxWithPlaceholder(string placeholder, string value = null)
         {
-            var textBox = new TextBox() { Text = placeholder, ForeColor = Color.Gray };
+            var textBox = new TextBox() { Text = value ?? placeholder, ForeColor = Color.Gray };
             textBox.Enter += (s, e) =>
             {
                 if (textBox.Text == placeholder)

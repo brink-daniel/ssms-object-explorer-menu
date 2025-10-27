@@ -1,4 +1,5 @@
 ﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,8 @@ namespace SSMSObjectExplorerMenu.objects
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class UserDefinedParameter
     {
+        private bool _useDefaultValue;
+
         public const short NAME_MAX_LENGTH = 64;
 
         [DisplayName("Name")]
@@ -21,6 +24,22 @@ namespace SSMSObjectExplorerMenu.objects
         [Description("Data type of the user-defined parameter.")]
         [TypeConverter(typeof(UserDefinedArgumentTypeConverter))]
         public UserDefinedParameterType Type { get; set; }
+
+        [DisplayName("Use default value")]
+        [Description("Indicates whether to use the default value of the user-defined parameter.")]
+        public bool UseDefaultValue
+        { 
+            get { return _useDefaultValue; }
+            set
+            {
+                _useDefaultValue = value;
+                if (!_useDefaultValue) DefaultValueAsString = string.Empty;
+            }
+        }
+
+        [DisplayName("Default value")]
+        [Description("Default value of the user-defined parameter.")]
+        public string DefaultValueAsString { get; set; }
 
         /// <summary>
         /// Populate if <see cref="Type"/> is <see cref="UserDefinedParameterType.CustomList"/>. Otherwise it's ignored.
@@ -52,6 +71,15 @@ namespace SSMSObjectExplorerMenu.objects
                 {
                     errors.Add($"Parameter '{Name}': list of options cannot have duplicate elements.");
                 }
+
+                if(!ValueSetOfCustomList.Contains((StringListItem)DefaultValueAsString, new StringListItemComparer(StringComparison.OrdinalIgnoreCase)))
+                {
+                    errors.Add($"Parameter '{Name}': default value '{DefaultValueAsString}' is not present in the list of options.");
+                }
+            }
+            else if(!DefaultValueAsString.ValidForUserDefinedParameterType(Type))
+            {
+                errors.Add($"Parameter '{Name}': default value '{DefaultValueAsString}' is not valid for type '{Type}'.");
             }
 
             validationErrors = errors;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -167,6 +168,34 @@ namespace SSMSObjectExplorerMenu.extensions
 			return enumField != null 
 				? (T)enumField.GetValue(null)
 				: throw new ArgumentException($"Unknown {nameof(T)} description.", nameof(enumDescription));
+        }
+
+		public static bool ValidForUserDefinedParameterType(this string value, UserDefinedParameterType type)
+		{
+			if (value == null)
+			{
+				throw new ArgumentNullException(nameof(value));
+			}
+
+            switch (type)
+            {
+                case UserDefinedParameterType.UniqueIdentifier:
+                    return Guid.TryParse(value, out _);
+                case UserDefinedParameterType.Nvarchar:
+					return true; // Any string is valid for nvarchar
+                case UserDefinedParameterType.DateTime2:
+                    return DateTime.TryParse(value, out _);
+                case UserDefinedParameterType.DateTimeOffset:
+                    return DateTimeOffset.TryParse(value, out _);
+                case UserDefinedParameterType.Int:
+					return int.TryParse(value, out _);
+                case UserDefinedParameterType.Bit:
+					return bool.TryParse(value, out _);
+                case UserDefinedParameterType.CustomList:
+                    throw new ArgumentException($"Operation is not applicable for type '{type}'.");
+                default:
+                    throw new NotImplementedException($"Validation for parameter type {type} has not been implemented.");
+            }
         }
     }
 }
