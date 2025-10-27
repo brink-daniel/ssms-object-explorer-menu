@@ -47,5 +47,12 @@ namespace SSMSObjectExplorerMenu
             invalidArguments = _argumentControls.Where(ac => !ac.IsValid()).Select(ac => ac.Parameter.Name);
             return !invalidArguments.Any();
         }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            // To show placeholder text (e.g. for datetime and datetime2) for all controls when the form is shown
+            this.ActiveControl = null;
+        }
     }
 }

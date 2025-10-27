@@ -61,6 +61,12 @@ namespace SSMSObjectExplorerMenu
                 case UserDefinedParameterType.Bit:
                     Init_Bit();
                     break;
+                case UserDefinedParameterType.DateTime2:
+                    Init_DateTime2();
+                    break;
+                case UserDefinedParameterType.DateTimeOffset:
+                    Init_DateTimeOffset();
+                    break;
                 case UserDefinedParameterType.CustomList:
                     Init_CustomList();
                     break;
@@ -89,6 +95,10 @@ namespace SSMSObjectExplorerMenu
                     return Guid.TryParse(_valueControl.Text, out _);
                 case UserDefinedParameterType.Nvarchar:
                     return !string.IsNullOrWhiteSpace(_valueControl.Text);
+                case UserDefinedParameterType.DateTime2:
+                    return DateTime.TryParse(_valueControl.Text, out _);
+                case UserDefinedParameterType.DateTimeOffset:
+                    return DateTimeOffset.TryParse(_valueControl.Text, out _);
                 case UserDefinedParameterType.Int:
                 case UserDefinedParameterType.Bit:
                 case UserDefinedParameterType.CustomList:
@@ -119,12 +129,38 @@ namespace SSMSObjectExplorerMenu
         
         private void Init_Bit() => _valueControl = new CheckBox();
 
+        private void Init_DateTime2() => _valueControl = TextBoxWithPlaceholder("e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn]");
+
+        private void Init_DateTimeOffset() => _valueControl = TextBoxWithPlaceholder("e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn] [{+|-}hh:mm]");
+
         private void Init_CustomList()
         {
             var comboBox = new ComboBox();
             comboBox.DataSource = Parameter.ValueSetOfCustomList;
 
             _valueControl = comboBox;
+        }
+
+        private TextBox TextBoxWithPlaceholder(string placeholder)
+        {
+            var textBox = new TextBox() { Text = placeholder, ForeColor = Color.Gray };
+            textBox.Enter += (s, e) =>
+            {
+                if (textBox.Text == placeholder)
+                {
+                    textBox.Text = string.Empty;
+                    textBox.ForeColor = Color.Black;
+                }
+            };
+            textBox.Leave += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    textBox.Text = placeholder;
+                    textBox.ForeColor = Color.Gray;
+                }
+            };
+            return textBox;
         }
     }
 }

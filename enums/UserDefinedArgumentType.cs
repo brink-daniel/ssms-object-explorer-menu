@@ -12,6 +12,10 @@ namespace SSMSObjectExplorerMenu.enums
         Nvarchar,
         [Description("bit")]
         Bit,
+        [Description("datetime2")]
+        DateTime2,
+        [Description("datetimeoffset")]
+        DateTimeOffset,
         /// <summary>
         /// This is not a SQL Server data type. Represents a list of options defined by the user.
         /// </summary>
