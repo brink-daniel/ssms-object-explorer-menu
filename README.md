@@ -107,7 +107,7 @@ from {DATABASE}.{SCHEMA}.{TABLE}
 
 ## Compatibility
 
-### SQL Server Management Studio 21.x
+### SQL Server Management Studio 22.x
 
 This extension has been tested and used with **SQL Server Management Studio 22.0.0**.
 
