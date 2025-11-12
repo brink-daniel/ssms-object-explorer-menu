@@ -124,7 +124,7 @@ Please let us know what other extensions you use in SSMS. We'll try our best to 
 
 ### SQL Server Management Studio 21.x
 
-SSMS 21.x is no longer supported. The last version compatible with SSMS 20.x is [version 3.2.2](https://github.com/brink-daniel/ssms-object-explorer-menu/releases/tag/v3.2.2). Please consider upgrading to the latest version of [SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
+SSMS 21.x is no longer supported. The last version compatible with SSMS 21.x is [version 3.2.2](https://github.com/brink-daniel/ssms-object-explorer-menu/releases/tag/v3.2.2). Please consider upgrading to the latest version of [SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
 ### SQL Server Management Studio 20.x
 
