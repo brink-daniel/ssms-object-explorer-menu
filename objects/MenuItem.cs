@@ -1,7 +1,12 @@
-﻿using System;
+﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.extensions;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace SSMSObjectExplorerMenu.objects
 {
@@ -48,27 +53,58 @@ namespace SSMSObjectExplorerMenu.objects
 		[Category("Menu item")]
 		[DisplayName("Context")]
 		[Description("Tree node level where to display menu item.")]
-		[DefaultValue("All")]
-		public string Context { get; set; } = "All";
+		[DefaultValue(MenuItemContext.All)]
+        [TypeConverter(typeof(MenuItemContextConverter))]
+		[XmlIgnore]
+        public MenuItemContext Context { get; set; } = MenuItemContext.All;
 
+		[Browsable(false)]
+		[XmlElement("Context")]
+		public string ContextDescription
+		{
+			get => Context.ToStringDescription();
+			set => Context = value.FromDescription<MenuItemContext>();
+        }
+
+        [Category("Menu item")]
+        [DisplayName("User-defined parameters")]
+        [Description("List of user-deifned parameters can be used in the T-SQL script.")]
+		[Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
+        public BindingList<UserDefinedParameter> UserDefinedParameters { get; private set; } = new BindingList<UserDefinedParameter>();
 
 		public MenuItem()
 		{
 			
 		}
 
-		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm)
+		public MenuItem(bool enabled, MenuItemContext context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedParameter> userDefinedParams = null)
 		{
-			Enabled = enabled;
+            Enabled = enabled;
 			Context = context;
 			Name = name;
 			Script = script;
 			Execute = execute;
 			Confirm = confirm;
 
+            foreach (var param in userDefinedParams ?? Enumerable.Empty<UserDefinedParameter>())
+            {
+                UserDefinedParameters.Add(param);
+            }
+
 			if (Confirm) {
 				Execute = true;
 			}
 		}
+
+		public bool TryValidate(out IEnumerable<MenuItemErrorModel> validationErrors)
+		{
+            validationErrors = 
+				UserDefinedParameters.Select(
+                // reserved names: names coming from context + names of other user-defined parameters of the MenuItem
+                p => p.TryValidate(out IEnumerable<string> paramErrors, Utils.ParametersFromContext.Concat(UserDefinedParameters.Where(pa => pa != p).Select(pa => pa.Name)))
+					? null : new MenuItemErrorModel { MenuItemName = Name, ErrorMessages = paramErrors })
+				.Where(e => e != null);
+			return !validationErrors.Any();
+        }
 	}
 }
