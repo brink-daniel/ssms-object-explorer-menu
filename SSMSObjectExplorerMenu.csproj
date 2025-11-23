@@ -77,6 +77,13 @@
     <Compile Include="ArgumentControl.Designer.cs">
       <DependentUpon>ArgumentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
+    <Compile Include="DefaultValueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DefaultValueControl.Designer.cs">
+      <DependentUpon>DefaultValueControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="EnterUserDefinedArguments.cs">
       <SubType>Form</SubType>
     </Compile>

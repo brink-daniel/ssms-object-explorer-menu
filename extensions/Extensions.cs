@@ -172,11 +172,6 @@ namespace SSMSObjectExplorerMenu.extensions
 
 		public static bool ValidForUserDefinedParameterType(this string value, UserDefinedParameterType type)
 		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
-
             switch (type)
             {
                 case UserDefinedParameterType.UniqueIdentifier:

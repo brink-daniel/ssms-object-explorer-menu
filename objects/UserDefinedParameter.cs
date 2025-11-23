@@ -12,8 +12,6 @@ namespace SSMSObjectExplorerMenu.objects
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class UserDefinedParameter
     {
-        private bool _useDefaultValue;
-
         public const short NAME_MAX_LENGTH = 64;
 
         [DisplayName("Name")]
@@ -25,17 +23,6 @@ namespace SSMSObjectExplorerMenu.objects
         [TypeConverter(typeof(UserDefinedArgumentTypeConverter))]
         public UserDefinedParameterType Type { get; set; }
 
-        [DisplayName("Use default value")]
-        [Description("Indicates whether to use the default value of the user-defined parameter.")]
-        public bool UseDefaultValue
-        { 
-            get { return _useDefaultValue; }
-            set
-            {
-                _useDefaultValue = value;
-                if (!_useDefaultValue) DefaultValueAsString = string.Empty;
-            }
-        }
 
         [DisplayName("Default value")]
         [Description("Default value of the user-defined parameter.")]

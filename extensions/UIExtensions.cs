@@ -1,4 +1,5 @@
-﻿using SSMSObjectExplorerMenu.objects;
+﻿using SSMSObjectExplorerMenu.enums;
+using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -27,5 +28,8 @@ namespace SSMSObjectExplorerMenu.extensions
         }
 
         public static IEnumerable<ListViewItem> GetSelectedItems(this ListView listView) => listView.Items.Cast<ListViewItem>().Where(item => item.Selected);
+
+        public static string GetValueByParameterType(this Control control, UserDefinedParameterType parameterType)
+            => parameterType == UserDefinedParameterType.Bit ? $"{((CheckBox)control).Checked}" : control.Text;
     }
 }

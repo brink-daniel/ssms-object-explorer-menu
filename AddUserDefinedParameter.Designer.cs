@@ -40,12 +40,13 @@
             this.buttonRemoveCustomList = new System.Windows.Forms.Button();
             this.labelCustomList = new System.Windows.Forms.Label();
             this.panelCustomList = new System.Windows.Forms.Panel();
+            this.labelDefaultValue = new System.Windows.Forms.Label();
             this.panelCustomList.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxParameterName
             // 
-            this.textBoxParameterName.Location = new System.Drawing.Point(103, 14);
+            this.textBoxParameterName.Location = new System.Drawing.Point(100, 14);
             this.textBoxParameterName.Name = "textBoxParameterName";
             this.textBoxParameterName.Size = new System.Drawing.Size(170, 20);
             this.textBoxParameterName.TabIndex = 0;
@@ -53,7 +54,7 @@
             // comboBoxParameterType
             // 
             this.comboBoxParameterType.FormattingEnabled = true;
-            this.comboBoxParameterType.Location = new System.Drawing.Point(103, 56);
+            this.comboBoxParameterType.Location = new System.Drawing.Point(100, 56);
             this.comboBoxParameterType.Name = "comboBoxParameterType";
             this.comboBoxParameterType.Size = new System.Drawing.Size(170, 21);
             this.comboBoxParameterType.TabIndex = 1;
@@ -80,7 +81,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(117, 203);
+            this.buttonSave.Location = new System.Drawing.Point(117, 226);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 4;
@@ -92,7 +93,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(198, 203);
+            this.buttonCancel.Location = new System.Drawing.Point(198, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -147,10 +148,19 @@
             this.panelCustomList.Controls.Add(this.buttonRemoveCustomList);
             this.panelCustomList.Controls.Add(this.buttonAddCustomList);
             this.panelCustomList.Controls.Add(this.listViewCustomList);
-            this.panelCustomList.Location = new System.Drawing.Point(16, 95);
+            this.panelCustomList.Location = new System.Drawing.Point(16, 120);
             this.panelCustomList.Name = "panelCustomList";
             this.panelCustomList.Size = new System.Drawing.Size(257, 100);
             this.panelCustomList.TabIndex = 10;
+            // 
+            // labelDefaultValue
+            // 
+            this.labelDefaultValue.AutoSize = true;
+            this.labelDefaultValue.Location = new System.Drawing.Point(12, 95);
+            this.labelDefaultValue.Name = "labelDefaultValue";
+            this.labelDefaultValue.Size = new System.Drawing.Size(73, 13);
+            this.labelDefaultValue.TabIndex = 11;
+            this.labelDefaultValue.Text = "Default value:";
             // 
             // AddUserDefinedParameter
             // 
@@ -158,7 +168,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(285, 238);
+            this.ClientSize = new System.Drawing.Size(285, 261);
+            this.Controls.Add(this.labelDefaultValue);
             this.Controls.Add(this.panelCustomList);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -193,5 +204,6 @@
         private System.Windows.Forms.Button buttonRemoveCustomList;
         private System.Windows.Forms.Label labelCustomList;
         private System.Windows.Forms.Panel panelCustomList;
+        private System.Windows.Forms.Label labelDefaultValue;
     }
 }

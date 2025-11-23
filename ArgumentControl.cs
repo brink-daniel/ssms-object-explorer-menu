@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static SSMSObjectExplorerMenu.Constants;
 
 namespace SSMSObjectExplorerMenu
 {
@@ -21,17 +22,7 @@ namespace SSMSObjectExplorerMenu
         private Control _valueControl;
 
         public UserDefinedParameter Parameter { get; private set; }
-        public string ParameterValueString
-        {
-            get
-            {
-                if(Parameter.Type == UserDefinedParameterType.Bit)
-                {
-                    return ((CheckBox)_valueControl).Checked ? "1" : "0";
-                }
-                else return _valueControl.Text;
-            }
-        }
+        public string ParameterValueString => _valueControl.GetValueByParameterType(Parameter.Type);
 
         public ArgumentControl(UserDefinedParameter parameter, int width)
         {
@@ -113,7 +104,7 @@ namespace SSMSObjectExplorerMenu
         {
             var guidTextBox = new TextBox();
             guidTextBox.MaxLength = UNIQUEIDENTIFIER_LENGTH;
-            guidTextBox.Text = Parameter.UseDefaultValue ? Parameter.DefaultValueAsString : string.Empty;
+            guidTextBox.Text = Parameter.DefaultValueAsString;
 
             _valueControl = guidTextBox;
         }
@@ -121,7 +112,7 @@ namespace SSMSObjectExplorerMenu
         private void Init_Nvarchar()
         {
             var textBox = new TextBox();
-            textBox.Text = Parameter.UseDefaultValue ? Parameter.DefaultValueAsString : string.Empty;
+            textBox.Text = Parameter.DefaultValueAsString;
 
             _valueControl = textBox;
         }
@@ -129,58 +120,33 @@ namespace SSMSObjectExplorerMenu
         private void Init_Int() => _valueControl = new NumericUpDown() { 
             Minimum = int.MinValue,
             Maximum = int.MaxValue,
-            Value = Parameter.UseDefaultValue && int.TryParse(Parameter.DefaultValueAsString, out int defaultValue) ? defaultValue : 0
+            Value = int.TryParse(Parameter.DefaultValueAsString, out int defaultValue) ? defaultValue : 0
         };
 
         private void Init_Bit() => _valueControl = new CheckBox() { 
-            Checked = Parameter.UseDefaultValue && bool.TryParse(Parameter.DefaultValueAsString, out bool bitValue) ? bitValue : false
+            Checked = bool.TryParse(Parameter.DefaultValueAsString, out bool bitValue) ? bitValue : false
         };
 
-        private void Init_DateTime2() => _valueControl = TextBoxWithPlaceholder(
-            "e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn]",
-            Parameter.UseDefaultValue && DateTime.TryParse(Parameter.DefaultValueAsString, out DateTime _) ? Parameter.DefaultValueAsString : null);
+        private void Init_DateTime2() => _valueControl = new TextBox() { 
+            Text = DateTime.TryParse(Parameter.DefaultValueAsString, out DateTime _) ? Parameter.DefaultValueAsString : DateTime.Now.ToString(DateTime2_FormatString)
+        };
 
-        private void Init_DateTimeOffset() => _valueControl = TextBoxWithPlaceholder(
-            "e.g. yyyy-MM-dd HH:mm:ss[.nnnnnnn] [{+|-}hh:mm]",
-            Parameter.UseDefaultValue && DateTimeOffset.TryParse(Parameter.DefaultValueAsString, out DateTimeOffset _) ? Parameter.DefaultValueAsString : null);
+        private void Init_DateTimeOffset() => _valueControl = new TextBox() { 
+            Text = DateTimeOffset.TryParse(Parameter.DefaultValueAsString, out DateTimeOffset _) ? Parameter.DefaultValueAsString : DateTimeOffset.Now.ToString(DateTimeOffset_FormatString)
+        };
 
         private void Init_CustomList()
         {
             var comboBox = new ComboBox();
             comboBox.DataSource = Parameter.ValueSetOfCustomList;
 
-            if(Parameter.UseDefaultValue)
+            var itemToSelect = Parameter.ValueSetOfCustomList.SingleOrDefault(s => s.Value == Parameter.DefaultValueAsString);
+            if (itemToSelect != null)
             {
-                var itemToSelect = Parameter.ValueSetOfCustomList.SingleOrDefault(s => s.Value == Parameter.DefaultValueAsString);
-                if(itemToSelect != null)
-                {
-                    comboBox.SelectedItem = itemToSelect;
-                }
+                comboBox.SelectedItem = itemToSelect;
             }
 
             _valueControl = comboBox;
-        }
-
-        private TextBox TextBoxWithPlaceholder(string placeholder, string value = null)
-        {
-            var textBox = new TextBox() { Text = value ?? placeholder, ForeColor = Color.Gray };
-            textBox.Enter += (s, e) =>
-            {
-                if (textBox.Text == placeholder)
-                {
-                    textBox.Text = string.Empty;
-                    textBox.ForeColor = Color.Black;
-                }
-            };
-            textBox.Leave += (s, e) =>
-            {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    textBox.Text = placeholder;
-                    textBox.ForeColor = Color.Gray;
-                }
-            };
-            return textBox;
         }
     }
 }

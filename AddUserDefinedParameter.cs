@@ -3,7 +3,6 @@ using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,17 +12,19 @@ namespace SSMSObjectExplorerMenu
     public partial class AddUserDefinedParameter : Form
     {
         private IEnumerable<string> _paramNamesInUse;
-        private ParameterItem _parameter;
+        private UserDefinedParameter _parameter;
+
+        private DefaultValueControl defaultValueControl;
 
         public UserDefinedParameter Parameter
         {
             get
             {
-                if (!TryValidate(out UserDefinedParameter parameter, out List<string> _) || this.DialogResult != DialogResult.OK)
+                if (!_parameter.TryValidate(out IEnumerable<string> _, _paramNamesInUse) || this.DialogResult != DialogResult.OK)
                 {
                     throw new InvalidOperationException("Dialog is in invalid state.");
                 }
-                return parameter;
+                return _parameter;
             }
         }
 
@@ -36,11 +37,20 @@ namespace SSMSObjectExplorerMenu
 
             InitializeComponent();
 
-            _parameter = new ParameterItem { Name = string.Empty, Type = UserDefinedParameterType.UniqueIdentifier };
-            _paramNamesInUse = !edit ? paramNamesInUse : paramNamesInUse.Except(new[] { parameterToEdit.Name });
+            _parameter = new UserDefinedParameter { 
+                Name = edit ? parameterToEdit.Name : string.Empty,
+                Type = edit ? parameterToEdit.Type : UserDefinedParameterType.UniqueIdentifier,
+                DefaultValueAsString = edit ? parameterToEdit.DefaultValueAsString : null
+            };
+            _paramNamesInUse = edit ? paramNamesInUse.Except(new[] { parameterToEdit.Name }) : paramNamesInUse;
 
             this.textBoxParameterName.MaxLength = UserDefinedParameter.NAME_MAX_LENGTH;
             this.textBoxParameterName.DataBindings.Add(nameof(textBoxParameterName.Text), _parameter, nameof(_parameter.Name), true, DataSourceUpdateMode.OnPropertyChanged);
+
+            this.defaultValueControl = new DefaultValueControl(_parameter.Type, edit, _parameter.DefaultValueAsString);
+            this.defaultValueControl.Location = new System.Drawing.Point(100, 95); // Adjusting location next to label
+            this.defaultValueControl.ValueChanged += (s, e) => _parameter.DefaultValueAsString = defaultValueControl.ValueAsString;
+            this.Controls.Add(this.defaultValueControl);
 
             this.comboBoxParameterType.DataSource = 
                 Enum.GetValues(typeof(UserDefinedParameterType))
@@ -50,21 +60,19 @@ namespace SSMSObjectExplorerMenu
             this.comboBoxParameterType.ValueMember = nameof(ComboBoxItem<UserDefinedParameterType>.Value);
             this.comboBoxParameterType.DataBindings.Add(nameof(comboBoxParameterType.SelectedValue), _parameter, nameof(_parameter.Type), true, DataSourceUpdateMode.OnPropertyChanged);
 
-            if(edit)
-            {
-                _parameter.Name = parameterToEdit.Name;
-                _parameter.Type = parameterToEdit.Type;
-                this.listViewCustomList.Items.AddRange(parameterToEdit.ValueSetOfCustomList.Select(item => new ListViewItem(item.Value)).ToArray());
-                this.Text = "Edit user-defined parameter...";
-            }
+            this.listViewCustomList.Items.AddRange(edit ?
+                parameterToEdit.ValueSetOfCustomList.Select(item => new ListViewItem(item.Value)).ToArray() :
+                Array.Empty<ListViewItem>()
+            );
+            this.Text = edit ? "Edit user-defined parameter..." : this.Text;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (!TryValidate(out UserDefinedParameter _, out List<string> validationErrors))
+            if (!_parameter.TryValidate(out IEnumerable<string> validationErrors, _paramNamesInUse))
             {
                 var errorMessageBuilder = new StringBuilder();
-                validationErrors.ForEach(error => errorMessageBuilder.AppendLine(error));
+                foreach(var error in validationErrors) errorMessageBuilder.AppendLine(error);
                 MessageBox.Show(errorMessageBuilder.ToString(), "Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -72,32 +80,12 @@ namespace SSMSObjectExplorerMenu
             this.DialogResult = DialogResult.OK;
         }
 
-        private bool TryValidate(out UserDefinedParameter validatedParameter, out List<string> validationErrors)
-        {
-            var parameter = BuildParameter();
-            validationErrors = !parameter.TryValidate(out IEnumerable<string> errors, _paramNamesInUse) ? errors.ToList() : new List<string>();
-
-            bool success = !validationErrors.Any();
-            validatedParameter = success ? parameter : null;
-            return success;
-        }
-
-        private UserDefinedParameter BuildParameter() => new UserDefinedParameter
-        {
-            Name = _parameter.Name,
-            Type = _parameter.Type,
-            ValueSetOfCustomList = new BindingList<StringListItem>(
-                        _parameter.Type == UserDefinedParameterType.CustomList ?
-                            this.listViewCustomList.Items.Cast<ListViewItem>().Select(item => new StringListItem(item.Text)).ToList() :
-                            new List<StringListItem>()
-                )
-        };
-
         private void comboBoxParameterType_SelectedValueChanged(object sender, EventArgs e)
         {
             var selectedValue = comboBoxParameterType.SelectedValue as UserDefinedParameterType?;
             if(selectedValue != null)
             {
+                this.defaultValueControl.CurrentType = selectedValue.Value;
                 this.panelCustomList.Enabled = selectedValue == UserDefinedParameterType.CustomList;
             }
         }
