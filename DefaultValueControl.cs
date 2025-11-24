@@ -68,7 +68,7 @@ namespace SSMSObjectExplorerMenu
                 Location = Point.Empty
             };
             var bit_cb = new CheckBox {
-                Checked = (edit && currentType == UserDefinedParameterType.Bit) ? (bool.TryParse(presetValue, out bool pv_bool) ? pv_bool : false) : false,
+                Checked = (edit && currentType == UserDefinedParameterType.Bit) ? presetValue == "1" : false,
                 Size = _controlSize,
                 Location = Point.Empty
             };

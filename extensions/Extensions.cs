@@ -185,7 +185,7 @@ namespace SSMSObjectExplorerMenu.extensions
                 case UserDefinedParameterType.Int:
 					return int.TryParse(value, out _);
                 case UserDefinedParameterType.Bit:
-					return bool.TryParse(value, out _);
+					return value == "0" || value == "1";
                 case UserDefinedParameterType.CustomList:
                     throw new ArgumentException($"Operation is not applicable for type '{type}'.");
                 default:

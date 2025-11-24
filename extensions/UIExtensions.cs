@@ -30,6 +30,6 @@ namespace SSMSObjectExplorerMenu.extensions
         public static IEnumerable<ListViewItem> GetSelectedItems(this ListView listView) => listView.Items.Cast<ListViewItem>().Where(item => item.Selected);
 
         public static string GetValueByParameterType(this Control control, UserDefinedParameterType parameterType)
-            => parameterType == UserDefinedParameterType.Bit ? $"{((CheckBox)control).Checked}" : control.Text;
+            => (parameterType == UserDefinedParameterType.Bit) ? (((CheckBox)control).Checked ? "1" : "0") : control.Text;
     }
 }
