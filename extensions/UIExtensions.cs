@@ -40,5 +40,14 @@ namespace SSMSObjectExplorerMenu.extensions
             control.Location = location ?? Point.Empty;
             return control;
         }
+
+        public static ComboBox SetDataSource<TValue>(this ComboBox comboBox, ICollection<TValue> optionsList)
+        {
+            comboBox.DataSource = null;
+            comboBox.DataSource = optionsList.Select(i => new ComboBoxItem<TValue> { Displayed = $"{i}", Value = i }).ToArray();
+            comboBox.DisplayMember = nameof(ComboBoxItem<TValue>.Displayed);
+            comboBox.ValueMember = nameof(ComboBoxItem<TValue>.Value);
+            return comboBox;
+        }
     }
 }

@@ -17,17 +17,12 @@ namespace SSMSObjectExplorerMenu
 
         private Dictionary<UserDefinedParameterType, Control> _defaultValueInputControls = new Dictionary<UserDefinedParameterType, Control>();
         private UserDefinedParameterType _currentType;
-        private List<string> _customListAvailableOptions;
+        private string[] _customListAvailableOptions;
 
         public UserDefinedParameterType CurrentType {
             get => _currentType;
             set
             {
-                //// Selecting default value for type 'CustomList' happens in a different control.
-                //if (value == UserDefinedParameterType.CustomList)
-                //{
-                //    throw new ArgumentException("CustomList type is not supported in DefaultValueControl.", nameof(value));
-                //}
                 _currentType = value;
 
                 // Controls list is expected to have always a single control.
@@ -69,24 +64,19 @@ namespace SSMSObjectExplorerMenu
 
         public void HandleCustomListOptionsChanged(object sender, ObservableListViewChangedEventArgs e)
         {
-            if (CurrentType != UserDefinedParameterType.CustomList ||
-                !(_defaultValueInputControls[UserDefinedParameterType.CustomList] is ComboBox customListComboBox))
+            if (CurrentType == UserDefinedParameterType.CustomList && (_defaultValueInputControls[UserDefinedParameterType.CustomList] is ComboBox customListComboBox))
             {
-                return;
+                var originalSelectedValue = customListComboBox.SelectedValue;
+
+                _customListAvailableOptions = e.NewItems.Select(item => item.Text).ToArray();
+                var selectedItemNotFound = (e.ChangeType == ObservableListViewChangeType.Remove || e.ChangeType == ObservableListViewChangeType.Edit) 
+                    && !_customListAvailableOptions.Any(i => i == (string)originalSelectedValue);
+
+                customListComboBox.SetDataSource<string>(_customListAvailableOptions);
+                
+                // Added first item(s) to the list of options or removed the currently selected item - take the first list item by default
+                customListComboBox.SelectedValue = (originalSelectedValue == null || selectedItemNotFound) ? (_customListAvailableOptions.FirstOrDefault() ?? string.Empty) : (string)originalSelectedValue;
             }
-
-            var originalSelectedValue = customListComboBox.SelectedValue;
-            customListComboBox.DataSource = null;
-
-            _customListAvailableOptions = e.NewItems.Select(item => item.Text).ToList();
-            var selectedItemNotFound = e.ChangeType == ObservableListViewChangeType.Clear ||
-                ((e.ChangeType == ObservableListViewChangeType.Remove || e.ChangeType == ObservableListViewChangeType.Edit) && !_customListAvailableOptions.Any(i => i == (string)originalSelectedValue));
-
-            customListComboBox.DataSource = _customListAvailableOptions.Select(i => new ComboBoxItem<string> { Displayed = i, Value = i}).ToList();
-            customListComboBox.DisplayMember = nameof(ComboBoxItem<string>.Displayed);
-            customListComboBox.ValueMember = nameof(ComboBoxItem<string>.Value);
-            // Added first item(s) to the list of options or removed the currently selected item - take the first list item by default
-            customListComboBox.SelectedValue = (originalSelectedValue == null || selectedItemNotFound) ? _customListAvailableOptions[0] : (string)originalSelectedValue;
         }
 
         private void InitDefaultValueInputControls(UserDefinedParameterType currentType, bool edit, string stringPresetValue = null, CustomListDefaultValueModel customListPresetValue = null)
@@ -111,14 +101,16 @@ namespace SSMSObjectExplorerMenu
                     $"{DateTimeOffset.Now.ToString(DateTimeOffset_FormatString)}",
             };
 
-            _customListAvailableOptions = customListPresetValue?.AvailableOptions?.ToList() ?? new List<string>();
-            var editCustomList = edit && currentType == UserDefinedParameterType.CustomList;
-            var customList_cb = new ComboBox
-            {
-                DataSource = _customListAvailableOptions,
-                SelectedItem = editCustomList ? customListPresetValue.DefaultValueSelected : null,
-            };
-
+            _customListAvailableOptions = customListPresetValue?.AvailableOptions?.ToArray() ?? Array.Empty<string>();
+            var editingCustomList = edit && currentType == UserDefinedParameterType.CustomList;
+            var customList_cb = new ComboBox().SetDataSource<string>(_customListAvailableOptions);
+            // ComboBox initialization with a specific selected value instead of the default behavior (of selecting the first item):
+            // - why HandleCreated event: can't call BeginInvoke on a control which handle is not created yet
+            // - why BeginInvoke: setting SelectedValue property has to be deferred as dataManager of the ComboBox is null at this point
+            // - why dataManager of ComboBox: set accessor of SelectedValue requires dataManager to be non-null
+            // It's needed only right after ComboBox creation (until we don't have a dataManager). Subsequent changes of SelectedValue will work seamlessly.
+            customList_cb.HandleCreated += (s, e) => customList_cb.BeginInvoke((Action)(() => customList_cb.SelectedValue = editingCustomList ? customListPresetValue.DefaultValueSelected : string.Empty));
+            
             var invokeValueChanged = new EventHandler((s, e) => ValueChanged?.Invoke(this, EventArgs.Empty));
             int_nu.ValueChanged += invokeValueChanged;
             nvarchar_tb.TextChanged += invokeValueChanged;

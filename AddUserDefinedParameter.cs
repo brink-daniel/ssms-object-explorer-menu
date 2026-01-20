@@ -42,11 +42,15 @@ namespace SSMSObjectExplorerMenu
             InitializeComponent();
             InitializeCustomControlListViewCustomList();
 
-            _parameter = new UserDefinedParameter { 
-                Name = edit ? parameterToEdit.Name : string.Empty,
-                Type = edit ? parameterToEdit.Type : UserDefinedParameterType.UniqueIdentifier,
-                DefaultValueAsString = edit ? parameterToEdit.DefaultValueAsString : null
-            };
+            _parameter = edit
+                ? new UserDefinedParameter
+                    {
+                        Name = parameterToEdit.Name,
+                        Type = parameterToEdit.Type,
+                        DefaultValueAsString = parameterToEdit.DefaultValueAsString,
+                        ValueSetOfCustomList = parameterToEdit.ValueSetOfCustomList
+                    }
+                : new UserDefinedParameter { Name = string.Empty, Type = UserDefinedParameterType.UniqueIdentifier, DefaultValueAsString = string.Empty };
             _paramNamesInUse = edit ? paramNamesInUse.Except(new[] { parameterToEdit.Name }) : paramNamesInUse;
 
             this.textBoxParameterName.MaxLength = UserDefinedParameter.NAME_MAX_LENGTH;
@@ -125,48 +129,13 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonAddCustomList_Click(object sender, EventArgs e)
         {
-            this.listViewCustomList.Items.Add(new ListViewItem("New value (double-click to edit)..."));
-            var elements = listViewCustomList.Items.Cast<ListViewItem>();
-            Debug.WriteLine($"[ADD] Number of distinct elements: {elements.Count()}");
-            unsafe
-            {
-                int x = 0;
-                foreach (var i in elements)
-                {
-                    Debug.WriteLine($"Item[{x}]: addr {(long)&i:X}, hash {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(i)}");
-                    x++;
-                }
-            }
+            this.listViewCustomList.AddItem_Notify(new ListViewItem("New value (double-click to edit)..."));
         }
 
         private void buttonRemoveCustomList_Click(object sender, EventArgs e)
         {
-            var elements = listViewCustomList.Items.Cast<ListViewItem>();
-            Debug.WriteLine($"[REMOVE-BEFORE] Number of distinct elements: {elements.Count()}");
-            unsafe
-            {
-                int x = 0;
-                foreach (var i in elements)
-                {
-                    Debug.WriteLine($"Item[{x}]: addr {(long)&i:X}, hash {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(i)}");
-                    x++;
-                }
-            }
-
             var selectedItems = this.listViewCustomList.Items.Cast<ListViewItem>().Where(item => item.Selected).ToArray();
-            this.listViewCustomList.Items.RemoveRange(selectedItems);
-
-            elements = listViewCustomList.Items.Cast<ListViewItem>();
-            Debug.WriteLine($"[REMOVE-AFTER] Number of distinct elements: {elements.Count()}");
-            unsafe
-            {
-                int x = 0;
-                foreach (var i in elements)
-                {
-                    Debug.WriteLine($"Item[{x}]: addr {(long)&i:X}, hash {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(i)}");
-                    x++;
-                }
-            }
+            this.listViewCustomList.RemoveItem_Notify(selectedItems);
         }
 
         private void listViewCustomList_SelectedIndexChanged(object sender, EventArgs e)
