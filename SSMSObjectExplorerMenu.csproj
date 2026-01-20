@@ -97,7 +97,11 @@
     <Compile Include="extensions\UIExtensions.cs" />
     <Compile Include="MenuItemContextConverter.cs" />
     <Compile Include="objects\ComboBoxItem.cs" />
+    <Compile Include="objects\CustomListDefaultValueModel.cs" />
     <Compile Include="objects\MenuItemErrorModel.cs" />
+    <Compile Include="objects\ObservableListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="objects\StringListItem.cs" />
     <Compile Include="objects\UserDefinedArgument.cs" />
     <Compile Include="objects\UserDefinedParameter.cs" />

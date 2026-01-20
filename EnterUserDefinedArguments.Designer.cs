@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanelArguments = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.dialogPage1 = new Microsoft.VisualStudio.Shell.DialogPage();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -109,7 +108,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelArguments;
         private System.Windows.Forms.Button buttonOK;
-        private Microsoft.VisualStudio.Shell.DialogPage dialogPage1;
         private System.Windows.Forms.Button buttonCancel;
     }
 }

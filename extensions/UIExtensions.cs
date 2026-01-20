@@ -1,7 +1,9 @@
 ﻿using SSMSObjectExplorerMenu.enums;
 using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace SSMSObjectExplorerMenu.extensions
@@ -31,5 +33,12 @@ namespace SSMSObjectExplorerMenu.extensions
 
         public static string GetValueByParameterType(this Control control, UserDefinedParameterType parameterType)
             => (parameterType == UserDefinedParameterType.Bit) ? (((CheckBox)control).Checked ? "1" : "0") : control.Text;
+
+        public static Control Align(this Control control, Size size, Point? location = null)
+        {
+            control.Size = size;
+            control.Location = location ?? Point.Empty;
+            return control;
+        }
     }
 }

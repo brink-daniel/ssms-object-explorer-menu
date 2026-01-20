@@ -1,4 +1,6 @@
-﻿namespace SSMSObjectExplorerMenu
+﻿using SSMSObjectExplorerMenu.objects;
+
+namespace SSMSObjectExplorerMenu
 {
     partial class AddUserDefinedParameter
     {
@@ -35,7 +37,6 @@
             this.labelParameterType = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.listViewCustomList = new System.Windows.Forms.ListView();
             this.buttonAddCustomList = new System.Windows.Forms.Button();
             this.buttonRemoveCustomList = new System.Windows.Forms.Button();
             this.labelCustomList = new System.Windows.Forms.Label();
@@ -100,18 +101,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // listViewCustomList
-            // 
-            this.listViewCustomList.HideSelection = false;
-            this.listViewCustomList.LabelEdit = true;
-            this.listViewCustomList.Location = new System.Drawing.Point(0, 18);
-            this.listViewCustomList.Name = "listViewCustomList";
-            this.listViewCustomList.Size = new System.Drawing.Size(228, 79);
-            this.listViewCustomList.TabIndex = 6;
-            this.listViewCustomList.UseCompatibleStateImageBehavior = false;
-            this.listViewCustomList.View = System.Windows.Forms.View.List;
-            this.listViewCustomList.SelectedIndexChanged += new System.EventHandler(this.listViewCustomList_SelectedIndexChanged);
-            // 
             // buttonAddCustomList
             // 
             this.buttonAddCustomList.Location = new System.Drawing.Point(234, 16);
@@ -147,7 +136,6 @@
             this.panelCustomList.Controls.Add(this.labelCustomList);
             this.panelCustomList.Controls.Add(this.buttonRemoveCustomList);
             this.panelCustomList.Controls.Add(this.buttonAddCustomList);
-            this.panelCustomList.Controls.Add(this.listViewCustomList);
             this.panelCustomList.Location = new System.Drawing.Point(16, 120);
             this.panelCustomList.Name = "panelCustomList";
             this.panelCustomList.Size = new System.Drawing.Size(257, 100);
@@ -199,7 +187,6 @@
         private System.Windows.Forms.Label labelParameterType;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ListView listViewCustomList;
         private System.Windows.Forms.Button buttonAddCustomList;
         private System.Windows.Forms.Button buttonRemoveCustomList;
         private System.Windows.Forms.Label labelCustomList;

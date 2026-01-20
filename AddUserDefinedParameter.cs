@@ -3,9 +3,12 @@ using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SSMSObjectExplorerMenu
 {
@@ -15,6 +18,7 @@ namespace SSMSObjectExplorerMenu
         private UserDefinedParameter _parameter;
 
         private DefaultValueControl defaultValueControl;
+        private ObservableListView listViewCustomList;
 
         public UserDefinedParameter Parameter
         {
@@ -36,6 +40,7 @@ namespace SSMSObjectExplorerMenu
             }
 
             InitializeComponent();
+            InitializeCustomControlListViewCustomList();
 
             _parameter = new UserDefinedParameter { 
                 Name = edit ? parameterToEdit.Name : string.Empty,
@@ -47,7 +52,15 @@ namespace SSMSObjectExplorerMenu
             this.textBoxParameterName.MaxLength = UserDefinedParameter.NAME_MAX_LENGTH;
             this.textBoxParameterName.DataBindings.Add(nameof(textBoxParameterName.Text), _parameter, nameof(_parameter.Name), true, DataSourceUpdateMode.OnPropertyChanged);
 
-            this.defaultValueControl = new DefaultValueControl(_parameter.Type, edit, _parameter.DefaultValueAsString);
+            object presetValue = edit && _parameter.Type == UserDefinedParameterType.CustomList ?
+                new CustomListDefaultValueModel
+                {
+                    AvailableOptions = parameterToEdit.ValueSetOfCustomList.Select(item => item.Value).ToList(),
+                    DefaultValueSelected = parameterToEdit.DefaultValueAsString
+                } :
+                (object)_parameter.DefaultValueAsString;
+
+            this.defaultValueControl = new DefaultValueControl(_parameter.Type, edit, presetValue);
             this.defaultValueControl.Location = new System.Drawing.Point(100, 95); // Adjusting location next to label
             this.defaultValueControl.ValueChanged += (s, e) => _parameter.DefaultValueAsString = defaultValueControl.ValueAsString;
             this.Controls.Add(this.defaultValueControl);
@@ -64,7 +77,27 @@ namespace SSMSObjectExplorerMenu
                 parameterToEdit.ValueSetOfCustomList.Select(item => new ListViewItem(item.Value)).ToArray() :
                 Array.Empty<ListViewItem>()
             );
+            this.listViewCustomList.ItemsChanged += defaultValueControl.HandleCustomListOptionsChanged;
+            this.listViewCustomList.ItemsChanged += (_, e) => _parameter.ValueSetOfCustomList = new BindingList<StringListItem>(e.NewItems.Select(i => new StringListItem(i.Text)).ToList());
+
             this.Text = edit ? "Edit user-defined parameter..." : this.Text;
+        }
+
+        private void InitializeCustomControlListViewCustomList()
+        {
+            this.listViewCustomList = new ObservableListView();
+
+            this.listViewCustomList.HideSelection = false;
+            this.listViewCustomList.LabelEdit = true;
+            this.listViewCustomList.Location = new System.Drawing.Point(0, 18);
+            this.listViewCustomList.Name = "listViewCustomList";
+            this.listViewCustomList.Size = new System.Drawing.Size(228, 79);
+            this.listViewCustomList.TabIndex = 6;
+            this.listViewCustomList.UseCompatibleStateImageBehavior = false;
+            this.listViewCustomList.View = System.Windows.Forms.View.List;
+            this.listViewCustomList.SelectedIndexChanged += new System.EventHandler(this.listViewCustomList_SelectedIndexChanged);
+
+            this.panelCustomList.Controls.Add(this.listViewCustomList);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -92,14 +125,50 @@ namespace SSMSObjectExplorerMenu
 
         private void buttonAddCustomList_Click(object sender, EventArgs e)
         {
-            this.listViewCustomList.Items.Add("New value (double-click to edit)...");
+            this.listViewCustomList.Items.Add(new ListViewItem("New value (double-click to edit)..."));
+            var elements = listViewCustomList.Items.Cast<ListViewItem>();
+            Debug.WriteLine($"[ADD] Number of distinct elements: {elements.Count()}");
+            unsafe
+            {
+                int x = 0;
+                foreach (var i in elements)
+                {
+                    Debug.WriteLine($"Item[{x}]: addr {(long)&i:X}, hash {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(i)}");
+                    x++;
+                }
+            }
         }
 
         private void buttonRemoveCustomList_Click(object sender, EventArgs e)
         {
-            var selectedItems = this.listViewCustomList.Items.Cast<ListViewItem>().Where(item => item.Selected);
+            var elements = listViewCustomList.Items.Cast<ListViewItem>();
+            Debug.WriteLine($"[REMOVE-BEFORE] Number of distinct elements: {elements.Count()}");
+            unsafe
+            {
+                int x = 0;
+                foreach (var i in elements)
+                {
+                    Debug.WriteLine($"Item[{x}]: addr {(long)&i:X}, hash {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(i)}");
+                    x++;
+                }
+            }
+
+            var selectedItems = this.listViewCustomList.Items.Cast<ListViewItem>().Where(item => item.Selected).ToArray();
             this.listViewCustomList.Items.RemoveRange(selectedItems);
+
+            elements = listViewCustomList.Items.Cast<ListViewItem>();
+            Debug.WriteLine($"[REMOVE-AFTER] Number of distinct elements: {elements.Count()}");
+            unsafe
+            {
+                int x = 0;
+                foreach (var i in elements)
+                {
+                    Debug.WriteLine($"Item[{x}]: addr {(long)&i:X}, hash {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(i)}");
+                    x++;
+                }
+            }
         }
+
         private void listViewCustomList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // In case of removing list items:
