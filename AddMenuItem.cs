@@ -120,8 +120,8 @@ namespace SSMSObjectExplorerMenu
 				{
 					var editedParam = editDialog.Parameter;
 					selectedItem.Text = editedParam.Name;
-					selectedItem.SubItems[1].Text = Enum.GetName(typeof(UserDefinedParameterType), editedParam.Type);
-					selectedItem.Tag = editedParam;
+					selectedItem.SubItems[1].Text = editedParam.Type.ToStringDescription();
+                    selectedItem.Tag = editedParam;
                 }
             }
         }

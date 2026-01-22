@@ -91,14 +91,16 @@ namespace SSMSObjectExplorerMenu
             var uniqueidentifier_tb = new TextBox {
                 Text = (edit && currentType == UserDefinedParameterType.UniqueIdentifier) ? (Guid.TryParse(stringPresetValue, out Guid pv_guid) ? stringPresetValue : $"{Guid.Empty}") : $"{Guid.Empty}",
             };
+
             var datetime2_tb = new TextBox { 
-                Text = (edit && currentType == UserDefinedParameterType.DateTime2) ?
-                    (DateTime.TryParse(stringPresetValue, out DateTime _) ? stringPresetValue : $"{DateTime.Now.ToString(DateTime2_FormatString)}") : $"{DateTime.Now.ToString(DateTime2_FormatString)}",
+                Text = (edit && currentType == UserDefinedParameterType.DateTime2)
+                    ? (DateTime.TryParse(stringPresetValue, out DateTime _) ? stringPresetValue : $"{Utils.DateTimeTodayUtc.ToString(DateTime2_FormatString)}")
+                    : $"{Utils.DateTimeTodayUtc.ToString(DateTime2_FormatString)}"
             };
             var datetimeoffset_tb = new TextBox { 
-                Text = (edit && currentType == UserDefinedParameterType.DateTimeOffset) ?
-                    (DateTimeOffset.TryParse(stringPresetValue, out DateTimeOffset _) ? stringPresetValue : $"{DateTimeOffset.Now.ToString(DateTimeOffset_FormatString)}") :
-                    $"{DateTimeOffset.Now.ToString(DateTimeOffset_FormatString)}",
+                Text = (edit && currentType == UserDefinedParameterType.DateTimeOffset)
+                    ? (DateTimeOffset.TryParse(stringPresetValue, out DateTimeOffset _) ? stringPresetValue : $"{Utils.DateTimeOffsetTodayUtc.ToString(DateTimeOffset_FormatString)}")
+                    : $"{Utils.DateTimeOffsetTodayUtc.ToString(DateTimeOffset_FormatString)}"
             };
 
             _customListAvailableOptions = customListPresetValue?.AvailableOptions?.ToArray() ?? Array.Empty<string>();

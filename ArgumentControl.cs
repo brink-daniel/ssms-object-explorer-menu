@@ -85,12 +85,11 @@ namespace SSMSObjectExplorerMenu
             {
                 case UserDefinedParameterType.UniqueIdentifier:
                     return Guid.TryParse(_valueControl.Text, out _);
-                case UserDefinedParameterType.Nvarchar:
-                    return !string.IsNullOrWhiteSpace(_valueControl.Text);
                 case UserDefinedParameterType.DateTime2:
                     return DateTime.TryParse(_valueControl.Text, out _);
                 case UserDefinedParameterType.DateTimeOffset:
                     return DateTimeOffset.TryParse(_valueControl.Text, out _);
+                case UserDefinedParameterType.Nvarchar:
                 case UserDefinedParameterType.Int:
                 case UserDefinedParameterType.Bit:
                 case UserDefinedParameterType.CustomList:
@@ -123,27 +122,34 @@ namespace SSMSObjectExplorerMenu
             Value = int.TryParse(Parameter.DefaultValueAsString, out int defaultValue) ? defaultValue : 0
         };
 
-        private void Init_Bit() => _valueControl = new CheckBox() { 
-            Checked = bool.TryParse(Parameter.DefaultValueAsString, out bool bitValue) ? bitValue : false
-        };
+        private void Init_Bit() => _valueControl = new CheckBox() { Checked = Parameter.DefaultValueAsString == "1" };
 
         private void Init_DateTime2() => _valueControl = new TextBox() { 
-            Text = DateTime.TryParse(Parameter.DefaultValueAsString, out DateTime _) ? Parameter.DefaultValueAsString : DateTime.Now.ToString(DateTime2_FormatString)
+            Text = DateTime.TryParse(Parameter.DefaultValueAsString, out DateTime _)
+                ? Parameter.DefaultValueAsString
+                : Utils.DateTimeTodayUtc.ToString(DateTime2_FormatString)
         };
 
         private void Init_DateTimeOffset() => _valueControl = new TextBox() { 
-            Text = DateTimeOffset.TryParse(Parameter.DefaultValueAsString, out DateTimeOffset _) ? Parameter.DefaultValueAsString : DateTimeOffset.Now.ToString(DateTimeOffset_FormatString)
+            Text = DateTimeOffset.TryParse(Parameter.DefaultValueAsString, out DateTimeOffset _) 
+                ? Parameter.DefaultValueAsString
+                : Utils.DateTimeOffsetTodayUtc.ToString(DateTimeOffset_FormatString)
         };
 
         private void Init_CustomList()
         {
             var comboBox = new ComboBox();
-            comboBox.DataSource = Parameter.ValueSetOfCustomList;
+            comboBox.SetDataSource(Parameter.ValueSetOfCustomList.Select(s => s.Value).ToArray());
 
-            var itemToSelect = Parameter.ValueSetOfCustomList.SingleOrDefault(s => s.Value == Parameter.DefaultValueAsString);
-            if (itemToSelect != null)
+            string valueToSelect = Parameter.ValueSetOfCustomList.SingleOrDefault(s => s.Value == Parameter.DefaultValueAsString);
+            if (valueToSelect != null)
             {
-                comboBox.SelectedItem = itemToSelect;
+                /// Deferred intialization of ComboBox selected value. See explanation in class <see cref="DefaultValueControl"/> for details.
+                comboBox.HandleCreated += (s, e) => {
+                    comboBox.BeginInvoke((Action)(() => {
+                        comboBox.SelectedValue = valueToSelect;
+                    }));
+                };
             }
 
             _valueControl = comboBox;

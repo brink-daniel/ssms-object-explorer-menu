@@ -19,7 +19,7 @@ namespace SSMSObjectExplorerMenu.enums
         /// <summary>
         /// This is not a SQL Server data type. Represents a list of options defined by the user.
         /// </summary>
-        [Description("List of options")]
+        [Description("list of options")]
         CustomList
     }
 }
