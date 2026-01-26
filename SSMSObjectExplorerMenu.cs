@@ -137,7 +137,8 @@ namespace SSMSObjectExplorerMenu
 						s.Click += delegate (object send, EventArgs ev) {
 							_ = Menu_ClickAsync(send, ev);
 						};
-
+						s.ForeColor = treeView.ForeColor;
+						s.BackColor = treeView.BackColor;
 						myScriptsMenu.DropDownItems.Add(s);
 					}
 				}
@@ -159,7 +160,9 @@ namespace SSMSObjectExplorerMenu
 			{
 				ToolStripMenuItem add = new ToolStripMenuItem("New");
 				add.Click += Add_Click;
-				add.Tag = nodeInfo;
+				add.Tag = nodeInfo;	
+				add.ForeColor = treeView.ForeColor;
+				add.BackColor = treeView.BackColor;
 				myScriptsMenu.DropDownItems.Add(add);
 			}
 
@@ -168,6 +171,8 @@ namespace SSMSObjectExplorerMenu
 				ToolStripMenuItem imp = new ToolStripMenuItem("Import");
 				imp.Click += Import_Click;
 				imp.Tag = nodeInfo;
+				imp.ForeColor = treeView.ForeColor;
+				imp.BackColor = treeView.BackColor;
 				myScriptsMenu.DropDownItems.Add(imp);
 			}
 
@@ -176,6 +181,8 @@ namespace SSMSObjectExplorerMenu
 				ToolStripMenuItem exp = new ToolStripMenuItem("Export");
 				exp.Click += Export_Click;
 				exp.Tag = nodeInfo;
+				exp.ForeColor = treeView.ForeColor;
+				exp.BackColor = treeView.BackColor;
 				myScriptsMenu.DropDownItems.Add(exp);
 			}			
 
@@ -184,6 +191,8 @@ namespace SSMSObjectExplorerMenu
 				ToolStripMenuItem opt = new ToolStripMenuItem("Options");
 				opt.Click += Options_Click;
 				opt.Tag = nodeInfo;
+				opt.ForeColor = treeView.ForeColor;
+				opt.BackColor = treeView.BackColor;
 				myScriptsMenu.DropDownItems.Add(opt);
 			}
 

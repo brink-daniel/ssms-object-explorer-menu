@@ -147,9 +147,9 @@ where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
 
 ## Compatibility
 
-### SQL Server Management Studio 21.x
+### SQL Server Management Studio 22.x
 
-This extension has been tested and used with **SQL Server Management Studio 21.6.17**.
+This extension has been tested and used with **SQL Server Management Studio 22.0.0**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -161,6 +161,10 @@ Compatibility with other extensions are still being tested.
 | [Redgate SQL Prompt](https://www.red-gate.com/products/sql-prompt) | Compatible |
 
 Please let us know what other extensions you use in SSMS. We'll try our best to ensure compatibility.
+
+### SQL Server Management Studio 21.x
+
+SSMS 21.x is no longer supported. The last version compatible with SSMS 21.x is [version 3.2.2](https://github.com/brink-daniel/ssms-object-explorer-menu/releases/tag/v3.2.2). Please consider upgrading to the latest version of [SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
 ### SQL Server Management Studio 20.x
 
@@ -237,6 +241,10 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v4.0 (2025-11-12)
+
+* SSMS 22.0.0 compatibility
 
 ### v3.2 (2025-07-31)
 

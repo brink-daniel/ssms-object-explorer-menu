@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="SSMSObjectExplorerMenu.Daniel Brink.51536115-423C-4B96-9550-8B26E9AB0B59" Version="3.2.2" Language="en-US" Publisher="Daniel Brink" />
+        <Identity Id="SSMSObjectExplorerMenu.Daniel Brink.51536115-423C-4B96-9550-8B26E9AB0B59" Version="4.0.1" Language="en-US" Publisher="Daniel Brink" />
         <DisplayName>SSMS Object Explorer Menu</DisplayName>
         <Description xml:space="preserve">Object Explorer Menu is a free, open-source extension for SQL Server Management Studio (SSMS), developed in C#. It enables users to add custom menu items to the right-click context menu within the Object Explorer window. These menu items can be configured to run either external T-SQL script files or inline T-SQL statements. Upon selection, the extension opens a new query window displaying the script. It also supports tag substitution within scripts and optional automatic execution, streamlining routine database tasks and enhancing productivity.</Description>
         <MoreInfo>https://sqlmedic.com/</MoreInfo>
@@ -13,7 +13,7 @@
         <Tags>SSMS, Object Explorer</Tags>
     </Metadata>
     <Installation AllUsers="true">
-        <InstallationTarget Id="Microsoft.VisualStudio.Ssms" Version="[21.0,)">
+        <InstallationTarget Id="Microsoft.VisualStudio.Ssms" Version="[22.0,]">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
@@ -24,6 +24,6 @@
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     </Assets>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,19.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
 </PackageManifest>
