@@ -90,6 +90,20 @@
             this.comboContext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboContext.FormattingEnabled = true;
+            this.comboContext.Items.AddRange(new object[] {
+            "All",
+            "Server",
+            "Server/DatabasesFolder",
+            "Server/Database",
+            "Server/Database/Table",
+            "Server/Database/Table/Column",
+            "Server/Database/UserTablesFolder",
+            "Server/Database/View",
+            "Server/Database/StoredProcedure",
+            "Server/Database/StoredProceduresFolder",
+            "Server/JobServer",
+            "Server/JobServer/JobsFolder",
+            "Server/JobServer/Job"});
             this.comboContext.Location = new System.Drawing.Point(88, 38);
             this.comboContext.Name = "comboContext";
             this.comboContext.Size = new System.Drawing.Size(431, 21);

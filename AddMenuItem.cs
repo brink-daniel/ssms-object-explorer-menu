@@ -17,23 +17,14 @@ namespace SSMSObjectExplorerMenu
 			InitializeComponent();
 
 			labelVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
 			comboContext.Text = nodeInfo.UrnPath;
-
-            this.comboContext.DataSource =
-                Enum.GetValues(typeof(MenuItemContext))
-                    .Cast<MenuItemContext>()
-                    .Select(ctx => new { Displayed = ctx.ToStringDescription(), Value = ctx }).ToList();
-            this.comboContext.DisplayMember = nameof(ComboBoxItem<MenuItemContext>.Displayed);
-            this.comboContext.ValueMember = nameof(ComboBoxItem<MenuItemContext>.Value);
-
             this.ActiveControl = textName;
 			buttonOpen.Visible = false;
 		}
 
 		public MenuItem GetMenuItem()
 		{
-			return new MenuItem(true, (MenuItemContext)comboContext.SelectedValue, textName.Text, textPath.Text, checkExecute.Checked, checkConfirm.Checked, listViewUserDefinedParam.GetUserDefinedParams());
+			return new MenuItem(true, comboContext.Text, textName.Text, textPath.Text, checkExecute.Checked, checkConfirm.Checked, listViewUserDefinedParam.GetUserDefinedParams());
 		}
 		
 		private void textName_TextChanged(object sender, EventArgs e)

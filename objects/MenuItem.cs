@@ -1,12 +1,9 @@
-﻿using SSMSObjectExplorerMenu.enums;
-using SSMSObjectExplorerMenu.extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace SSMSObjectExplorerMenu.objects
 {
@@ -53,18 +50,8 @@ namespace SSMSObjectExplorerMenu.objects
 		[Category("Menu item")]
 		[DisplayName("Context")]
 		[Description("Tree node level where to display menu item.")]
-		[DefaultValue(MenuItemContext.All)]
-        [TypeConverter(typeof(MenuItemContextConverter))]
-		[XmlIgnore]
-        public MenuItemContext Context { get; set; } = MenuItemContext.All;
-
-		[Browsable(false)]
-		[XmlElement("Context")]
-		public string ContextDescription
-		{
-			get => Context.ToStringDescription();
-			set => Context = value.FromDescription<MenuItemContext>();
-        }
+		[DefaultValue("All")]
+        public string Context { get; set; } = "All";
 
         [Category("Menu item")]
         [DisplayName("User-defined parameters")]
@@ -77,7 +64,7 @@ namespace SSMSObjectExplorerMenu.objects
 			
 		}
 
-		public MenuItem(bool enabled, MenuItemContext context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedParameter> userDefinedParams = null)
+		public MenuItem(bool enabled, string context, string name, string script, bool execute, bool confirm, IEnumerable<UserDefinedParameter> userDefinedParams = null)
 		{
             Enabled = enabled;
 			Context = context;

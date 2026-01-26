@@ -1,14 +1,10 @@
 ﻿using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
-using Newtonsoft.Json.Linq;
 using SSMSObjectExplorerMenu.enums;
 using SSMSObjectExplorerMenu.objects;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -151,23 +147,6 @@ namespace SSMSObjectExplorerMenu.extensions
                 }
             }
             throw new ArgumentException($"Unknown {nameof(T)} value.", nameof(context));
-        }
-
-		public static T FromDescription<T>(this string enumDescription) where T : Enum
-		{
-			if (enumDescription == null)
-			{
-				throw new ArgumentNullException(nameof(enumDescription));
-			}
-
-			var enumField = typeof(T).GetFields()
-				.SingleOrDefault(f => enumDescription.Equals(
-					(Attribute.GetCustomAttribute(f, typeof(DescriptionAttribute)) as DescriptionAttribute)?.Description,
-					StringComparison.OrdinalIgnoreCase));
-
-			return enumField != null 
-				? (T)enumField.GetValue(null)
-				: throw new ArgumentException($"Unknown {nameof(T)} description.", nameof(enumDescription));
         }
 
 		public static bool ValidForUserDefinedParameterType(this string value, UserDefinedParameterType type)
