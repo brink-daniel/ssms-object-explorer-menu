@@ -102,9 +102,12 @@ A custom parameter can have one of the below types:
 * int
 * nvarchar
 * bit
-* List of options
+* datetime2
+* datetimeoffset
+* list of options
 
-The list of options can't have duplicate elements.
+The `list of options` can't have duplicate elements. 
+You can provide any string as a `datetime2` or `datetimeoffset` argument which can be parsed to the .NET types `DateTime` and `DateTimeOffset`.
 
 These user-defined parameters are substituted the same way like the tags of the execution context.
 
