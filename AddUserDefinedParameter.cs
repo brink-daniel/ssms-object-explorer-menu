@@ -63,7 +63,7 @@ namespace SSMSObjectExplorerMenu
                 (object)_parameter.DefaultValueAsString;
 
             this.defaultValueControl = new DefaultValueControl(_parameter.Type, edit, presetValue);
-            this.defaultValueControl.Location = new System.Drawing.Point(100, 95); // Adjusting location next to label
+            this.defaultValueControl.Location = new System.Drawing.Point(this.comboBoxParameterType.Location.X, this.labelDefaultValue.Location.Y); // Adjusting location next to label
             this.defaultValueControl.ValueChanged += (s, e) => _parameter.DefaultValueAsString = defaultValueControl.ValueAsString;
             this.Controls.Add(this.defaultValueControl);
 
@@ -91,9 +91,11 @@ namespace SSMSObjectExplorerMenu
 
             this.listViewCustomList.HideSelection = false;
             this.listViewCustomList.LabelEdit = true;
-            this.listViewCustomList.Location = new System.Drawing.Point(0, 18);
+            this.listViewCustomList.Location = new System.Drawing.Point(
+                this.labelCustomList.Location.X + 3, // Moving a bit to the right to align with the label text
+                this.labelCustomList.Location.Y + this.labelCustomList.Size.Height);
             this.listViewCustomList.Name = "listViewCustomList";
-            this.listViewCustomList.Size = new System.Drawing.Size(228, 79);
+            this.listViewCustomList.Size = new System.Drawing.Size(225, 75);
             this.listViewCustomList.TabIndex = 6;
             this.listViewCustomList.UseCompatibleStateImageBehavior = false;
             this.listViewCustomList.View = System.Windows.Forms.View.List;

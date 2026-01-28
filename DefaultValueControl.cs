@@ -12,7 +12,7 @@ namespace SSMSObjectExplorerMenu
 {
     public partial class DefaultValueControl : UserControl
     {
-        // These sizes are used to fit to parameter name and parameter type input controls in the AddUserDefinedParameter dialog.
+        // These dimensions are used to fit to parameter name and parameter type input controls in the AddUserDefinedParameter dialog.
         private static readonly Size _controlSize = new Size(170, 23);
 
         private Dictionary<UserDefinedParameterType, Control> _defaultValueInputControls = new Dictionary<UserDefinedParameterType, Control>();

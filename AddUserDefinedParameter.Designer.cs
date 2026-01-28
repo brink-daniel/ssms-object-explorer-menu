@@ -136,9 +136,9 @@ namespace SSMSObjectExplorerMenu
             this.panelCustomList.Controls.Add(this.labelCustomList);
             this.panelCustomList.Controls.Add(this.buttonRemoveCustomList);
             this.panelCustomList.Controls.Add(this.buttonAddCustomList);
-            this.panelCustomList.Location = new System.Drawing.Point(16, 120);
+            this.panelCustomList.Location = new System.Drawing.Point(10, 120);
             this.panelCustomList.Name = "panelCustomList";
-            this.panelCustomList.Size = new System.Drawing.Size(257, 100);
+            this.panelCustomList.Size = new System.Drawing.Size(260, 100);
             this.panelCustomList.TabIndex = 10;
             // 
             // labelDefaultValue
