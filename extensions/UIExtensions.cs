@@ -1,4 +1,5 @@
-﻿using SSMSObjectExplorerMenu.enums;
+﻿using SSMSObjectExplorerMenu.controls;
+using SSMSObjectExplorerMenu.enums;
 using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
 using System.Drawing;

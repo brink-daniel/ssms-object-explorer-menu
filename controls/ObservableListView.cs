@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SSMSObjectExplorerMenu.objects
+namespace SSMSObjectExplorerMenu.controls
 {
     /// <summary>
     /// Extends the standard <see cref="ListView"/> to provide an observable collection of items notifying subscribers when items are added, removed or edited.

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static SSMSObjectExplorerMenu.Constants;
 
-namespace SSMSObjectExplorerMenu
+namespace SSMSObjectExplorerMenu.controls
 {
     public partial class DefaultValueControl : UserControl
     {

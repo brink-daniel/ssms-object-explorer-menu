@@ -1,4 +1,5 @@
-﻿using SSMSObjectExplorerMenu.extensions;
+﻿using SSMSObjectExplorerMenu.controls;
+using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
-﻿using SSMSObjectExplorerMenu.enums;
+﻿using SSMSObjectExplorerMenu.controls;
+using SSMSObjectExplorerMenu.enums;
 using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;

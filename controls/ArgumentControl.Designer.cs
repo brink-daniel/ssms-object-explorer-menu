@@ -1,4 +1,4 @@
-﻿namespace SSMSObjectExplorerMenu
+﻿namespace SSMSObjectExplorerMenu.controls
 {
     partial class ArgumentControl
     {
