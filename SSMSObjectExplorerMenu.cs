@@ -3,11 +3,10 @@ using EnvDTE80;
 using Microsoft.SqlServer.Management.UI.VSIntegration;
 using Microsoft.SqlServer.Management.UI.VSIntegration.Editors;
 using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
-using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
-using Microsoft.VisualStudio.VCProjectEngine;
+using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
 using System.Collections.Generic;
@@ -119,7 +118,7 @@ namespace SSMSObjectExplorerMenu
 						continue;
 					}
 
-					if (menuItem.Context == "All" || menuItem.Context == nodes[0].UrnPath)
+                    if (menuItem.Context == "All" || menuItem.Context == nodes[0].UrnPath)
 					{
 						MenuItemInstance instance = new MenuItemInstance(menuItem, nodeInfo, nodes[0].InvariantName);
 
@@ -334,23 +333,36 @@ namespace SSMSObjectExplorerMenu
 				script = itemInstance.MenuItem.Script;
 			}
 
+			var contextDefinedArgs = new (string Parameter, string Value)[]
+			{
+                ("{OBJECT}", itemInstance.Name),
+                ("{SERVER}", itemInstance.NodeInfo.Server),
+				("{DATABASE}", itemInstance.NodeInfo.Database),
+				("{TABLE}", itemInstance.NodeInfo.Table),
+				("{VIEW}", itemInstance.NodeInfo.View),
+				("{STORED_PROCEDURE}", itemInstance.NodeInfo.StoredProcedure),
+				("{FUNCTION}", itemInstance.NodeInfo.Function),
+				("{SCHEMA}", itemInstance.NodeInfo.Schema),
+				("{JOB}", itemInstance.NodeInfo.Job),
+				("{YYYY-MM-DD}", DateTime.Now.ToString("yyyy-MM-dd")),
+				("{HH:mm:ss}", DateTime.Now.ToString("HH:mm:ss")),
+				("{YYYY-MM-DD HH:mm:ss}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+			};
 
-			script = script
-					.Replace("{OBJECT}", itemInstance.Name)
-					.Replace("{SERVER}", itemInstance.NodeInfo.Server)
-					.Replace("{DATABASE}", itemInstance.NodeInfo.Database)
-					.Replace("{TABLE}", itemInstance.NodeInfo.Table)
-					.Replace("{VIEW}", itemInstance.NodeInfo.View)
-					.Replace("{STORED_PROCEDURE}", itemInstance.NodeInfo.StoredProcedure)
-					.Replace("{FUNCTION}", itemInstance.NodeInfo.Function)
-					.Replace("{SCHEMA}", itemInstance.NodeInfo.Schema)
-					.Replace("{JOB}", itemInstance.NodeInfo.Job)
-					.Replace("{YYYY-MM-DD}", DateTime.Now.ToString("yyyy-MM-dd"))
-					.Replace("{HH:mm:ss}", DateTime.Now.ToString("HH:mm:ss"))
-					.Replace("{YYYY-MM-DD HH:mm:ss}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            IEnumerable<(string Parameter, string Value)> userDefinedArgs = Enumerable.Empty<(string, string)>();
+            var userDefinedParams = itemInstance.MenuItem.UserDefinedParameters;
+            if (userDefinedParams.Any())
+            {
+                var enterArgumentsDialog = new EnterUserDefinedArguments(userDefinedParams);
+				if (DialogResult.OK == enterArgumentsDialog.ShowDialog())
+				{
+					userDefinedArgs = enterArgumentsDialog.UserDefinedArguments.Select(arg => ($"{{{arg.Name}}}", arg.ValueAsString));
+				}
+				// Abort if the user pressed Cancel
+				else return;
+            }
 
-
-
+			script = script.ReplaceRange(contextDefinedArgs.Concat(userDefinedArgs));
 
 			DTE2 dte = (DTE2)await this.GetServiceAsync(typeof(DTE));
 			if (dte == null)
