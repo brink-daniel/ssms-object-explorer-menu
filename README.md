@@ -226,7 +226,7 @@ The Object Explorer Menu extension is intentionally lightweight and focused. It 
 
 ### How do I uninstall the Object Explorer Menu extension?
 
-To uninstall the Object Explorer Menu extension, simply delete the SSMSObjectExplorerMenu folder located at: `C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions`. 
+To uninstall the Object Explorer Menu extension, simply delete the SSMSObjectExplorerMenu folder located at: `C:\Program Files\Microsoft SQL Server Management Studio 22\Release\Common7\IDE\Extensions`. 
 
 After deleting the folder, restart SQL Server Management Studio to complete the uninstallation.
 
