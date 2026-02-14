@@ -242,6 +242,10 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ## Change Log
 
+### v4.1 (!!! Coming Soon !!!)
+
+* Custom parameters
+
 ### v4.0 (2025-11-12)
 
 * SSMS 22.0.0 compatibility
