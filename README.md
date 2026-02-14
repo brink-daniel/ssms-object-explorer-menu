@@ -149,7 +149,7 @@ where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
 
 ### SQL Server Management Studio 22.x
 
-This extension has been tested and used with **SQL Server Management Studio 22.0.0**.
+This extension has been tested and used with **SQL Server Management Studio 22.3**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -234,7 +234,7 @@ After deleting the folder, restart SQL Server Management Studio to complete the 
 
 ## Credits
 
-All development is done by [Daniel Brink](https://www.linkedin.com/in/brinkdaniel/).
+All development is done by [Daniel Brink](https://www.linkedin.com/in/brinkdaniel/) and [Viktor Mészáros](https://www.linkedin.com/in/viktor-m%C3%A9sz%C3%A1ros-73a960245/).
 
 Information on how to access the Object Explorer and TreeView control was learnt by studying Nicholas Ross's [SSMS-Schema-Folders](https://github.com/nicholas-ross/SSMS-Schema-Folders) project.
 
