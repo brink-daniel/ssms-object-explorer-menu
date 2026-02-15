@@ -251,11 +251,11 @@
 			// 
 			// ParameterName
 			// 
-			this.ParameterName.Text = "Parameter name";
+			this.ParameterName.Text = "Parameter";
 			// 
 			// ParameterType
 			// 
-			this.ParameterType.Text = "Parameter type";
+			this.ParameterType.Text = "Parameter Type";
 			// 
 			// DefaultValue
 			// 
