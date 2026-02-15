@@ -99,7 +99,7 @@ namespace SSMSObjectExplorerMenu
             if (addDialog.ShowDialog() == DialogResult.OK)
             {
                 var newParam = addDialog.Parameter;
-                var newListViewItem = new ListViewItem { Text = newParam.Name, Tag = newParam };
+                var newListViewItem = new ListViewItem { Text = "{" + newParam.Name +"}", Tag = newParam };
                 newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = newParam.Type.ToStringDescription() });
 				newListViewItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = newParam.DefaultValueAsString });
 
@@ -121,7 +121,7 @@ namespace SSMSObjectExplorerMenu
 				if (editDialog.ShowDialog() == DialogResult.OK)
 				{
 					var editedParam = editDialog.Parameter;
-					selectedItem.Text = editedParam.Name;
+					selectedItem.Text = "{" + editedParam.Name + "}";
 					selectedItem.SubItems[1].Text = editedParam.Type.ToStringDescription();
 					selectedItem.SubItems[2].Text = editedParam.DefaultValueAsString;
 					selectedItem.Tag = editedParam;
