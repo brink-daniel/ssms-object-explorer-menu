@@ -244,7 +244,7 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ### v4.1 (!!! Coming Soon !!!)
 
-* Custom parameters
+* Define custom parameters for menu items 
 
 ### v4.0 (2025-11-12)
 
