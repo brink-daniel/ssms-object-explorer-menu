@@ -140,6 +140,7 @@ namespace SSMSObjectExplorerMenu.controls
         {
             var comboBox = new ComboBox();
             comboBox.SetDataSource(Parameter.ValueSetOfCustomList.Select(s => s.Value).ToArray());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             string valueToSelect = Parameter.ValueSetOfCustomList.SingleOrDefault(s => s.Value == Parameter.DefaultValueAsString);
             if (valueToSelect != null)
