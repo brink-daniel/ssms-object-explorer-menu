@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static SSMSObjectExplorerMenu.Constants;
 
@@ -12,10 +13,8 @@ namespace SSMSObjectExplorerMenu.controls
 {
     public partial class DefaultValueControl : UserControl
     {
-        // These dimensions are used to fit to parameter name and parameter type input controls in the AddUserDefinedParameter dialog.
-        private static readonly Size _controlSize = new Size(170, 23);
-
-        private Dictionary<UserDefinedParameterType, Control> _defaultValueInputControls = new Dictionary<UserDefinedParameterType, Control>();
+        
+		private Dictionary<UserDefinedParameterType, Control> _defaultValueInputControls = new Dictionary<UserDefinedParameterType, Control>();
         private UserDefinedParameterType _currentType;
         private string[] _customListAvailableOptions;
 
@@ -28,6 +27,7 @@ namespace SSMSObjectExplorerMenu.controls
                 // Controls list is expected to have always a single control.
                 this.Controls.Clear();
                 this.Controls.Add(_defaultValueInputControls[_currentType]);
+                this.Controls[0].Width = this.Width;
 
                 ValueChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -37,7 +37,9 @@ namespace SSMSObjectExplorerMenu.controls
 
         public event EventHandler ValueChanged;
 
-        public DefaultValueControl(UserDefinedParameterType currentType, bool edit, object presetValue = null)
+        
+
+		public DefaultValueControl(UserDefinedParameterType currentType, bool edit, object presetValue = null)
         {
             var customListPresetValue = presetValue as CustomListDefaultValueModel;
             if (edit && currentType == UserDefinedParameterType.CustomList && customListPresetValue == null)
@@ -58,7 +60,6 @@ namespace SSMSObjectExplorerMenu.controls
             InitializeComponent();
             InitDefaultValueInputControls(currentType, edit, stringPresetValue, customListPresetValue);
 
-            this.Size = _controlSize;
             CurrentType = currentType;
         }
 
@@ -89,16 +90,16 @@ namespace SSMSObjectExplorerMenu.controls
             var nvarchar_tb = new TextBox { Text = (edit && currentType == UserDefinedParameterType.Nvarchar) ? stringPresetValue : string.Empty };
             var bit_cb = new CheckBox { Checked = (edit && currentType == UserDefinedParameterType.Bit) ? stringPresetValue == "1" : false };
             var uniqueidentifier_tb = new TextBox {
-                Text = (edit && currentType == UserDefinedParameterType.UniqueIdentifier) ? (Guid.TryParse(stringPresetValue, out Guid pv_guid) ? stringPresetValue : $"{Guid.Empty}") : $"{Guid.Empty}",
+				Text = (edit && currentType == UserDefinedParameterType.UniqueIdentifier) ? (Guid.TryParse(stringPresetValue, out Guid pv_guid) ? stringPresetValue : $"{Guid.Empty}") : $"{Guid.Empty}",
             };
 
-            var datetime2_tb = new TextBox { 
-                Text = (edit && currentType == UserDefinedParameterType.DateTime2)
+            var datetime2_tb = new TextBox {
+				Text = (edit && currentType == UserDefinedParameterType.DateTime2)
                     ? (DateTime.TryParse(stringPresetValue, out DateTime _) ? stringPresetValue : $"{Utils.DateTimeTodayUtc.ToString(DateTime2_FormatString)}")
                     : $"{Utils.DateTimeTodayUtc.ToString(DateTime2_FormatString)}"
             };
-            var datetimeoffset_tb = new TextBox { 
-                Text = (edit && currentType == UserDefinedParameterType.DateTimeOffset)
+            var datetimeoffset_tb = new TextBox {
+				Text = (edit && currentType == UserDefinedParameterType.DateTimeOffset)
                     ? (DateTimeOffset.TryParse(stringPresetValue, out DateTimeOffset _) ? stringPresetValue : $"{Utils.DateTimeOffsetTodayUtc.ToString(DateTimeOffset_FormatString)}")
                     : $"{Utils.DateTimeOffsetTodayUtc.ToString(DateTimeOffset_FormatString)}"
             };
@@ -106,6 +107,8 @@ namespace SSMSObjectExplorerMenu.controls
             _customListAvailableOptions = customListPresetValue?.AvailableOptions?.ToArray() ?? Array.Empty<string>();
             var editingCustomList = edit && currentType == UserDefinedParameterType.CustomList;
             var customList_cb = new ComboBox().SetDataSource<string>(_customListAvailableOptions);
+
+
             // ComboBox initialization with a specific selected value instead of the default behavior (of selecting the first item):
             // - why HandleCreated event: can't call BeginInvoke on a control which handle is not created yet
             // - why BeginInvoke: setting SelectedValue property has to be deferred as dataManager of the ComboBox is null at this point
@@ -122,13 +125,21 @@ namespace SSMSObjectExplorerMenu.controls
             datetimeoffset_tb.TextChanged += invokeValueChanged;
             customList_cb.SelectedValueChanged += invokeValueChanged;
 
-            _defaultValueInputControls.Add(UserDefinedParameterType.Int, int_nu.Align(_controlSize));
-            _defaultValueInputControls.Add(UserDefinedParameterType.Nvarchar, nvarchar_tb.Align(_controlSize));
-            _defaultValueInputControls.Add(UserDefinedParameterType.Bit, bit_cb.Align(_controlSize));
-            _defaultValueInputControls.Add(UserDefinedParameterType.UniqueIdentifier, uniqueidentifier_tb.Align(_controlSize));
-            _defaultValueInputControls.Add(UserDefinedParameterType.DateTime2, datetime2_tb.Align(_controlSize));
-            _defaultValueInputControls.Add(UserDefinedParameterType.DateTimeOffset, datetimeoffset_tb.Align(_controlSize));
-            _defaultValueInputControls.Add(UserDefinedParameterType.CustomList, customList_cb.Align(_controlSize));
-        }
-    }
+            _defaultValueInputControls.Add(UserDefinedParameterType.Int, int_nu);
+			_defaultValueInputControls.Add(UserDefinedParameterType.Nvarchar, nvarchar_tb);
+			_defaultValueInputControls.Add(UserDefinedParameterType.Bit, bit_cb);
+			_defaultValueInputControls.Add(UserDefinedParameterType.UniqueIdentifier, uniqueidentifier_tb);
+			_defaultValueInputControls.Add(UserDefinedParameterType.DateTime2, datetime2_tb);
+			_defaultValueInputControls.Add(UserDefinedParameterType.DateTimeOffset, datetimeoffset_tb);
+			_defaultValueInputControls.Add(UserDefinedParameterType.CustomList, customList_cb);
+		}
+
+		private void DefaultValueControl_Resize(object sender, EventArgs e)
+		{
+            if (this.Controls.Count > 0)
+            {
+                this.Controls[0].Width = this.Width;
+            }
+		}
+	}
 }

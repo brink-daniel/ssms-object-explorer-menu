@@ -4,22 +4,22 @@ namespace SSMSObjectExplorerMenu.enums
 {
     public enum UserDefinedParameterType : byte
     {
-        [Description("uniqueidentifier")]
-        UniqueIdentifier,
-        [Description("int")]
-        Int,
-        [Description("nvarchar")]
-        Nvarchar,
+		[Description("nvarchar")]
+		Nvarchar,
+		[Description("int")]
+        Int,        
         [Description("bit")]
         Bit,
         [Description("datetime2")]
         DateTime2,
         [Description("datetimeoffset")]
         DateTimeOffset,
-        /// <summary>
-        /// This is not a SQL Server data type. Represents a list of options defined by the user.
-        /// </summary>
-        [Description("list of options")]
+		[Description("uniqueidentifier")]
+		UniqueIdentifier,
+		/// <summary>
+		/// This is not a SQL Server data type. Represents a list of options defined by the user.
+		/// </summary>
+		[Description("list of options")]
         CustomList
     }
 }

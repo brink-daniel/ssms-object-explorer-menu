@@ -49,7 +49,7 @@ namespace SSMSObjectExplorerMenu
                         DefaultValueAsString = parameterToEdit.DefaultValueAsString,
                         ValueSetOfCustomList = parameterToEdit.ValueSetOfCustomList
                     }
-                : new UserDefinedParameter { Name = string.Empty, Type = UserDefinedParameterType.UniqueIdentifier, DefaultValueAsString = string.Empty };
+                : new UserDefinedParameter { Name = string.Empty, Type = UserDefinedParameterType.Nvarchar, DefaultValueAsString = string.Empty };
             _paramNamesInUse = edit ? paramNamesInUse.Except(new[] { parameterToEdit.Name }) : paramNamesInUse;
 
             this.textBoxParameterName.MaxLength = UserDefinedParameter.NAME_MAX_LENGTH;
@@ -64,8 +64,10 @@ namespace SSMSObjectExplorerMenu
                 (object)_parameter.DefaultValueAsString;
 
             this.defaultValueControl = new DefaultValueControl(_parameter.Type, edit, presetValue);
-            this.defaultValueControl.Location = new System.Drawing.Point(this.comboBoxParameterType.Location.X, this.labelDefaultValue.Location.Y); // Adjusting location next to label
-            this.defaultValueControl.ValueChanged += (s, e) => _parameter.DefaultValueAsString = defaultValueControl.ValueAsString;
+          	this.defaultValueControl.Width = this.textPlaceHolder.Width;
+			this.defaultValueControl.Height = this.textPlaceHolder.Height;
+			this.defaultValueControl.Location = this.textPlaceHolder.Location;
+			this.defaultValueControl.ValueChanged += (s, e) => _parameter.DefaultValueAsString = defaultValueControl.ValueAsString;
             this.Controls.Add(this.defaultValueControl);
 
             this.comboBoxParameterType.DataSource = 
@@ -91,19 +93,17 @@ namespace SSMSObjectExplorerMenu
             this.listViewCustomList = new ObservableListView();
 
             this.listViewCustomList.HideSelection = false;
-            this.listViewCustomList.LabelEdit = true;
-            this.listViewCustomList.Location = new System.Drawing.Point(
-                this.labelCustomList.Location.X + 3, // Moving a bit to the right to align with the label text
-                this.labelCustomList.Location.Y + this.labelCustomList.Size.Height);
+            this.listViewCustomList.LabelEdit = true;            
             this.listViewCustomList.Name = "listViewCustomList";
-            this.listViewCustomList.Size = new System.Drawing.Size(225, 75);
             this.listViewCustomList.TabIndex = 6;
             this.listViewCustomList.UseCompatibleStateImageBehavior = false;
             this.listViewCustomList.View = System.Windows.Forms.View.List;
             this.listViewCustomList.SelectedIndexChanged += new System.EventHandler(this.listViewCustomList_SelectedIndexChanged);
 
-            this.panelCustomList.Controls.Add(this.listViewCustomList);
-        }
+            this.panelContainerListView.Controls.Add(this.listViewCustomList);
+            this.listViewCustomList.Dock = DockStyle.Fill;
+
+		}
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
@@ -154,5 +154,12 @@ namespace SSMSObjectExplorerMenu
             public UserDefinedParameterType Type { get; set; }
             public ISet<string> ValueSetOfCustomList { get; set; }
         }
-    }
+
+		private void AddUserDefinedParameter_Resize(object sender, EventArgs e)
+		{
+			this.defaultValueControl.Width = this.textPlaceHolder.Width;
+			this.defaultValueControl.Height = this.textPlaceHolder.Height;
+            this.defaultValueControl.Location = this.textPlaceHolder.Location;
+		}
+	}
 }

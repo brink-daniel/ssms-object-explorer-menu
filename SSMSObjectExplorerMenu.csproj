@@ -189,6 +189,9 @@
     <EmbeddedResource Include="controls\ArgumentControl.resx">
       <DependentUpon>ArgumentControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="controls\DefaultValueControl.resx">
+      <DependentUpon>DefaultValueControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EnterUserDefinedArguments.resx">
       <DependentUpon>EnterUserDefinedArguments.cs</DependentUpon>
     </EmbeddedResource>
