@@ -130,7 +130,7 @@ namespace SSMSObjectExplorerMenu
 						{
 							s.Image = Properties.Resources.Play;
 						}
-						if (menuItem.Confirm)
+						if (menuItem.Confirm || menuItem.UserDefinedParameters.Any())
 						{
 							s.Image = Properties.Resources.QuestionMark;
 						}
