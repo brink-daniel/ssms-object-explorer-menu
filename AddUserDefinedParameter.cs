@@ -157,6 +157,11 @@ namespace SSMSObjectExplorerMenu
 
 		private void AddUserDefinedParameter_Resize(object sender, EventArgs e)
 		{
+            if (this.defaultValueControl is null || this.textPlaceHolder is null)
+            {
+                return;
+            }
+
 			this.defaultValueControl.Width = this.textPlaceHolder.Width;
 			this.defaultValueControl.Height = this.textPlaceHolder.Height;
             this.defaultValueControl.Location = this.textPlaceHolder.Location;
