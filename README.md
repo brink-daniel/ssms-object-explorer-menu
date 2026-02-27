@@ -10,6 +10,7 @@ The project homepage is [https://sqlmedic.com](https://sqlmedic.com).
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/brink-daniel/ssms-object-explorer-menu)](https://github.com/brink-daniel/ssms-object-explorer-menu/releases)
 [![GitHub license](https://img.shields.io/github/license/brink-daniel/ssms-object-explorer-menu)](https://github.com/brink-daniel/ssms-object-explorer-menu/blob/main/LICENSE)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/brink-daniel/ssms-object-explorer-menu/total)
 
 ![Object Explorer](images/ObjectExplorer.png)
 
