@@ -149,7 +149,7 @@ where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
 
 ### SQL Server Management Studio 22.x
 
-This extension has been tested and used with **SQL Server Management Studio 22.3**.
+This extension has been tested and used with **SQL Server Management Studio 22.3.2**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -242,7 +242,7 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 ## Change Log
 
-### v4.1 (!!! Coming Soon !!!)
+### v4.1.1 (2026-02-28)
 
 * Define custom parameters for menu items 
 
