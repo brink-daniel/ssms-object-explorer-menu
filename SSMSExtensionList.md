@@ -9,7 +9,7 @@ This is a curated list of useful extensions and add-ins for SQL Server Managemen
 | [SSMS Plus](https://github.com/akarzazi/SSMSPlus)            | Free       | Yes         |
 | [SSMS Schema Folders](https://github.com/nicholas-ross/SSMS-Schema-Folders) | Free       | Yes         |
 | [SSMS Executor](https://github.com/tkwj/ssms-executor)       | Free       | Yes         |
-| [SQL Formatter for SSMS (preview)](https://www.vsixgallery.com/extension/SqlFormatter.70C3AE03-7E78-41F3-8FE0-11BF482F5F69)       | Free       | Yes         |
+| [SQL Formatter](https://www.vsixgallery.com/extension/SqlFormatter.fdf96f87-bc61-43ec-bc52-50fd011fd54f)       | Free       | Yes         |
 | [SQL Server Compact and SQLite Toolbox for SSMS](https://github.com/ErikEJ/SqlCeToolbox)       | Free       | Yes         |
 | [AxialSqlTools](https://github.com/Axial-SQL/AxialSqlTools)  | Free       | Yes         |
 | [SSMS EnvTabs](https://github.com/Blake-goofy/SSMS-EnvTabs)  | Free       | Yes         |
