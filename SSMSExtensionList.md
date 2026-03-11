@@ -23,6 +23,7 @@ This is a curated list of useful extensions and add-ins for SQL Server Managemen
 | [Version SQL](https://www.versionsql.com)                    | Commercial | No          |
 | [SQL Shades](https://www.sqlshades.com)                      | Free       | No          |
 | [SQL Enlight](https://sqlenlight.com)                        | Commercial | No          |
+| [SQLinForm Formatter](https://www.sqlinform.com/ssms-sql-formatter/)      | Commercial | No          |
 |                                                              |            |             |
 | [Redgate SQL Prompt](https://www.red-gate.com/products/sql-prompt) | Commercial | No          |
 | [Redgate SQL Search](https://www.red-gate.com/products/sql-search) | Free       | No          |
