@@ -151,7 +151,7 @@ where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
 
 ### SQL Server Management Studio 22.x
 
-This extension has been tested and used with **SQL Server Management Studio 22.3.2**.
+This extension has been tested and used with **SQL Server Management Studio 22.4.1**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -228,10 +228,9 @@ The Object Explorer Menu extension is intentionally lightweight and focused. It 
 
 ### How do I uninstall the Object Explorer Menu extension?
 
-To uninstall the Object Explorer Menu extension, simply delete the SSMSObjectExplorerMenu folder located at: `C:\Program Files\Microsoft SQL Server Management Studio 22\Release\Common7\IDE\Extensions`. 
+To uninstall the Object Explorer Menu extension, delete the SSMSObjectExplorerMenu folder located in the Extensions subfolder under `%LOCALAPPDATA%\Microsoft\SSMS`.
 
 After deleting the folder, restart SQL Server Management Studio to complete the uninstallation.
-
 
 
 ## Credits
@@ -243,6 +242,10 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v4.1.2 (2026-03-31)
+
+* Removed the requirement for elevated rights during installation. The Object Explorer Menu now installs to `%localappdata%\Microsoft\SSMS`
 
 ### v4.1.1 (2026-02-28)
 
