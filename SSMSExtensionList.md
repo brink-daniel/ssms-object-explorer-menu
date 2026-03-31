@@ -13,6 +13,7 @@ This is a curated list of useful extensions and add-ins for SQL Server Managemen
 | [SQL Server Compact and SQLite Toolbox for SSMS](https://github.com/ErikEJ/SqlCeToolbox)       | Free       | Yes         |
 | [AxialSqlTools](https://github.com/Axial-SQL/AxialSqlTools)  | Free       | Yes         |
 | [SSMS EnvTabs](https://github.com/Blake-goofy/SSMS-EnvTabs)  | Free       | Yes         |
+| [SQL Database Project Power Tools for SSMS](https://www.vsixgallery.com/extension/SqlProjectsPowerTools.SSMS.D7DABDC8-FE46-4DA4-BED8-2EAF1A2A578D)       | Free       | Yes         |
 |                                                              |            |             |
 | [SSMS Tool Pack](https://www.ssmstoolspack.com)              | Commercial | No          |
 | [SSMSBoost](https://www.ssmsboost.com)                       | Commercial | No          |
