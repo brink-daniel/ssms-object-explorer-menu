@@ -16,6 +16,7 @@ This is a curated list of useful extensions and add-ins for SQL Server Managemen
 | [SQL Database Project Power Tools for SSMS](https://www.vsixgallery.com/extension/SqlProjectsPowerTools.SSMS.D7DABDC8-FE46-4DA4-BED8-2EAF1A2A578D)       | Free       | Yes         |
 | [Statistics Parser Extension](https://github.com/BrentOzarULTD/StatisticsParserExtension)       | Free       | Yes         |
 | [SQLExtended for SSMS](https://github.com/jamtheradar/SQLExtended)       | Free       | Yes         |
+| [Flank](https://github.com/flank-project/ssms-extension)     | Free       | Yes         |
 |                                                              |            |             |
 | [SSMS Tool Pack](https://www.ssmstoolspack.com)              | Commercial | No          |
 | [SSMSBoost](https://www.ssmsboost.com)                       | Commercial | No          |
