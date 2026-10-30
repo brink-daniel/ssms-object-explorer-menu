@@ -151,7 +151,7 @@ where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
 
 ### SQL Server Management Studio 22.x
 
-This extension has been tested and used with **SQL Server Management Studio 22.8.1**.
+This extension has been tested and used with **SQL Server Management Studio 22.11.3**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
