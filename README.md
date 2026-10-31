@@ -37,8 +37,7 @@ Once the Object Explorer Menu extension is installed, new menu items can be adde
     ![Add Menu Item](images/AddMenuItem.png)
 
 2. Open `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` to configure the extension. Manage the **Menu Items** collection there, or use the Object Explorer context menu's New, Import, and Export actions.
-    ![Options Dialog](images/Options.png)
-    ![Options Dialog](images/Options_parameter.png)
+    ![Options](images/Options.png)
 
 
 ## Settings
@@ -249,6 +248,10 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v4.2 (2026-10-31)
+
+* Moved extension settings to SSMS Unified Settings.
 
 ### v4.1.2 (2026-03-31)
 
