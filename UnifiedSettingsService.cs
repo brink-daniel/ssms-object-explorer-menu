@@ -21,6 +21,7 @@ namespace SSMSObjectExplorerMenu
         internal const string ShowNewButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showNewButton";
         internal const string ShowExportButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showExportButton";
         internal const string ShowImportButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showImportButton";
+        internal const string MenuItemOrder = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemOrder";
         internal const string MenuItems = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItems";
         internal const string PreviousMenuItemsXml = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemsXml";
         internal const string LegacyPrefix = "ssmsObjectExplorerMenu.";
@@ -36,7 +37,7 @@ namespace SSMSObjectExplorerMenu
         private static string MigrationMarkerPath => Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "SSMSObjectExplorerMenu",
-            "UnifiedSettingsMigration.v2.complete");
+            "UnifiedSettingsMigration.v4.complete");
 
         internal static void Initialize(IServiceProvider serviceProvider)
         {

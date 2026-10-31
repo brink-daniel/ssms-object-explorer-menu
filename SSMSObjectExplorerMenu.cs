@@ -46,6 +46,7 @@ namespace SSMSObjectExplorerMenu
 			UnifiedSettingsService.Initialize(this);
 
 			options = new MenuSettings();
+			options.LoadSettingsFromStorage(this);
 			var settings = UnifiedSettingsService.GetWriter();
 			if (settings != null)
 			{
@@ -57,7 +58,7 @@ namespace SSMSObjectExplorerMenu
 						if (options == null)
 							return;
 
-						options.LoadSettingsFromStorage();
+						options.LoadSettingsFromStorage(this);
 					});
 				},
 					UnifiedSettingsService.Text,
@@ -65,6 +66,7 @@ namespace SSMSObjectExplorerMenu
 					UnifiedSettingsService.ShowNewButton,
 					UnifiedSettingsService.ShowExportButton,
 					UnifiedSettingsService.ShowImportButton,
+					UnifiedSettingsService.MenuItemOrder,
 					UnifiedSettingsService.MenuItems);
 			}
 
@@ -88,7 +90,6 @@ namespace SSMSObjectExplorerMenu
 				return;
 			}
 			treeView.ContextMenuStripChanged += TreeView_ContextMenuStripChanged;
-			options.LoadSettingsFromStorage();
 		}
 
 
@@ -135,7 +136,13 @@ namespace SSMSObjectExplorerMenu
 
 			if (options.MenuItems != null)
 			{
-				foreach (var menuItem in options.MenuItems)
+				IEnumerable<objects.MenuItem> orderedMenuItems = options.MenuItems;
+				if (options.MenuItemOrder == "Name ascending (A-Z)")
+					orderedMenuItems = orderedMenuItems.OrderBy(item => item.Name, StringComparer.CurrentCultureIgnoreCase);
+				else if (options.MenuItemOrder == "Name descending (Z-A)")
+					orderedMenuItems = orderedMenuItems.OrderByDescending(item => item.Name, StringComparer.CurrentCultureIgnoreCase);
+
+				foreach (var menuItem in orderedMenuItems)
 				{
 					if (!menuItem.Enabled || menuItem.Name == string.Empty)
 					{

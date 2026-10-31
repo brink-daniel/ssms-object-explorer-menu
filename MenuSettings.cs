@@ -1,7 +1,10 @@
 using Microsoft.VisualStudio.Utilities.UnifiedSettings;
+using System.ComponentModel;
 using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SSMSObjectExplorerMenu
@@ -21,9 +24,10 @@ namespace SSMSObjectExplorerMenu
 		public bool ShowNewButton { get; set; } = true;
 		public bool ShowExportButton { get; set; } = true;
 		public bool ShowImportButton { get; set; } = true;
+		public string MenuItemOrder { get; set; } = "As configured";
 		public string MenuItemsXml => (MenuItems ?? new List<MenuItem>()).SerializeObject();
 
-		public void LoadSettingsFromStorage()
+		public void LoadSettingsFromStorage(IServiceProvider legacyPageServiceProvider = null)
 		{
 			ISettingsWriter settings = UnifiedSettingsService.GetWriter();
 			if (settings == null)
@@ -31,21 +35,27 @@ namespace SSMSObjectExplorerMenu
 
 			bool migrationComplete = UnifiedSettingsService.IsMigrationComplete();
 			bool migratedLegacySetting = false;
+			Dictionary<string, object> legacyOptions = null;
+			if (!migrationComplete)
+				legacyOptions = ReadLegacyOptionsPage(legacyPageServiceProvider);
 
-			Text = ReadSetting<string>(settings, UnifiedSettingsService.Text, UnifiedSettingsService.LegacyText, migrationComplete, ref migratedLegacySetting);
-			ShowIcon = ReadSetting<bool>(settings, UnifiedSettingsService.ShowIcon, UnifiedSettingsService.LegacyShowIcon, migrationComplete, ref migratedLegacySetting);
-			ShowNewButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowNewButton, UnifiedSettingsService.LegacyShowNewButton, migrationComplete, ref migratedLegacySetting);
-			ShowExportButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowExportButton, UnifiedSettingsService.LegacyShowExportButton, migrationComplete, ref migratedLegacySetting);
-			ShowImportButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowImportButton, UnifiedSettingsService.LegacyShowImportButton, migrationComplete, ref migratedLegacySetting);
+			Text = ReadSetting(settings, UnifiedSettingsService.Text, UnifiedSettingsService.LegacyText, "Text", "My Scripts", legacyOptions, migrationComplete, ref migratedLegacySetting);
+			ShowIcon = ReadSetting(settings, UnifiedSettingsService.ShowIcon, UnifiedSettingsService.LegacyShowIcon, "ShowIcon", true, legacyOptions, migrationComplete, ref migratedLegacySetting);
+			ShowNewButton = ReadSetting(settings, UnifiedSettingsService.ShowNewButton, UnifiedSettingsService.LegacyShowNewButton, "ShowNewButton", true, legacyOptions, migrationComplete, ref migratedLegacySetting);
+			ShowExportButton = ReadSetting(settings, UnifiedSettingsService.ShowExportButton, UnifiedSettingsService.LegacyShowExportButton, "ShowExportButton", true, legacyOptions, migrationComplete, ref migratedLegacySetting);
+			ShowImportButton = ReadSetting(settings, UnifiedSettingsService.ShowImportButton, UnifiedSettingsService.LegacyShowImportButton, "ShowImportButton", true, legacyOptions, migrationComplete, ref migratedLegacySetting);
+			MenuItemOrder = ReadSetting(settings, UnifiedSettingsService.MenuItemOrder, null, null, "As configured", null, migrationComplete, ref migratedLegacySetting);
 
 			IReadOnlyList<MenuItemSetting> savedMenuItems = null;
-			if (TryReadArray<MenuItemSetting>(settings, UnifiedSettingsService.MenuItems, out savedMenuItems) && savedMenuItems.Count > 0)
+			bool hasSavedMenuItems = TryReadArray<MenuItemSetting>(settings, UnifiedSettingsService.MenuItems, out savedMenuItems);
+			if (hasSavedMenuItems && savedMenuItems != null && savedMenuItems.Count > 0)
 			{
 				MenuItems = DeserializeMenuItems(savedMenuItems, out bool needsNameRefresh, out bool canRewriteArray);
 				if (needsNameRefresh && canRewriteArray)
 					migratedLegacySetting = true;
 			}
-			else if (!migrationComplete && TryReadLegacyMenuItems(settings, out string legacyMenuItemsXml))
+			else if (!migrationComplete && (TryReadLegacyMenuItems(settings, out string legacyMenuItemsXml)
+				|| TryReadLegacyMenuItems(legacyOptions, out legacyMenuItemsXml)))
 			{
 				try
 				{
@@ -59,7 +69,8 @@ namespace SSMSObjectExplorerMenu
 			}
 			else
 			{
-				// An empty array, including Reset to Default, means the collection is empty.
+				// Without legacy data the empty array/default remains empty. After migration,
+				// it also preserves an explicit Reset to Default.
 				MenuItems = new List<MenuItem>();
 			}
 
@@ -116,32 +127,137 @@ namespace SSMSObjectExplorerMenu
 				&& !string.IsNullOrWhiteSpace(xml);
 		}
 
-		private static T ReadSetting<T>(ISettingsWriter settings, string currentMoniker, string legacyMoniker, bool migrationComplete, ref bool migratedLegacySetting)
+		private static T ReadSetting<T>(ISettingsWriter settings, string currentMoniker, string legacyMoniker, string legacyPageProperty, T defaultValue, Dictionary<string, object> legacyOptions, bool migrationComplete, ref bool migratedLegacySetting)
 		{
-			if (TryReadStored(settings, currentMoniker, out T value))
-				return value;
+			bool hasCurrentValue = TryReadStored(settings, currentMoniker, out T currentValue);
+			bool currentIsDefault = !hasCurrentValue || EqualityComparer<T>.Default.Equals(currentValue, defaultValue);
 
-			if (!migrationComplete && TryReadStored(settings, legacyMoniker, out value))
+			if (!migrationComplete && currentIsDefault && !string.IsNullOrWhiteSpace(legacyMoniker)
+				&& TryReadStored(settings, legacyMoniker, out T unifiedLegacyValue))
 			{
 				migratedLegacySetting = true;
-				return value;
+				return unifiedLegacyValue;
 			}
 
-			return settings.GetValueOrThrow<T>(currentMoniker);
+			if (!migrationComplete && currentIsDefault && !string.IsNullOrWhiteSpace(legacyPageProperty) && legacyOptions != null
+				&& legacyOptions.TryGetValue(legacyPageProperty, out object registryLegacyValue)
+				&& TryConvertLegacyValue(registryLegacyValue, out T convertedLegacyValue))
+			{
+				migratedLegacySetting = true;
+				return convertedLegacyValue;
+			}
+
+			return hasCurrentValue ? currentValue : settings.GetValueOrThrow<T>(currentMoniker);
+		}
+
+		private static Dictionary<string, object> ReadLegacyOptionsPage(IServiceProvider serviceProvider)
+		{
+			if (serviceProvider == null)
+				return null;
+
+			try
+			{
+				using (var legacyPage = new OptionsDialogPage())
+				{
+					legacyPage.Site = new LegacyPageSite(legacyPage, serviceProvider);
+					legacyPage.LoadSettingsFromStorage();
+
+					var values = new Dictionary<string, object>
+					{
+						["Text"] = legacyPage.Text,
+						["ShowIcon"] = legacyPage.ShowIcon,
+						["ShowNewButton"] = legacyPage.ShowNewButton,
+						["ShowExportButton"] = legacyPage.ShowExportButton,
+						["ShowImportButton"] = legacyPage.ShowImportButton,
+						["MenuItemsXml"] = !string.IsNullOrWhiteSpace(legacyPage.MenuItemsXml)
+							? legacyPage.MenuItemsXml
+							: (legacyPage.MenuItems ?? new List<MenuItem>()).SerializeObject()
+					};
+					return values;
+				}
+			}
+			catch
+			{
+				return null;
+			}
+		}
+
+		private sealed class LegacyPageSite : ISite
+		{
+			private readonly IComponent component;
+			private readonly IServiceProvider serviceProvider;
+
+			public LegacyPageSite(IComponent component, IServiceProvider serviceProvider)
+			{
+				this.component = component;
+				this.serviceProvider = serviceProvider;
+			}
+
+			public IComponent Component => component;
+			public IContainer Container => null;
+			public bool DesignMode => false;
+			public string Name { get; set; }
+
+			public object GetService(System.Type serviceType) => serviceProvider.GetService(serviceType);
+		}
+
+		private static bool TryReadLegacyMenuItems(Dictionary<string, object> legacyOptions, out string xml)
+		{
+			xml = null;
+			return legacyOptions != null
+				&& legacyOptions.TryGetValue("MenuItemsXml", out object value)
+				&& (xml = value as string) != null
+				&& !string.IsNullOrWhiteSpace(xml);
+		}
+
+		private static bool TryConvertLegacyValue<T>(object legacyValue, out T value)
+		{
+			try
+			{
+				if (legacyValue is T typedValue)
+				{
+					value = typedValue;
+					return true;
+				}
+
+				value = (T)Convert.ChangeType(legacyValue, typeof(T), CultureInfo.InvariantCulture);
+				return true;
+			}
+			catch
+			{
+				value = default(T);
+				return false;
+			}
 		}
 
 		private static bool TryReadStored<T>(ISettingsWriter settings, string moniker, out T value)
 		{
-			var result = settings.GetValue<T>(moniker, SettingReadOptions.NoRequirements | SettingReadOptions.NoFallbackToDefault);
-			value = result.Value;
-			return result.Outcome == SettingRetrievalOutcome.Success;
+			try
+			{
+				var result = settings.GetValue<T>(moniker, SettingReadOptions.NoRequirements | SettingReadOptions.NoFallbackToDefault);
+				value = result.Value;
+				return result.Outcome == SettingRetrievalOutcome.Success;
+			}
+			catch
+			{
+				value = default(T);
+				return false;
+			}
 		}
 
 		private static bool TryReadArray<T>(ISettingsWriter settings, string moniker, out IReadOnlyList<T> value)
 		{
-			var result = settings.GetArray<T>(moniker, SettingReadOptions.NoRequirements | SettingReadOptions.NoFallbackToDefault);
-			value = result.Value;
-			return result.Outcome == SettingRetrievalOutcome.Success;
+			try
+			{
+				var result = settings.GetArray<T>(moniker, SettingReadOptions.NoRequirements | SettingReadOptions.NoFallbackToDefault);
+				value = result.Value;
+				return result.Outcome == SettingRetrievalOutcome.Success;
+			}
+			catch
+			{
+				value = null;
+				return false;
+			}
 		}
 
 		public string SaveSettingsToStorage()
@@ -164,6 +280,7 @@ namespace SSMSObjectExplorerMenu
 			settings.EnqueueChange(UnifiedSettingsService.ShowNewButton, ShowNewButton);
 			settings.EnqueueChange(UnifiedSettingsService.ShowExportButton, ShowExportButton);
 			settings.EnqueueChange(UnifiedSettingsService.ShowImportButton, ShowImportButton);
+			settings.EnqueueChange(UnifiedSettingsService.MenuItemOrder, MenuItemOrder ?? "As configured");
 			var commit = settings.RequestCommit("Save SSMS Object Explorer Menu settings");
 			if (commit.Outcome == SettingCommitOutcome.PendingApproval)
 				return "SSMS is waiting for approval to save the menu items.";

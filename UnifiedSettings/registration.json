@@ -31,6 +31,17 @@
       "description": "Display the Import menu item button.",
       "default": true
     },
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemOrder": {
+      "type": "string",
+      "title": "Menu Item Order",
+      "description": "Choose the order in which menu items are displayed",
+      "enum": [
+        "As configured",
+        "Name ascending (A-Z)",
+        "Name descending (Z-A)"
+      ],
+      "default": "As configured"
+    },
     "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItems": {
       "type": "array",
       "title": "Menu Items",

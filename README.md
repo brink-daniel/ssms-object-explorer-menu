@@ -44,6 +44,8 @@ Once the Object Explorer Menu extension is installed, new menu items can be adde
 
 SSMS 22.6 and later stores extension settings through the SSMS Unified Settings experience. Open Tools > Options > SQL Server Object Explorer > **SSMS Object Explorer Menu** to change the menu name, display buttons, and manage menu items. The menu item list shows each item's name alongside its XML definition. Values saved in the earlier Unified Settings location are migrated when the extension first loads after upgrading. Resetting **Menu Items** clears the collection; items added or imported afterward are saved and restored when SSMS restarts.
 
+The **Menu Item Order** setting lets you choose the order in which menu items are displayed: **As configured** preserves their order in the settings list, **Name ascending (A-Z)** sorts by name, and **Name descending (Z-A)** sorts in reverse alphabetical order.
+
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing a script file or inline tsql statement
 * Context - Tree node level where to display the menu item. For example:
@@ -248,6 +250,14 @@ Information on how to access the Object Explorer and TreeView control was learnt
 
 
 ## Change Log
+
+### v4.3.0 (2026-10-31)
+
+* Add a setting to order menu items by name.
+
+### v4.2.1 (2026-10-31)
+
+* Fix migration of saved menu items to Unified Settings.
 
 ### v4.2 (2026-10-31)
 
