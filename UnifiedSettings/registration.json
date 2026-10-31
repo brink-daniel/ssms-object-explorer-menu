@@ -19,12 +19,6 @@
       "description": "Display the New menu item button.",
       "default": true
     },
-    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showOptionsButton": {
-      "type": "boolean",
-      "title": "Show Options Button",
-      "description": "Display the Options menu item button.",
-      "default": true
-    },
     "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showExportButton": {
       "type": "boolean",
       "title": "Show Export Button",
@@ -37,11 +31,21 @@
       "description": "Display the Import menu item button.",
       "default": true
     },
-    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemsXml": {
-      "type": "string",
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItems": {
+      "type": "array",
       "title": "Menu Items",
-      "description": "Menu items serialized as XML. Edit this value to add, remove, or reorder menu items.",
-      "default": ""
+      "description": "Menu items. Each entry contains the serialized menu item definition.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Xml": {
+            "type": "string",
+            "title": "Menu Item XML"
+          }
+        }
+      },
+      "allowAdditionsAndRemovals": true,
+      "default": []
     }
   },
   "categories": {

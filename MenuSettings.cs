@@ -2,9 +2,15 @@ using Microsoft.VisualStudio.Utilities.UnifiedSettings;
 using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SSMSObjectExplorerMenu
 {
+	public class MenuItemSetting
+	{
+		public string Xml { get; set; } = string.Empty;
+	}
+
 	// Runtime state backed by Unified Settings. This is deliberately not a DialogPage.
 	public class MenuSettings
 	{
@@ -12,10 +18,9 @@ namespace SSMSObjectExplorerMenu
 		public bool ShowIcon { get; set; } = true;
 		public string Text { get; set; } = "My Scripts";
 		public bool ShowNewButton { get; set; } = true;
-		public bool ShowOptionsButton { get; set; } = true;
 		public bool ShowExportButton { get; set; } = true;
 		public bool ShowImportButton { get; set; } = true;
-		public string MenuItemsXml { get; set; } = string.Empty;
+		public string MenuItemsXml => (MenuItems ?? new List<MenuItem>()).SerializeObject();
 
 		public void LoadSettingsFromStorage()
 		{
@@ -23,49 +28,75 @@ namespace SSMSObjectExplorerMenu
 			if (settings == null)
 				return;
 
-			bool migrationComplete = TryReadStored(settings, UnifiedSettingsService.MigrationMarker, out bool completed) && completed;
+			bool migrationComplete = UnifiedSettingsService.IsMigrationComplete();
 			bool migratedLegacySetting = false;
 
 			Text = ReadSetting<string>(settings, UnifiedSettingsService.Text, UnifiedSettingsService.LegacyText, migrationComplete, ref migratedLegacySetting);
 			ShowIcon = ReadSetting<bool>(settings, UnifiedSettingsService.ShowIcon, UnifiedSettingsService.LegacyShowIcon, migrationComplete, ref migratedLegacySetting);
 			ShowNewButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowNewButton, UnifiedSettingsService.LegacyShowNewButton, migrationComplete, ref migratedLegacySetting);
-			ShowOptionsButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowOptionsButton, UnifiedSettingsService.LegacyShowOptionsButton, migrationComplete, ref migratedLegacySetting);
 			ShowExportButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowExportButton, UnifiedSettingsService.LegacyShowExportButton, migrationComplete, ref migratedLegacySetting);
 			ShowImportButton = ReadSetting<bool>(settings, UnifiedSettingsService.ShowImportButton, UnifiedSettingsService.LegacyShowImportButton, migrationComplete, ref migratedLegacySetting);
 
-			if (TryReadStored(settings, UnifiedSettingsService.MenuItemsXml, out string savedMenuItems))
+			IReadOnlyList<MenuItemSetting> savedMenuItems = null;
+			if (TryReadArray<MenuItemSetting>(settings, UnifiedSettingsService.MenuItems, out savedMenuItems) && savedMenuItems.Count > 0)
 			{
-				MenuItemsXml = savedMenuItems ?? string.Empty;
+				MenuItems = DeserializeMenuItems(savedMenuItems);
 			}
-			else if (!migrationComplete && TryReadStored(settings, UnifiedSettingsService.LegacyMenuItemsXml, out savedMenuItems))
-			{
-				MenuItemsXml = savedMenuItems ?? string.Empty;
-				migratedLegacySetting = true;
-			}
-			else
-			{
-				MenuItemsXml = settings.GetValueOrThrow<string>(UnifiedSettingsService.MenuItemsXml) ?? string.Empty;
-			}
-
-			if (!string.IsNullOrEmpty(MenuItemsXml))
+			else if (!migrationComplete && TryReadLegacyMenuItems(settings, out string legacyMenuItemsXml))
 			{
 				try
 				{
-					MenuItems = MenuItemsXml.DeserializeObject<List<MenuItem>>() ?? new List<MenuItem>();
+					MenuItems = legacyMenuItemsXml.DeserializeObject<List<MenuItem>>() ?? new List<MenuItem>();
+					migratedLegacySetting = true;
 				}
 				catch
 				{
-					// Keep the in-memory collection if a stored XML value is malformed.
+					MenuItems = new List<MenuItem>();
 				}
 			}
-			else if (TryReadStored(settings, UnifiedSettingsService.MenuItemsXml, out savedMenuItems))
+			else
 			{
-				// An explicitly stored empty value means the user cleared the collection.
+				// An empty array, including Reset to Default, means the collection is empty.
 				MenuItems = new List<MenuItem>();
 			}
 
-			if (!migrationComplete && migratedLegacySetting)
+			if (migratedLegacySetting)
 				SaveSettingsToStorage();
+			else if (!migrationComplete)
+				UnifiedSettingsService.MarkMigrationComplete();
+		}
+
+		private static List<MenuItem> DeserializeMenuItems(IEnumerable<MenuItemSetting> serializedItems)
+		{
+			var items = new List<MenuItem>();
+			foreach (MenuItemSetting setting in serializedItems)
+			{
+				string serializedItem = setting?.Xml;
+				if (string.IsNullOrWhiteSpace(serializedItem))
+					continue;
+
+				try
+				{
+					MenuItem item = serializedItem.DeserializeObject<MenuItem>();
+					if (item != null)
+						items.Add(item);
+				}
+				catch
+				{
+					// Ignore malformed entries while preserving the rest of the collection.
+				}
+			}
+			return items;
+		}
+
+		private static bool TryReadLegacyMenuItems(ISettingsWriter settings, out string xml)
+		{
+			if (TryReadStored(settings, UnifiedSettingsService.PreviousMenuItemsXml, out xml)
+				&& !string.IsNullOrWhiteSpace(xml))
+				return true;
+
+			return TryReadStored(settings, UnifiedSettingsService.LegacyMenuItemsXml, out xml)
+				&& !string.IsNullOrWhiteSpace(xml);
 		}
 
 		private static T ReadSetting<T>(ISettingsWriter settings, string currentMoniker, string legacyMoniker, bool migrationComplete, ref bool migratedLegacySetting)
@@ -89,30 +120,42 @@ namespace SSMSObjectExplorerMenu
 			return result.Outcome == SettingRetrievalOutcome.Success;
 		}
 
-		public void SaveSettingsToStorage()
+		private static bool TryReadArray<T>(ISettingsWriter settings, string moniker, out IReadOnlyList<T> value)
 		{
-			try
-			{
-				MenuItemsXml = MenuItems.SerializeObject();
-			}
-			catch
-			{
-				// Keep the last valid serialized value if serialization fails.
-			}
+			var result = settings.GetArray<T>(moniker, SettingReadOptions.NoRequirements | SettingReadOptions.NoFallbackToDefault);
+			value = result.Value;
+			return result.Outcome == SettingRetrievalOutcome.Success;
+		}
 
+		public string SaveSettingsToStorage()
+		{
 			ISettingsWriter settings = UnifiedSettingsService.GetWriter();
 			if (settings == null)
-				return;
+				return "Unified Settings service is unavailable.";
+
+			var serializedItems = (MenuItems ?? new List<MenuItem>())
+				.Select(item => new MenuItemSetting { Xml = item.SerializeObject() })
+				.ToList();
+
+			var arrayChange = settings.EnqueueArrayChange(UnifiedSettingsService.MenuItems, serializedItems);
+			if (arrayChange.Outcome != SettingChangeOutcome.PendingCommit
+				&& arrayChange.Outcome != SettingChangeOutcome.PendingCommitWithoutValidation)
+				return $"Menu Items were rejected ({arrayChange.Outcome}): {arrayChange.Message}";
 
 			settings.EnqueueChange(UnifiedSettingsService.Text, Text ?? string.Empty);
 			settings.EnqueueChange(UnifiedSettingsService.ShowIcon, ShowIcon);
 			settings.EnqueueChange(UnifiedSettingsService.ShowNewButton, ShowNewButton);
-			settings.EnqueueChange(UnifiedSettingsService.ShowOptionsButton, ShowOptionsButton);
 			settings.EnqueueChange(UnifiedSettingsService.ShowExportButton, ShowExportButton);
 			settings.EnqueueChange(UnifiedSettingsService.ShowImportButton, ShowImportButton);
-			settings.EnqueueChange(UnifiedSettingsService.MenuItemsXml, MenuItemsXml ?? string.Empty);
-			settings.EnqueueChange(UnifiedSettingsService.MigrationMarker, true);
-			settings.RequestCommit("Save SSMS Object Explorer Menu settings");
+			var commit = settings.RequestCommit("Save SSMS Object Explorer Menu settings");
+			if (commit.Outcome == SettingCommitOutcome.PendingApproval)
+				return "SSMS is waiting for approval to save the menu items.";
+			if (commit.Outcome == SettingCommitOutcome.InternalError)
+				return $"SSMS could not save the menu items: {commit.Message}";
+			if (commit.Outcome == SettingCommitOutcome.Success || commit.Outcome == SettingCommitOutcome.NoChangesQueued)
+				UnifiedSettingsService.MarkMigrationComplete();
+
+			return null;
 		}
 	}
 }

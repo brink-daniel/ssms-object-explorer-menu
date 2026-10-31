@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Utilities.UnifiedSettings;
 
@@ -18,21 +19,24 @@ namespace SSMSObjectExplorerMenu
         internal const string Text = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.text";
         internal const string ShowIcon = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showIcon";
         internal const string ShowNewButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showNewButton";
-        internal const string ShowOptionsButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showOptionsButton";
         internal const string ShowExportButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showExportButton";
         internal const string ShowImportButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showImportButton";
-        internal const string MenuItemsXml = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemsXml";
-        internal const string MigrationMarker = "ssmsObjectExplorerMenu.categoryMigrationComplete";
+        internal const string MenuItems = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItems";
+        internal const string PreviousMenuItemsXml = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemsXml";
         internal const string LegacyPrefix = "ssmsObjectExplorerMenu.";
         internal const string LegacyText = LegacyPrefix + "text";
         internal const string LegacyShowIcon = LegacyPrefix + "showIcon";
         internal const string LegacyShowNewButton = LegacyPrefix + "showNewButton";
-        internal const string LegacyShowOptionsButton = LegacyPrefix + "showOptionsButton";
         internal const string LegacyShowExportButton = LegacyPrefix + "showExportButton";
         internal const string LegacyShowImportButton = LegacyPrefix + "showImportButton";
         internal const string LegacyMenuItemsXml = LegacyPrefix + "menuItemsXml";
 
         private static ISettingsWriter writer;
+
+        private static string MigrationMarkerPath => Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "SSMSObjectExplorerMenu",
+            "UnifiedSettingsMigration.v2.complete");
 
         internal static void Initialize(IServiceProvider serviceProvider)
         {
@@ -41,5 +45,25 @@ namespace SSMSObjectExplorerMenu
         }
 
         internal static ISettingsWriter GetWriter() => writer;
+
+        internal static bool IsMigrationComplete()
+        {
+            try { return File.Exists(MigrationMarkerPath); }
+            catch { return false; }
+        }
+
+        internal static void MarkMigrationComplete()
+        {
+            try
+            {
+                string path = MigrationMarkerPath;
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                File.WriteAllText(path, string.Empty);
+            }
+            catch
+            {
+                // Migration remains safe to retry if the marker cannot be written.
+            }
+        }
     }
 }

@@ -46,7 +46,6 @@ namespace SSMSObjectExplorerMenu
 			UnifiedSettingsService.Initialize(this);
 
 			options = new MenuSettings();
-			options.LoadSettingsFromStorage();
 			var settings = UnifiedSettingsService.GetWriter();
 			if (settings != null)
 			{
@@ -55,17 +54,18 @@ namespace SSMSObjectExplorerMenu
 					JoinableTaskFactory.RunAsync(async () =>
 					{
 						await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
-						if (options != null)
-							options.LoadSettingsFromStorage();
+						if (options == null)
+							return;
+
+						options.LoadSettingsFromStorage();
 					});
 				},
 					UnifiedSettingsService.Text,
 					UnifiedSettingsService.ShowIcon,
 					UnifiedSettingsService.ShowNewButton,
-					UnifiedSettingsService.ShowOptionsButton,
 					UnifiedSettingsService.ShowExportButton,
 					UnifiedSettingsService.ShowImportButton,
-					UnifiedSettingsService.MenuItemsXml);
+					UnifiedSettingsService.MenuItems);
 			}
 
 			//find tree control in the Object Explorer window
@@ -88,6 +88,7 @@ namespace SSMSObjectExplorerMenu
 				return;
 			}
 			treeView.ContextMenuStripChanged += TreeView_ContextMenuStripChanged;
+			options.LoadSettingsFromStorage();
 		}
 
 
@@ -170,7 +171,6 @@ namespace SSMSObjectExplorerMenu
 			if (myScriptsMenu.DropDownItems.Count > 0
 				&& (
 					options.ShowNewButton
-					|| options.ShowOptionsButton
 					|| options.ShowImportButton
 					|| options.ShowExportButton
 				))
@@ -209,17 +209,6 @@ namespace SSMSObjectExplorerMenu
 				myScriptsMenu.DropDownItems.Add(exp);
 			}			
 
-			if (options.ShowOptionsButton)
-			{
-				ToolStripMenuItem opt = new ToolStripMenuItem("Options");
-				opt.Click += Options_Click;
-				opt.Tag = nodeInfo;
-				opt.ForeColor = treeView.ForeColor;
-				opt.BackColor = treeView.BackColor;
-				myScriptsMenu.DropDownItems.Add(opt);
-			}
-
-
 			if (myScriptsMenu.DropDownItems.Count == 0)
 			{
 				return;
@@ -240,14 +229,10 @@ namespace SSMSObjectExplorerMenu
 			if (d == DialogResult.OK)
 			{
 				options.MenuItems.Add(add.GetMenuItem());
-				options.SaveSettingsToStorage();
+				string saveError = options.SaveSettingsToStorage();
+				if (!string.IsNullOrEmpty(saveError))
+					Error(saveError);
 			}
-		}
-
-		private void Options_Click(object sender, EventArgs e)
-		{
-			var dte = (DTE2)GetService(typeof(DTE));
-			dte?.ExecuteCommand("Tools.Options");
 		}
 
 		private void Export_Click(object sender, EventArgs e)
@@ -303,7 +288,12 @@ namespace SSMSObjectExplorerMenu
 						}
 					}
 
-					options.SaveSettingsToStorage();
+					string saveError = options.SaveSettingsToStorage();
+					if (!string.IsNullOrEmpty(saveError))
+					{
+						Error(saveError);
+						return;
+					}
 
 					Show($"{count} menu item{ ((count == 1) ? "":"s") } imported", MessageBoxIcon.Information);
 				}
