@@ -43,6 +43,8 @@ Once the Object Explorer Menu extension is installed, new menu items can be adde
 
 ## Settings
 
+SSMS 22.6 and later stores extension settings through the SSMS Unified Settings experience. Open Tools > Options and search for **SSMS Object Explorer Menu** to change the menu name and display buttons. Existing settings from the previous Options page are migrated when the extension first loads after upgrading. The existing menu item editor remains available for adding, editing, importing, and exporting menu items.
+
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing a script file or inline tsql statement
 * Context - Tree node level where to display the menu item. For example:
@@ -151,7 +153,7 @@ where type_desc = '{OBJECT_TYPE}' and name like '{NAME_FILTER_EXP}';
 
 ### SQL Server Management Studio 22.x
 
-This extension has been tested and used with **SQL Server Management Studio 22.11.3**.
+This extension requires **SQL Server Management Studio 22.6 or later** and has been tested with **SQL Server Management Studio 22.11.3**.
 
 You can download the latest version of SSMS for free from [Microsoft](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
@@ -228,9 +230,14 @@ The Object Explorer Menu extension is intentionally lightweight and focused. It 
 
 ### How do I uninstall the Object Explorer Menu extension?
 
-To uninstall the Object Explorer Menu extension, delete the SSMSObjectExplorerMenu folder located in the Extensions subfolder under `%LOCALAPPDATA%\Microsoft\SSMS`.
+SSMS does not include a Manage Extensions dialog, so the extension must be removed from the command line. Close SSMS, then run:
 
-After deleting the folder, restart SQL Server Management Studio to complete the uninstallation.
+```powershell
+& "C:\Program Files\Microsoft SQL Server Management Studio 22\Release\Common7\IDE\VSIXInstaller.exe" /uninstall:"SSMSObjectExplorerMenu.Daniel Brink.51536115-423C-4B96-9550-8B26E9AB0B59"
+```
+
+Confirm the prompt in the VSIX Installer dialog, then reopen SSMS.
+
 
 
 ## Credits

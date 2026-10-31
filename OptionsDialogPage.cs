@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Utilities.UnifiedSettings;
 using SSMSObjectExplorerMenu.extensions;
 using SSMSObjectExplorerMenu.objects;
 using System;
@@ -24,37 +25,43 @@ namespace SSMSObjectExplorerMenu
 		[Category("General options")]
 		[DisplayName("Icon")]
 		[Description("Display icon")]
+		[Browsable(false)]
 		public bool ShowIcon { get; set; } = true;
 
 		[DefaultValue("My Scripts")]
 		[Category("General options")]
 		[DisplayName("Name")]
 		[Description("Text to display in the main menu item")]
+		[Browsable(false)]
 		public string Text { get; set; } = "My Scripts";
 
 		[DefaultValue(true)]
 		[Category("General options")]
 		[DisplayName("New")]
 		[Description("Display the New menu item button")]
+		[Browsable(false)]
 		public bool ShowNewButton { get; set; } = true;
 
         [DefaultValue(true)]
         [Category("General options")]
         [DisplayName("Options")]
         [Description("Display the Options button")]
-        public bool ShowOptionsButton { get; set; } = true;
+        [Browsable(false)]
+		public bool ShowOptionsButton { get; set; } = true;
 
         [DefaultValue(true)]
         [Category("General options")]
         [DisplayName("Export")]
         [Description("Display the Export button")]
-        public bool ShowExportButton { get; set; } = true;
+        [Browsable(false)]
+		public bool ShowExportButton { get; set; } = true;
 
         [DefaultValue(true)]
         [Category("General options")]
         [DisplayName("Import")]
         [Description("Display the Import button")]
-        public bool ShowImportButton { get; set; } = true;
+        [Browsable(false)]
+		public bool ShowImportButton { get; set; } = true;
 
         [DefaultValue("")]
 		[Category("General options")]
@@ -65,9 +72,35 @@ namespace SSMSObjectExplorerMenu
 
 		public override void LoadSettingsFromStorage()
 		{
+			// Read old DialogPage values only when Unified Settings has no saved menu XML to migrate.
 			base.LoadSettingsFromStorage();
 
-			if (MenuItems.Count == 0 && MenuItemsXml.Length > 0)
+			ISettingsWriter settings = UnifiedSettingsService.GetWriter();
+			if (settings == null)
+				return;
+
+			// Preserve menu configurations while moving existing installations to Unified Settings.
+			string savedMenuItems = settings.GetValueOrThrow<string>(UnifiedSettingsService.MenuItemsXml);
+			if (string.IsNullOrEmpty(savedMenuItems) && HasLegacySettings())
+			{
+				if (MenuItems.Count == 0 && !string.IsNullOrEmpty(MenuItemsXml))
+				{
+					try { MenuItems = MenuItemsXml.DeserializeObject<List<MenuItem>>(); }
+					catch { /* Replace malformed legacy XML with the current collection on save. */ }
+				}
+				SaveSettingsToStorage();
+				return;
+			}
+
+			Text = settings.GetValueOrThrow<string>(UnifiedSettingsService.Text);
+			ShowIcon = settings.GetValueOrThrow<bool>(UnifiedSettingsService.ShowIcon);
+			ShowNewButton = settings.GetValueOrThrow<bool>(UnifiedSettingsService.ShowNewButton);
+			ShowOptionsButton = settings.GetValueOrThrow<bool>(UnifiedSettingsService.ShowOptionsButton);
+			ShowExportButton = settings.GetValueOrThrow<bool>(UnifiedSettingsService.ShowExportButton);
+			ShowImportButton = settings.GetValueOrThrow<bool>(UnifiedSettingsService.ShowImportButton);
+			MenuItemsXml = savedMenuItems ?? string.Empty;
+
+			if (MenuItemsXml.Length > 0)
 			{
 				try
 				{
@@ -94,7 +127,30 @@ namespace SSMSObjectExplorerMenu
 				//bad configs will be lost
 			}
 
-			base.SaveSettingsToStorage();
+			ISettingsWriter settings = UnifiedSettingsService.GetWriter();
+			if (settings == null)
+				return;
+
+			settings.EnqueueChange(UnifiedSettingsService.Text, Text ?? string.Empty);
+			settings.EnqueueChange(UnifiedSettingsService.ShowIcon, ShowIcon);
+			settings.EnqueueChange(UnifiedSettingsService.ShowNewButton, ShowNewButton);
+			settings.EnqueueChange(UnifiedSettingsService.ShowOptionsButton, ShowOptionsButton);
+			settings.EnqueueChange(UnifiedSettingsService.ShowExportButton, ShowExportButton);
+			settings.EnqueueChange(UnifiedSettingsService.ShowImportButton, ShowImportButton);
+			settings.EnqueueChange(UnifiedSettingsService.MenuItemsXml, MenuItemsXml ?? string.Empty);
+			settings.RequestCommit("Save SSMS Object Explorer Menu settings");
+		}
+
+		private bool HasLegacySettings()
+		{
+			return !string.IsNullOrEmpty(MenuItemsXml)
+				|| MenuItems.Count > 0
+				|| !string.Equals(Text, "My Scripts", StringComparison.Ordinal)
+				|| !ShowIcon
+				|| !ShowNewButton
+				|| !ShowOptionsButton
+				|| !ShowExportButton
+				|| !ShowImportButton;
 		}
 
 		protected override void OnApply(PageApplyEventArgs e)

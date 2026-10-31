@@ -29,7 +29,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SSMSObjectExplorerMenu</RootNamespace>
     <AssemblyName>SSMSObjectExplorerMenu</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
@@ -108,6 +108,7 @@
     <Compile Include="objects\MenuItemInstance.cs" />
     <Compile Include="UserDefinedArgumentTypeConverter.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="UnifiedSettingsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OptionsDialogPage.cs">
       <SubType>Component</SubType>
@@ -165,6 +166,10 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="images\Options.png" />
+    <Content Include="UnifiedSettings\registration.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="images\plus.jpg" />
     <None Include="Resources\Play.svg" />
     <None Include="Resources\Play.png" />

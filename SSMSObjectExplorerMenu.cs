@@ -22,19 +22,29 @@ namespace SSMSObjectExplorerMenu
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[ProvideAutoLoad("d114938f-591c-46cf-a785-500a82d97410", PackageAutoLoadFlags.BackgroundLoad)] //CommandGuids.ObjectExplorerToolWindowIDString
 	[ProvideOptionPage(typeof(OptionsDialogPage), "SQL Server Object Explorer", "SSMS Object Explorer Menu", 0, 0, true)]
+	[ProvideSettingsManifest(PackageRelativeManifestFile = @"UnifiedSettings\registration.json")]
 	public sealed class SSMSObjectExplorerMenu : AsyncPackage
 	{
 		private OptionsDialogPage options;
 		private TreeView treeView;
 		private IObjectExplorerService objectExplorerService;
+		private IDisposable unifiedSettingsSubscription;
 
 		public SSMSObjectExplorerMenu()
 		{
 		}
 
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+				unifiedSettingsSubscription?.Dispose();
+			base.Dispose(disposing);
+		}
+
 		protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+			UnifiedSettingsService.Initialize(this);
 
 			//load settings from options dialog
 			(this as IVsPackage).GetAutomationObject("SQL Server Object Explorer.SSMS Object Explorer Menu", out object automationObject);
@@ -44,6 +54,26 @@ namespace SSMSObjectExplorerMenu
 				return;
 			}
 			options = (OptionsDialogPage)automationObject;
+			var settings = UnifiedSettingsService.GetWriter();
+			if (settings != null)
+			{
+				unifiedSettingsSubscription = settings.SubscribeToChanges(update =>
+				{
+					JoinableTaskFactory.RunAsync(async () =>
+					{
+						await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
+						if (options != null)
+							options.LoadSettingsFromStorage();
+					});
+				},
+					UnifiedSettingsService.Text,
+					UnifiedSettingsService.ShowIcon,
+					UnifiedSettingsService.ShowNewButton,
+					UnifiedSettingsService.ShowOptionsButton,
+					UnifiedSettingsService.ShowExportButton,
+					UnifiedSettingsService.ShowImportButton,
+					UnifiedSettingsService.MenuItemsXml);
+			}
 
 			//find tree control in the Object Explorer window
 			objectExplorerService = GetObjectExplorerService();
