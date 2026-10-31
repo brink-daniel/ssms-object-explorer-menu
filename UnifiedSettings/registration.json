@@ -38,9 +38,13 @@
       "items": {
         "type": "object",
         "properties": {
+          "Name": {
+            "type": "string",
+            "title": "Name"
+          },
           "Xml": {
             "type": "string",
-            "title": "Menu Item XML"
+            "title": "Definition XML"
           }
         }
       },

@@ -43,7 +43,7 @@ Once the Object Explorer Menu extension is installed, new menu items can be adde
 
 ## Settings
 
-SSMS 22.6 and later stores extension settings through the SSMS Unified Settings experience. Open Tools > Options > SQL Server Object Explorer > **SSMS Object Explorer Menu** to change the menu name, display buttons, and manage menu items. Values saved in the earlier Unified Settings location are migrated when the extension first loads after upgrading. Resetting **Menu Items** clears the collection; items added or imported afterward are saved and restored when SSMS restarts.
+SSMS 22.6 and later stores extension settings through the SSMS Unified Settings experience. Open Tools > Options > SQL Server Object Explorer > **SSMS Object Explorer Menu** to change the menu name, display buttons, and manage menu items. The menu item list shows each item's name alongside its XML definition. Values saved in the earlier Unified Settings location are migrated when the extension first loads after upgrading. Resetting **Menu Items** clears the collection; items added or imported afterward are saved and restored when SSMS restarts.
 
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing a script file or inline tsql statement

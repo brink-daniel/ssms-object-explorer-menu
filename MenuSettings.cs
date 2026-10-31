@@ -8,6 +8,7 @@ namespace SSMSObjectExplorerMenu
 {
 	public class MenuItemSetting
 	{
+		public string Name { get; set; } = string.Empty;
 		public string Xml { get; set; } = string.Empty;
 	}
 
@@ -40,7 +41,9 @@ namespace SSMSObjectExplorerMenu
 			IReadOnlyList<MenuItemSetting> savedMenuItems = null;
 			if (TryReadArray<MenuItemSetting>(settings, UnifiedSettingsService.MenuItems, out savedMenuItems) && savedMenuItems.Count > 0)
 			{
-				MenuItems = DeserializeMenuItems(savedMenuItems);
+				MenuItems = DeserializeMenuItems(savedMenuItems, out bool needsNameRefresh, out bool canRewriteArray);
+				if (needsNameRefresh && canRewriteArray)
+					migratedLegacySetting = true;
 			}
 			else if (!migrationComplete && TryReadLegacyMenuItems(settings, out string legacyMenuItemsXml))
 			{
@@ -66,24 +69,38 @@ namespace SSMSObjectExplorerMenu
 				UnifiedSettingsService.MarkMigrationComplete();
 		}
 
-		private static List<MenuItem> DeserializeMenuItems(IEnumerable<MenuItemSetting> serializedItems)
+		private static List<MenuItem> DeserializeMenuItems(IEnumerable<MenuItemSetting> serializedItems, out bool needsNameRefresh, out bool canRewriteArray)
 		{
 			var items = new List<MenuItem>();
+			needsNameRefresh = false;
+			canRewriteArray = true;
 			foreach (MenuItemSetting setting in serializedItems)
 			{
 				string serializedItem = setting?.Xml;
 				if (string.IsNullOrWhiteSpace(serializedItem))
+				{
+					canRewriteArray = false;
 					continue;
+				}
 
 				try
 				{
 					MenuItem item = serializedItem.DeserializeObject<MenuItem>();
 					if (item != null)
+					{
+						if (!string.Equals(setting.Name, item.Name, System.StringComparison.Ordinal))
+							needsNameRefresh = true;
 						items.Add(item);
+					}
+					else
+					{
+						canRewriteArray = false;
+					}
 				}
 				catch
 				{
 					// Ignore malformed entries while preserving the rest of the collection.
+					canRewriteArray = false;
 				}
 			}
 			return items;
@@ -134,7 +151,7 @@ namespace SSMSObjectExplorerMenu
 				return "Unified Settings service is unavailable.";
 
 			var serializedItems = (MenuItems ?? new List<MenuItem>())
-				.Select(item => new MenuItemSetting { Xml = item.SerializeObject() })
+				.Select(item => new MenuItemSetting { Name = item.Name ?? string.Empty, Xml = item.SerializeObject() })
 				.ToList();
 
 			var arrayChange = settings.EnqueueArrayChange(UnifiedSettingsService.MenuItems, serializedItems);
