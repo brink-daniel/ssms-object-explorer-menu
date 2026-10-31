@@ -1,51 +1,51 @@
 {
   "$schema": "https://aka.ms/unified-settings-experience/registration/schema",
   "properties": {
-    "ssmsObjectExplorerMenu.text": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.text": {
       "type": "string",
       "title": "Menu Name",
       "description": "Text displayed in the Object Explorer context menu.",
       "default": "My Scripts"
     },
-    "ssmsObjectExplorerMenu.showIcon": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showIcon": {
       "type": "boolean",
       "title": "Show Icon",
       "description": "Display an icon next to the menu.",
       "default": true
     },
-    "ssmsObjectExplorerMenu.showNewButton": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showNewButton": {
       "type": "boolean",
       "title": "Show New Button",
       "description": "Display the New menu item button.",
       "default": true
     },
-    "ssmsObjectExplorerMenu.showOptionsButton": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showOptionsButton": {
       "type": "boolean",
       "title": "Show Options Button",
       "description": "Display the Options menu item button.",
       "default": true
     },
-    "ssmsObjectExplorerMenu.showExportButton": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showExportButton": {
       "type": "boolean",
       "title": "Show Export Button",
       "description": "Display the Export menu item button.",
       "default": true
     },
-    "ssmsObjectExplorerMenu.showImportButton": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showImportButton": {
       "type": "boolean",
       "title": "Show Import Button",
       "description": "Display the Import menu item button.",
       "default": true
     },
-    "ssmsObjectExplorerMenu.menuItemsXml": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemsXml": {
       "type": "string",
       "title": "Menu Items",
-      "description": "Menu items serialized as XML. Use the extension's menu item editor for normal editing.",
+      "description": "Menu items serialized as XML. Edit this value to add, remove, or reorder menu items.",
       "default": ""
     }
   },
   "categories": {
-    "ssmsObjectExplorerMenu": {
+    "sqlServerObjectExplorer.ssmsObjectExplorerMenu": {
       "title": "SSMS Object Explorer Menu",
       "description": "Configure the custom Object Explorer menu and its menu items."
     }

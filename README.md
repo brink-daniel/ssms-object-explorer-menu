@@ -36,14 +36,14 @@ Once the Object Explorer Menu extension is installed, new menu items can be adde
     ![Object Explorer](images/ObjectExplorer.png)
     ![Add Menu Item](images/AddMenuItem.png)
 
-2. Open the Options dialog window in SSMS `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` and add new menu items to the collection. Menu items can also be rearranged or removed using the Options dialog. 
+2. Open `Tools > Options > SQL Server Object Explorer > SSMS Object Explorer Menu` to configure the extension. Edit the **Menu Items** XML setting to add, remove, or reorder menu items. The Object Explorer context menu also provides New, Import, and Export actions.
     ![Options Dialog](images/Options.png)
     ![Options Dialog](images/Options_parameter.png)
 
 
 ## Settings
 
-SSMS 22.6 and later stores extension settings through the SSMS Unified Settings experience. Open Tools > Options and search for **SSMS Object Explorer Menu** to change the menu name and display buttons. Existing settings from the previous Options page are migrated when the extension first loads after upgrading. The existing menu item editor remains available for adding, editing, importing, and exporting menu items.
+SSMS 22.6 and later stores extension settings through the SSMS Unified Settings experience. Open Tools > Options > SQL Server Object Explorer > **SSMS Object Explorer Menu** to change the menu name, display buttons, and menu item XML. Values saved in the earlier Unified Settings location are migrated when the extension first loads after upgrading.
 
 The following settings are available for each menu item:
 * Confirm - Ask confirmation to continue before executing a script file or inline tsql statement

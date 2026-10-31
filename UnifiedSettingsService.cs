@@ -15,13 +15,22 @@ namespace SSMSObjectExplorerMenu
     {
         private const string SettingsOwner = "SSMS Object Explorer Menu";
 
-        internal const string Text = "ssmsObjectExplorerMenu.text";
-        internal const string ShowIcon = "ssmsObjectExplorerMenu.showIcon";
-        internal const string ShowNewButton = "ssmsObjectExplorerMenu.showNewButton";
-        internal const string ShowOptionsButton = "ssmsObjectExplorerMenu.showOptionsButton";
-        internal const string ShowExportButton = "ssmsObjectExplorerMenu.showExportButton";
-        internal const string ShowImportButton = "ssmsObjectExplorerMenu.showImportButton";
-        internal const string MenuItemsXml = "ssmsObjectExplorerMenu.menuItemsXml";
+        internal const string Text = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.text";
+        internal const string ShowIcon = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showIcon";
+        internal const string ShowNewButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showNewButton";
+        internal const string ShowOptionsButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showOptionsButton";
+        internal const string ShowExportButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showExportButton";
+        internal const string ShowImportButton = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.showImportButton";
+        internal const string MenuItemsXml = "sqlServerObjectExplorer.ssmsObjectExplorerMenu.menuItemsXml";
+        internal const string MigrationMarker = "ssmsObjectExplorerMenu.categoryMigrationComplete";
+        internal const string LegacyPrefix = "ssmsObjectExplorerMenu.";
+        internal const string LegacyText = LegacyPrefix + "text";
+        internal const string LegacyShowIcon = LegacyPrefix + "showIcon";
+        internal const string LegacyShowNewButton = LegacyPrefix + "showNewButton";
+        internal const string LegacyShowOptionsButton = LegacyPrefix + "showOptionsButton";
+        internal const string LegacyShowExportButton = LegacyPrefix + "showExportButton";
+        internal const string LegacyShowImportButton = LegacyPrefix + "showImportButton";
+        internal const string LegacyMenuItemsXml = LegacyPrefix + "menuItemsXml";
 
         private static ISettingsWriter writer;
 

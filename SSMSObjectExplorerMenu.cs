@@ -21,11 +21,10 @@ namespace SSMSObjectExplorerMenu
 {
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[ProvideAutoLoad("d114938f-591c-46cf-a785-500a82d97410", PackageAutoLoadFlags.BackgroundLoad)] //CommandGuids.ObjectExplorerToolWindowIDString
-	[ProvideOptionPage(typeof(OptionsDialogPage), "SQL Server Object Explorer", "SSMS Object Explorer Menu", 0, 0, true)]
 	[ProvideSettingsManifest(PackageRelativeManifestFile = @"UnifiedSettings\registration.json")]
 	public sealed class SSMSObjectExplorerMenu : AsyncPackage
 	{
-		private OptionsDialogPage options;
+		private MenuSettings options;
 		private TreeView treeView;
 		private IObjectExplorerService objectExplorerService;
 		private IDisposable unifiedSettingsSubscription;
@@ -46,14 +45,8 @@ namespace SSMSObjectExplorerMenu
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 			UnifiedSettingsService.Initialize(this);
 
-			//load settings from options dialog
-			(this as IVsPackage).GetAutomationObject("SQL Server Object Explorer.SSMS Object Explorer Menu", out object automationObject);
-			if (automationObject == null)
-			{
-				Error("Automation Object not found");
-				return;
-			}
-			options = (OptionsDialogPage)automationObject;
+			options = new MenuSettings();
+			options.LoadSettingsFromStorage();
 			var settings = UnifiedSettingsService.GetWriter();
 			if (settings != null)
 			{
@@ -253,7 +246,8 @@ namespace SSMSObjectExplorerMenu
 
 		private void Options_Click(object sender, EventArgs e)
 		{
-			ShowOptionPage(typeof(OptionsDialogPage));
+			var dte = (DTE2)GetService(typeof(DTE));
+			dte?.ExecuteCommand("Tools.Options");
 		}
 
 		private void Export_Click(object sender, EventArgs e)
